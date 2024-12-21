@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Econometrics with R"
+title: "Introduction to Econometrics with R - THIS IS A FORK of the oriinal work"
 cover-image: "images/cover.png"
 author: "Christoph Hanck, Martin Arnold, Alexander Gerber, and Martin Schmelzer"
 date: "`r Sys.Date()`"

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work</title>
+  <title>1 Introduction | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work</title>
   <meta name="description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
   <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work" />
+  <meta property="og:title" content="1 Introduction | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work" />
   <meta property="og:type" content="book" />
   <meta property="og:image" content="https://www.econometrics-with-r.org//images/cover.png" />
   <meta property="og:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
   <meta name="github-repo" content="mca91/EconometricsWithR" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work" />
+  <meta name="twitter:title" content="1 Introduction | Introduction to Econometrics with R - THIS IS A FORK of the oriinal work" />
   
   <meta name="twitter:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
   <meta name="twitter:image" content="https://www.econometrics-with-r.org//images/cover.png" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="atitsr.html"/>
-
+<link rel="prev" href="index.html"/>
+<link rel="next" href="pt.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -428,157 +428,139 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Introduction<a href="introduction.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<hr style="background-color:#3C6690;height:2px">
+<p>The interest in the freely available statistical programming language and software environment <tt>R</tt> <span class="citation">(<a href="#ref-R-base">R Core Team 2023</a>)</span> is soaring. By the time we wrote first drafts for this project, more than 11000 add-ons (many of them providing cutting-edge methods) were made available on the Comprehensive <tt>R</tt> Archive Network (<a href="https://cran.r-project.org/">CRAN</a>), an extensive network of FTP servers around the world that store identical and up-to-date versions of <tt>R</tt> code and its documentation. <tt>R</tt> dominates over other (commercial) software for statistical computing in most fields of research in applied statistics. The benefits of it being freely available, open source and having a large and constantly growing community of users that contribute to CRAN render <tt>R</tt> more and more appealing for empirical economists and econometricians alike.</p>
+<p>A striking advantage of using <tt>R</tt> in econometrics is that it enables students to explicitly document their analysis step-by-step such that it is easy to update and to expand. This allows to re-use code for similar applications with different data. Furthermore, <tt>R</tt> programs are fully reproducible, which makes it straightforward for others to comprehend and validate results.</p>
+<p>Over the recent years, <tt>R</tt> has thus become an integral part of the curricula of econometrics classes we teach at the University of Duisburg-Essen. In some sense, learning to code is comparable to learning a foreign language and continuous practice is essential for the learning success. Needless to say, presenting bare <tt>R</tt> code on slides does not encourage the students to engage with hands-on experience on their own. This is why <tt>R</tt> is crucial. As for accompanying literature, there are some excellent books that deal with <tt>R</tt> and its applications to econometrics, e.g., <span class="citation">C. Kleiber and Zeileis (<a href="#ref-kleiber2008">2008</a>)</span>. However, such sources may be somewhat beyond the scope of undergraduate students in economics having little understanding of econometric methods and barely any experience in programming at all. Consequently, we started to compile a collection of reproducible reports for use in class. These reports provide guidance on how to implement selected applications from the textbook <em>Introduction to Econometrics</em> <span class="citation">(<a href="#ref-stock2015">Stock and Watson 2015</a>)</span> which serves as a basis for the lecture and the accompanying tutorials. This process was facilitated considerably by <tt>knitr</tt> <span class="citation">(<a href="#ref-R-knitr">Xie 2024</a>)</span> and <tt>R markdown</tt> <span class="citation">(<a href="#ref-R-rmarkdown">Allaire et al. 2024</a>)</span>. In conjunction, both <tt>R</tt> packages provide powerful functionalities for dynamic report generation which allow to seamlessly combine pure text, LaTeX, <tt>R</tt> code and its output in a variety of formats, including PDF and HTML. Moreover, writing and distributing reproducible reports for use in academia has been enriched tremendously by the <tt>bookdown</tt> package <span class="citation">(<a href="#ref-R-bookdown">Xie 2023</a>)</span> which has become our main tool for this project. <tt>bookdown</tt> builds on top of <tt>R markdown</tt> and allows to create appealing HTML pages like this one, among other things.
+Being inspired by <em>Using R for Introductory Econometrics</em> <span class="citation">(<a href="#ref-heiss2016">Heiss 2016</a>)</span><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> and with this powerful toolkit at hand we wrote up our own empirical companion to <span class="citation">Stock and Watson (<a href="#ref-stock2015">2015</a>)</span>. The result, which you started to look at, is <em>Introduction to Econometrics with R</em>.</p>
+<p>Similarly to the book by <span class="citation">Heiss (<a href="#ref-heiss2016">2016</a>)</span>, this project is neither a comprehensive econometrics textbook nor is it intended to be a general introduction to <tt>R</tt>. We feel that Stock and Watson did a great job at explaining the intuition and theory of econometrics, and at any rate better than we could in yet another introductory textbook! <em>Introduction to Econometrics with R</em> is best described as an interactive script in the style of a reproducible research report which aims to provide students with a platform-independent e-learning arrangement by seamlessly intertwining theoretical core knowledge and empirical skills in undergraduate econometrics. Of course, the focus is on empirical applications with <tt>R</tt>. We leave out derivations and proofs wherever we can. Our goal is to enable students not only to learn how results of case studies can be replicated with <tt>R</tt> but we also intend to strengthen their ability in using the newly acquired skills in other empirical applications — immediately within <em>Introduction to Econometrics with R</em>.</p>
+<p>To realize this, each chapter contains interactive <tt>R</tt> programming exercises. These exercises are used as supplements to code chunks that display how previously discussed techniques can be implemented within <tt>R</tt>. They are generated using the <a href="https://github.com/datacamp/datacamp-light">DataCamp light widget</a> and are backed by an <tt>R</tt> session which is maintained on <a href="https://www.datacamp.com/home">DataCamp</a>’s servers. You may play around with the example exercise presented below.</p>
+<iframe src="DCL/intro_1.html" frameborder="0" scrolling="no" style="width:100%;height:360px">
+</iframe>
+<p>As you can see above, the widget consists of two tabs. <tt>script.R</tt> mimics an <tt>.R</tt>-file, a file format that is commonly used for storing <tt>R</tt> code. Lines starting with a # are commented out, that is, they are not recognized as code. Furthermore, <tt>script.R</tt> works like an exercise sheet where you may write down the solution you come up with. If you hit the button <em>Run</em>, the code will be executed, submission correctness tests are run and you will be notified whether your approach is correct. If it is not correct, you will receive feedback suggesting improvements or hints. The other tab, <tt>R Console</tt>, is a fully functional <tt>R</tt> console that can be used for trying out solutions to exercises before submitting them. Of course you may submit (almost any) <tt>R</tt> code and use the console to play around and explore. Simply type a command and hit the <em>Enter</em> key on your keyboard.</p>
+<p>Looking at the widget above, you will notice that there is a <tt>&gt;</tt> in the right panel (in the console). This symbol is called “prompt” and indicates that the user can enter code that will be executed. To avoid confusion, we will not show this symbol in this book. Output produced by R code is commented out with <tt>#&gt;</tt>.</p>
+<p>Most commonly we display R code together with the generated output in code chunks. As an example, consider the following line of code presented in chunk below. It tells <tt>R</tt> to compute the number of packages available on <tt>CRAN</tt>. The code chunk is followed by the output produced.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction.html#cb1-1" tabindex="-1"></a><span class="co"># check the number of R packages available on CRAN</span></span>
+<span id="cb1-2"><a href="introduction.html#cb1-2" tabindex="-1"></a><span class="fu">nrow</span>(<span class="fu">available.packages</span>(<span class="at">repos =</span> <span class="st">&quot;http://cran.us.r-project.org&quot;</span>))</span>
+<span id="cb1-3"><a href="introduction.html#cb1-3" tabindex="-1"></a><span class="co">#&gt; [1] 21787</span></span></code></pre></div>
+<p>Each code chunk is equipped with a button on the outer right hand side which copies the code to your clipboard. This makes it convenient to work with larger code segments in your version of <tt>R</tt>/<em>RStudio</em> or in the widgets presented throughout the book. In the widget above, you may click on <tt>R Console</tt> and type <code>nrow(available.packages(repos = "http://cran.us.r-project.org"))</code> (the command from the code chunk above) and execute it by hitting <em>Enter</em> on your keyboard.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>Note that some lines in the widget are out-commented which ask you to assign a numeric value to a variable and then to print the variable’s content to the console. You may enter your solution approach to <tt>script.R</tt> and hit the button <em>Run</em> in order to get the feedback described further above. In case you do not know how to solve this sample exercise (don’t panic, that is probably why you are reading this), a click on <em>Hint</em> will provide you with some advice. If you still can’t find a solution, a click on <em>Solution</em> will provide you with another tab, <tt>Solution.R</tt> which contains sample solution code. It will often be the case that exercises can be solved in many different ways and <tt>Solution.R</tt> will present what we consider as comprehensible and idiomatic.</p>
+<div id="colophon" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Colophon<a href="introduction.html#colophon" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This book was built with:</p>
+<pre><code>#&gt; ─ Session info ───────────────────────────────────
+#&gt;  setting  value
+#&gt;  version  R version 4.3.2 (2023-10-31)
+#&gt;  os       macOS 15.2
+#&gt;  system   aarch64, darwin20
+#&gt;  ui       X11
+#&gt;  language (EN)
+#&gt;  collate  en_US.UTF-8
+#&gt;  ctype    en_US.UTF-8
+#&gt;  tz       Europe/Berlin
+#&gt;  date     2024-12-21
+#&gt;  pandoc   3.1.2 @ /usr/local/bin// (via rmarkdown)
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────
+#&gt;  ! package  * version date (UTC) lib source
+#&gt;  R itewrpkg   &lt;NA&gt;    &lt;NA&gt;       [?] &lt;NA&gt;
+#&gt; 
+#&gt;  [1] /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library
+#&gt; 
+#&gt;  R ── Package was removed from disk.
+#&gt; 
+#&gt; ──────────────────────────────────────────────────</code></pre>
+</div>
+<div id="a-very-short-introduction-to-r-and-rstudio" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> A Very Short Introduction to <tt>R</tt> and <em>RStudio</em><a href="introduction.html#a-very-short-introduction-to-r-and-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-8"></span>
+<img src="images/rstudio.jpg" alt="RStudio: the four panes" width="80%" />
+<p class="caption">
+Figure 1.1: RStudio: the four panes
+</p>
+</div>
+<div id="r-basics" class="section level4 unnumbered hasAnchor">
+<h4><tt>R</tt> Basics<a href="introduction.html#r-basics" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>As mentioned before, this book is not intended to be an introduction to <tt>R</tt> but a guide on how to use its capabilities for applications commonly encountered in undergraduate econometrics. Those having basic knowledge in <tt>R</tt> programming may feel comfortable starting with Chapter <a href="pt.html#pt">2</a>. This section, however, is meant for those who have not worked with <tt>R</tt> or <em>RStudio</em> before. If you at least know how to create objects and call functions, you can skip it. If you would like to refresh your skills or get a feeling for how to work with <em>RStudio</em>, keep reading.</p>
+<p>First of all, start <em>RStudio</em> and open a new <tt>R</tt> script by selecting <em>File</em>, <em>New File</em>, <em>R Script</em>. In the editor pane, type</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction.html#cb3-1" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span></code></pre></div>
+<p>and click on the button labeled <em>Run</em> in the top right corner of the editor. By doing so, your line of code is sent to the console and the result of this operation should be displayed right underneath it. As you can see, <tt>R</tt> works just like a calculator. You can do all arithmetic calculations by using the corresponding operator (<tt>+</tt>, <tt>-</tt>, <tt>*</tt>, <tt>/</tt> or <tt>^</tt>). If you are not sure what the last operator does, try it out and check the results.</p>
+</div>
+<div id="vectors" class="section level4 unnumbered hasAnchor">
+<h4>Vectors<a href="introduction.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In <tt>R</tt>, you can work with variables or more generally, objects. To define an object, you use the assignment operator <tt>&lt;-</tt>, for example, to create a variable named <tt>x</tt> with the value <tt>10</tt>, you can type <code>x &lt;- 10</code> and then click the <em>Run</em> button. The new variable should appear in the environment pane on the top right. However, the console won’t display any results because this line of code doesn’t produce any visible output. If you want to see the value of <code>x</code>, you can simply type <code>x</code> in the console and press <em>Enter</em>, and <tt>R</tt> will display the corresponding value in the console.</p>
+<p><tt>x</tt> is a scalar, a vector of length <span class="math inline">\(1\)</span>. You can easily create longer vectors by using the function <tt>c()</tt> (<em>c</em> is for “concatenate” or “combine”). To create a vector <tt>y</tt> containing the numbers <span class="math inline">\(1\)</span> to <span class="math inline">\(5\)</span> and print it, do the following.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction.html#cb4-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb4-2"><a href="introduction.html#cb4-2" tabindex="-1"></a>y</span>
+<span id="cb4-3"><a href="introduction.html#cb4-3" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
+<p>You can also create a vector of letters or words. For now just remember that characters have to be surrounded by quotes, else they will be parsed as object names.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction.html#cb5-1" tabindex="-1"></a>hello <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Hello&quot;</span>, <span class="st">&quot;World&quot;</span>)</span></code></pre></div>
+<p>Here we have created a vector of length 2 containing the words <tt>Hello</tt> and <tt>World</tt>.</p>
+<p>Do not forget to save your script! To do so, select <em>File</em> and then <em>Save</em>.</p>
+</div>
+<div id="functions" class="section level4 unnumbered hasAnchor">
+<h4>Functions<a href="introduction.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>You have seen that the function <tt>c()</tt> can be used to combine objects. In general, all function calls look the same: a function name is always followed by round parentheses. Often the parentheses include arguments.</p>
+<p>Here are two simple examples.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction.html#cb6-1" tabindex="-1"></a><span class="co"># generate the vector `z`</span></span>
+<span id="cb6-2"><a href="introduction.html#cb6-2" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">by =</span> <span class="dv">1</span>)</span>
+<span id="cb6-3"><a href="introduction.html#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="introduction.html#cb6-4" tabindex="-1"></a><span class="co"># compute the mean of the entries in `z`</span></span>
+<span id="cb6-5"><a href="introduction.html#cb6-5" tabindex="-1"></a><span class="fu">mean</span>(z)</span>
+<span id="cb6-6"><a href="introduction.html#cb6-6" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
+<p>In the first line we use a function called <tt>seq()</tt> to create the exact same vector as we did in the previous section, calling it <tt>z</tt>. The function takes on the arguments <tt>from</tt>, <tt>to</tt> and <tt>by</tt> which should be self-explanatory.
+The function <tt>mean()</tt> computes the arithmetic mean of its argument <tt>x</tt>. Since we pass the vector <tt>z</tt> as the argument <tt>x</tt>, the result is <tt>3</tt>!</p>
+<p>If you are not sure which arguments a function expects, you may consult the function’s documentation. Let’s say we are not sure how the arguments required for <tt>seq()</tt> work. We then type <code>?seq</code> in the console. By hitting return, the documentation page for that function pops up in the lower right pane of <em>RStudio</em>. In there, the section <em>Arguments</em> holds the information we seek. On the bottom of almost every help page you find examples on how to use the corresponding functions. This is very helpful for beginners and we recommend to have a look.</p>
+<p>Of course, all of the commands presented above also work in interactive widgets throughout the book. You may try them below.</p>
+<iframe src="DCL/playground.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
 
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
+<div id="ref-R-rmarkdown" class="csl-entry">
 Allaire, JJ, Yihui Xie, Christophe Dervieux, Jonathan McPherson, Javier Luraschi, Kevin Ushey, Aron Atkins, et al. 2024. <em><span class="nocase">rmarkdown: Dynamic Documents for R</span></em> (version 2.29). <a href="https://github.com/rstudio/rmarkdown">https://github.com/rstudio/rmarkdown</a>.
 </div>
-<div class="csl-entry">
-Bollerslev, Tim. 1986. <span>“<span>Generalized Autoregressive Conditional Heteroskedasticity</span>.”</span> <em>Journal of Econometrics</em> 31 (3): 307–27.
-</div>
-<div class="csl-entry">
-Card, D. 1993. <span>“Using Geographic Variation in College Proximity to Estimate the Return to Schooling.”</span> National Bureau of Economic Research.
-</div>
-<div class="csl-entry">
-Card, D., and Alan B. Krueger. 1994. <span>“<span>M</span>inimum <span>W</span>ages and <span>E</span>mployment: <span>A</span> <span>C</span>ase <span>S</span>tudy of the <span>F</span>ast-<span>F</span>ood <span>I</span>ndustry in <span>N</span>ew <span>J</span>ersey and <span>P</span>ennsylvania.”</span> <em>The American Economic Review</em> 84 (4): 772–93.
-</div>
-<div class="csl-entry">
-Chow, Gregory C. 1960. <span>“<span>T</span>ests of <span>E</span>quality <span>B</span>etween <span>S</span>ets of <span>C</span>oefficients in <span>T</span>wo <span>L</span>inear <span>R</span>egressions.”</span> <em><span>E</span>conometrica</em> 28 (3): 591–605.
-</div>
-<div class="csl-entry">
-Cochrane, D., and G. H Orcutt. 1949. <span>“<span>A</span>pplication of <span>L</span>east <span>S</span>quares <span>R</span>egression to <span>R</span>elationships <span>C</span>ontaining <span>A</span>uto-<span>C</span>orrelated <span>E</span>rror <span>T</span>erms.”</span> <em><span>J</span>ournal of the <span>A</span>merican <span>S</span>tatistical <span>A</span>ssociation</em> 44 (245): 32–61. <a href="https://doi.org/10.1080/01621459.1949.10483290">https://doi.org/10.1080/01621459.1949.10483290</a>.
-</div>
-<div class="csl-entry">
-Croissant, Yves, Giovanni Millo, and Kevin Tappe. 2023. <em><span class="nocase">plm: Linear Models for Panel Data</span></em> (version 2.6-3). <a href="https://cran.r-project.org/package=plm">https://cran.r-project.org/package=plm</a>.
-</div>
-<div class="csl-entry">
-Dickey, David A., and Wayne A. Fuller. 1979. <span>“<span>D</span>istribution of the <span>E</span>stimators for <span>A</span>utoregressive <span>T</span>ime <span>S</span>eries with a <span>U</span>nit <span>R</span>oot.”</span> <em><span>J</span>ournal of the <span>A</span>merican <span>S</span>tatistical <span>A</span>ssociation</em> 74 (366): pp. 427–431.
-</div>
-<div class="csl-entry">
-Elliott, Graham, Thomas J Rothenberg, and James H Stock. 1996. <span>“<span class="nocase">Efficient Tests for an Autoregressive Unit Root</span>.”</span> <em>Econometrica</em> 64 (4): 813–36.
-</div>
-<div class="csl-entry">
-Engle, Robert. 1982. <span>“Autoregressive Conditional Heteroscedasticity with Estimates of the Variance of United Kingdom Inflation.”</span> <em>Econometrica</em> 50 (4): 987–1007.
-</div>
-<div class="csl-entry">
-Engle, Robert, and Clive Granger. 1987. <span>“<span class="nocase">Co-integration and Error Correction: Representation, Estimation and Testing</span>.”</span> <em>Econometrica</em> 55 (2): 251–76.
-</div>
-<div class="csl-entry">
-Genz, Alan, Frank Bretz, Tetsuhisa Miwa, Xuefei Mi, and Torsten Hothorn. 2023. <em><span class="nocase">mvtnorm: Multivariate Normal and t Distributions</span></em> (version 1.2-3). <a href="http://mvtnorm.R-forge.R-project.org">http://mvtnorm.R-forge.R-project.org</a>.
-</div>
-<div class="csl-entry">
-Granger, C. W. J. 1969. <span>“<span>I</span>nvestigating <span>C</span>ausal <span>R</span>elations by <span>E</span>conometric <span>M</span>odels and <span>C</span>ross-<span>S</span>pectral <span>M</span>ethods.”</span> <em><span>E</span>conometrica</em> 37: 424–38.
-</div>
-<div class="csl-entry">
+<div id="ref-heiss2016" class="csl-entry">
 Heiss, Florian. 2016. <em><span>U</span>sing <span>R</span> for <span>I</span>ntroductory <span>E</span>conometrics</em>. <span>C</span>reateSpace <span>I</span>ndependent <span>P</span>ublishing <span>P</span>latform. <a href="http://www.urfie.net/">http://www.urfie.net/</a>.
 </div>
-<div class="csl-entry">
-Hlavac, Marek. 2022. <em>Stargazer: Well-Formatted Regression and Summary Statistics Tables</em>. Bratislava, Slovakia: Social Policy Institute. <a href="https://CRAN.R-project.org/package=stargazer">https://CRAN.R-project.org/package=stargazer</a>.
-</div>
-<div class="csl-entry">
-Hyndman, Rob, George Athanasopoulos, Christoph Bergmeir, Gabriel Caceres, Leanne Chhay, Kirill Kuroptev, Mitchell O’Hara-Wild, et al. 2023. <em><span class="nocase">forecast: Forecasting Functions for Time Series and Linear Models</span></em> (version 8.21.1). <a href="https://pkg.robjhyndman.com/forecast/">https://pkg.robjhyndman.com/forecast/</a>.
-</div>
-<div class="csl-entry">
-Kleiber, Christian, and Achim Zeileis. 2008. <em>Applied Econometrics with <span>R</span></em>. New York: Springer-Verlag. <a href="https://CRAN.R-project.org/package=AER">https://CRAN.R-project.org/package=AER</a>.
-</div>
-<div class="csl-entry">
+<div id="ref-kleiber2008" class="csl-entry">
 Kleiber, C., and A. Zeileis. 2008. <em><span>A</span>pplied <span>E</span>conometrics with <span>R</span></em>. <span>S</span>pringer.
 </div>
-<div class="csl-entry">
-MacKinnon, James G, and Halbert White. 1985. <span>“<span class="nocase">Some heteroskedasticity-consistent covariance matrix estimators with improved finite sample properties</span>.”</span> <em>Journal of Econometrics</em> 29 (3): 305–25.
-</div>
-<div class="csl-entry">
-Newey, Whitney K., and Kenneth D. West. 1987. <span>“<span>A</span> <span>S</span>imple, <span>P</span>ositive <span>S</span>emi-Definite, <span>H</span>eteroskedasticity and <span>A</span>utocorrelation <span>C</span>onsistent <span>C</span>ovariance <span>M</span>atrix.”</span> <em><span>E</span>conometrica</em> 55: 703–8.
-</div>
-<div class="csl-entry">
-Pfaff, B. 2008. <em>Analysis of Integrated and Cointegrated Time Series with r</em>. Second. New York: Springer. <a href="https://www.pfaffikus.de">https://www.pfaffikus.de</a>.
-</div>
-<div class="csl-entry">
-Pfaff, Bernhard. 2023. <em><span class="nocase">vars: VAR Modelling</span></em> (version 1.6-0). <a href="https://www.pfaffikus.de">https://www.pfaffikus.de</a>.
-</div>
-<div class="csl-entry">
-Pinheiro, José, Douglas Bates, and R Core Team. 2023. <em><span class="nocase">nlme: Linear and Nonlinear Mixed Effects Models</span></em> (version 3.1-163). <a href="https://svn.r-project.org/R-packages/trunk/nlme/">https://svn.r-project.org/R-packages/trunk/nlme/</a>.
-</div>
-<div class="csl-entry">
-Quandt, Richard E. 1960. <span>“<span>T</span>ests of the <span>H</span>ypothesis <span>T</span>hat a <span>L</span>inear <span>R</span>egression <span>S</span>ystem <span>O</span>beys <span>T</span>wo <span>S</span>eparate <span>R</span>egimes.”</span> <em><span>J</span>ournal of the <span>A</span>merican <span>S</span>tatistical <span>A</span>ssociation</em> 55 (290): 324–30. <a href="https://doi.org/10.1080/01621459.1960.10482067">https://doi.org/10.1080/01621459.1960.10482067</a>.
-</div>
-<div class="csl-entry">
+<div id="ref-R-base" class="csl-entry">
 R Core Team. 2023. <em><span class="nocase">R: A Language and Environment for Statistical Computing</span></em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
 </div>
-<div class="csl-entry">
-Ripley, Brian. 2023. <em><span class="nocase">MASS: Support Functions and Datasets for Venables and Ripley’s MASS</span></em> (version 7.3-60). <a href="http://www.stats.ox.ac.uk/pub/MASS4/">http://www.stats.ox.ac.uk/pub/MASS4/</a>.
-</div>
-<div class="csl-entry">
-Ryan, Jeffrey A., and Joshua M. Ulrich. 2023. <em><span class="nocase">quantmod: Quantitative Financial Modelling Framework</span></em> (version 0.4.25). <a href="http://www.quantmod.com">http://www.quantmod.com</a>.
-</div>
-<div class="csl-entry">
-Stigler, Matthieu, and Bastiaan Quast. 2022. <em><span class="nocase">rddtools: Toolbox for Regression Discontinuity Design (RDD)</span></em> (version 1.6.0). <a href="https://qua.st/rddtools/">https://qua.st/rddtools/</a>.
-</div>
-<div class="csl-entry">
+<div id="ref-stock2015" class="csl-entry">
 Stock, J. H., and M. W. Watson. 2015. <em><span>I</span>ntroduction to <span>E</span>conometrics, <span>T</span>hird <span>U</span>pdate, <span>G</span>lobal <span>E</span>dition</em>. <span>P</span>earson <span>E</span>ducation <span>L</span>imited.
 </div>
-<div class="csl-entry">
-Venables, W. N., and D. M. Smith. 2010. <em><span>A</span>n <span>I</span>ntroduction to <span>R</span></em>. <a href="https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf">https://cran.r-project.org/doc/manuals/r-release/R-intro.pdf</a>.
-</div>
-<div class="csl-entry">
-White, Halbert. 1980. <span>“<span>A</span> <span>H</span>eteroskedasticity-<span>C</span>onsistent <span>C</span>ovariance <span>M</span>atrix <span>E</span>stimator and a <span>D</span>irect <span>T</span>est for <span>H</span>eteroskedasticity.”</span> <em><span>E</span>conometrica</em> 48 (4): pp. 817–838.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, and Jennifer Bryan. 2023. <em><span class="nocase">readxl: Read Excel Files</span></em> (version 1.4.3). <a href="https://readxl.tidyverse.org">https://readxl.tidyverse.org</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em><span class="nocase">dplyr: A Grammar of Data Manipulation</span></em> (version 1.1.3). <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Thomas Lin Pedersen, and Dana Seidel. 2023. <em><span class="nocase">scales: Scale Functions for Visualization</span></em> (version 1.3.0). <a href="https://scales.r-lib.org">https://scales.r-lib.org</a>.
-</div>
-<div class="csl-entry">
-Wickham, Hadley, Davis Vaughan, and Maximilian Girlich. 2023. <em><span class="nocase">tidyr: Tidy Messy Data</span></em> (version 1.3.0). <a href="https://tidyr.tidyverse.org">https://tidyr.tidyverse.org</a>.
-</div>
-<div class="csl-entry">
+<div id="ref-wooldridge2016" class="csl-entry">
 Wooldridge, Jeffrey. 2016. <em><span>I</span>ntroductory <span>E</span>conometrics</em>. Sixth. <span>C</span>engage <span>L</span>earning.
 </div>
-<div class="csl-entry">
-Wuertz, Diethelm, Yohan Chalabi, Tobias Setz, Martin Maechler, and Georgi N. Boshnakov. 2024. <em><span class="nocase">fGarch: Rmetrics - Autoregressive Conditional Heteroskedastic Modelling</span></em> (version 4033.92). <a href="https://geobosh.github.io/fGarchDoc/">https://geobosh.github.io/fGarchDoc/</a>.
-</div>
-<div class="csl-entry">
+<div id="ref-R-bookdown" class="csl-entry">
 Xie, Yihui. 2023. <em><span class="nocase">bookdown: Authoring Books and Technical Documents with R Markdown</span></em> (version 0.36). <a href="https://github.com/rstudio/bookdown">https://github.com/rstudio/bookdown</a>.
 </div>
-<div class="csl-entry">
+<div id="ref-R-knitr" class="csl-entry">
 ———. 2024. <em><span class="nocase">knitr: A General-Purpose Package for Dynamic Report Generation in R</span></em> (version 1.49). <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
 </div>
-<div class="csl-entry">
-Zeileis, Achim. 2019. <em><span class="nocase">dynlm</span>: Dynamic Linear Regression</em>. <a href="https://CRAN.R-project.org/package=dynlm">https://CRAN.R-project.org/package=dynlm</a>.
 </div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p><span class="citation">Heiss (<a href="#ref-heiss2016">2016</a>)</span> builds on the popular <em>Introductory Econometrics</em> <span class="citation">(<a href="#ref-wooldridge2016">Wooldridge 2016</a>)</span> and demonstrates how to replicate the applications discussed therein using <tt>R</tt>.<a href="introduction.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>The <tt>R</tt> session is initialized by clicking into the widget. This might take a few seconds. Just wait for the indicator next to the button <em>Run</em> to turn green.<a href="introduction.html#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="atitsr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pt.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -609,7 +591,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mca91/EconometricsWithR/edit/master/references.Rmd",
+"link": "https://github.com/mca91/EconometricsWithR/edit/master/index.Rmd",
 "text": "Edit"
 },
 "history": {
