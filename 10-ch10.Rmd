@@ -571,35 +571,6 @@ stargazer(fat_mod1,
           column.labels = c("(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)"))
 ```
 
-<!--html_preserve-->
-
-```{r, message=F, warning=F, results='asis', echo=F, eval=my_output == "html"}
-library(stargazer)
-
-rob_se <- list(
-  sqrt(diag(vcovHC(fat_mod1, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod2, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod3, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod4, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod5, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod6, type="HC1"))),
-  sqrt(diag(vcovHC(fat_mod7, type="HC1")))
-)
-
-stargazer(fat_mod1, fat_mod2, fat_mod3, fat_mod4, fat_mod5, fat_mod6, fat_mod7, 
-          digits = 3,
-          type = "html",
-          header = FALSE,
-          se = rob_se,
-          dep.var.caption = "Dependent Variable: Fatality Rate",
-          model.numbers = FALSE,
-          column.labels = c("(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)")
-          )
-
-stargazer_html_title("Linear Panel Regression Models of Traffic Fatalities due to Drunk Driving", "lprmotfdtdd")
-```
-
-<!--/html_preserve-->
 
 ```{r, message=F, warning=F, results='asis', echo=F, eval=my_output == "latex"}
 library(stargazer)

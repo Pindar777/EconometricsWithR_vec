@@ -13,7 +13,7 @@ To reproduce code examples, install the `r ttcode("R")` packages listed below be
 + `r ttcode("AER")` [@R-AER],
 + `r ttcode("dynlm")` [@R-dynlm],
 + `r ttcode("nlme")` [@R-nlme],
-+ `r ttcode("orcutt")` [@R-orcutt],
+<!-- + `r ttcode("orcutt")` [@R-orcutt], -->
 + `r ttcode("quantmod")` [@R-quantmod],
 + `r ttcode("stargazer")` [@R-stargazer].
 
@@ -21,7 +21,7 @@ To reproduce code examples, install the `r ttcode("R")` packages listed below be
 library(AER)
 library(quantmod)
 library(dynlm)
-library(orcutt)
+# library(orcutt)
 library(nlme)
 library(stargazer)
 ```
@@ -498,7 +498,7 @@ iGLS_dynamic <- dynlm(I(Y- 0.5 * L(Y)) ~ I(X - 0.5 * L(X)) + I(L(X) - 0.5 * L(X,
 summary(iGLS_dynamic)
 ```
 
-The *feasible GLS* estimator uses preliminary estimation of the coefficients in the presumed error term model, computes the quasi-differenced data and then estimates the model using OLS. This idea was introduced by @cochrane1949 and can be extended by continuing this process iteratively. Such a procedure is implemented in the function `r ttcode("cochrane.orcutt()")` from the package `r ttcode("orcutt")`.
+The *feasible GLS* estimator uses preliminary estimation of the coefficients in the presumed error term model, computes the quasi-differenced data and then estimates the model using OLS. This idea was introduced by @cochrane1949 and can be extended by continuing this process iteratively. Such a procedure is implemented in the function r ttcode("cochrane.orcutt()") from the package r ttcode("orcutt").
 
 ```{r}
 X_t <- c(X[-1])
@@ -507,7 +507,7 @@ X_l1 <- c(X[-500])
 Y_t <- c(Y[-1])
 
 # iterated cochrane-orcutt procedure
-summary(cochrane.orcutt(lm(Y_t ~ X_t + X_l1)))
+# summary(cochrane.orcutt(lm(Y_t ~ X_t + X_l1)))
 ```
 
 Some more sophisticated methods for GLS estimation are provided with the package `r ttcode("nlme")`. The function `r ttcode("gls()")` can be used to fit linear models by maximum likelihood estimation algorithms and allows to specify a correlation structure for the error term. 
@@ -805,5 +805,5 @@ See Chapter 15.7 of the book for a discussion of empirical examples where it is 
 
 + The regression error in distributed lag models is often serially correlated such that standard errors which are robust to heteroskedasticity *and* autocorrelation should be used to obtain valid inference. The package `r ttcode("sandwich")` provides functions for computation of so-called HAC covariance matrix estimators, for example `r ttcode("vcovHAC()")` and `r ttcode("NeweyWest()")`.
 
-+ When $X$ is *strictly exogeneous*, more efficient estimates can be obtained using an ADL model or by GLS estimation. Feasible GLS algorithms can be found in the `r ttcode("R")` packages `r ttcode("orcutt")` and `r ttcode("nlme")`. Chapter 15.7 of the book emphasizes that the assumption of strict exogeneity is often implausible in empirical applications.
++ When $X$ is *strictly exogeneous*, more efficient estimates can be obtained using an ADL model or by GLS estimation. Feasible GLS algorithms can be found in the `r ttcode("R")` packages r ttcode("orcutt") and `r ttcode("nlme")`. Chapter 15.7 of the book emphasizes that the assumption of strict exogeneity is often implausible in empirical applications.
 

@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 A Review of Statistics using R | Introduction to Econometrics with R</title>
+  <meta name="description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 A Review of Statistics using R | Introduction to Econometrics with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://www.econometrics-with-r.org//images/cover.png" />
+  <meta property="og:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="github-repo" content="mca91/EconometricsWithR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 A Review of Statistics using R | Introduction to Econometrics with R" />
+  
+  <meta name="twitter:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="twitter:image" content="https://www.econometrics-with-r.org//images/cover.png" />
+
+<meta name="author" content="Christoph Hanck, Martin Arnold, Alexander Gerber, and Martin Schmelzer" />
+
+
+<meta name="date" content="2024-12-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pt.html"/>
+<link rel="next" href="lrwor.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="images/logo.png" alt="logo" width="50%" height="50%"style="margin: 15px 0 0 0"></center></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#colophon"><i class="fa fa-check"></i><b>1.1</b> Colophon</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-very-short-introduction-to-r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> A Very Short Introduction to <tt>R</tt> and <em>RStudio</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="pt.html"><a href="pt.html"><i class="fa fa-check"></i><b>2</b> Probability Theory</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pt.html"><a href="pt.html#random-variables-and-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Random Variables and Probability Distributions</a>
+<ul>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#probability-distributions-of-discrete-random-variables"><i class="fa fa-check"></i>Probability Distributions of Discrete Random Variables</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#bernoulli-trials"><i class="fa fa-check"></i>Bernoulli Trials</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#expected-value-mean-and-variance"><i class="fa fa-check"></i>Expected Value, Mean and Variance</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#probability-distributions-of-continuous-random-variables"><i class="fa fa-check"></i>Probability Distributions of Continuous Random Variables</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-normal-distribution"><i class="fa fa-check"></i>The Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-chi-squared-distribution"><i class="fa fa-check"></i>The Chi-Squared Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#thetdist"><i class="fa fa-check"></i>The Student t Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-f-distribution"><i class="fa fa-check"></i>The F Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="pt.html"><a href="pt.html#RSATDOSA"><i class="fa fa-check"></i><b>2.2</b> Random Sampling and the Distribution of Sample Averages</a>
+<ul>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#mean-and-variance-of-the-sample-mean"><i class="fa fa-check"></i>Mean and Variance of the Sample Mean</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#large-sample-approximations-to-sampling-distributions"><i class="fa fa-check"></i>Large Sample Approximations to Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="pt.html"><a href="pt.html#exercises-2"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arosur.html"><a href="arosur.html"><i class="fa fa-check"></i><b>3</b> A Review of Statistics using R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="arosur.html"><a href="arosur.html#estimation-of-the-population-mean"><i class="fa fa-check"></i><b>3.1</b> Estimation of the Population Mean</a></li>
+<li class="chapter" data-level="3.2" data-path="arosur.html"><a href="arosur.html#potsm"><i class="fa fa-check"></i><b>3.2</b> Properties of the Sample Mean</a></li>
+<li class="chapter" data-level="3.3" data-path="arosur.html"><a href="arosur.html#hypothesis-tests-concerning-the-population-mean"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Tests concerning the Population Mean</a>
+<ul>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#the-p-value"><i class="fa fa-check"></i>The p-Value</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-known"><i class="fa fa-check"></i>Calculating the p-Value when the Standard Deviation is Known</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#SVSSDASE"><i class="fa fa-check"></i>Sample Variance, Sample Standard Deviation and Standard Error</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-unknown"><i class="fa fa-check"></i>Calculating the p-value When the Standard Deviation is Unknown</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#the-t-statistic"><i class="fa fa-check"></i>The t-statistic</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#hypothesis-testing-with-a-prespecified-significance-level"><i class="fa fa-check"></i>Hypothesis Testing with a Prespecified Significance Level</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#one-sided-alternatives"><i class="fa fa-check"></i>One-sided Alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="arosur.html"><a href="arosur.html#confidence-intervals-for-the-population-mean"><i class="fa fa-check"></i><b>3.4</b> Confidence Intervals for the Population Mean</a></li>
+<li class="chapter" data-level="3.5" data-path="arosur.html"><a href="arosur.html#cmfdp"><i class="fa fa-check"></i><b>3.5</b> Comparing Means from Different Populations</a></li>
+<li class="chapter" data-level="3.6" data-path="arosur.html"><a href="arosur.html#aattggoe"><i class="fa fa-check"></i><b>3.6</b> An Application to the Gender Gap of Earnings</a></li>
+<li class="chapter" data-level="3.7" data-path="arosur.html"><a href="arosur.html#scatterplots-sample-covariance-and-sample-correlation"><i class="fa fa-check"></i><b>3.7</b> Scatterplots, Sample Covariance and Sample Correlation</a></li>
+<li class="chapter" data-level="3.8" data-path="arosur.html"><a href="arosur.html#exercises-3"><i class="fa fa-check"></i><b>3.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lrwor.html"><a href="lrwor.html"><i class="fa fa-check"></i><b>4</b> Linear Regression with One Regressor</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lrwor.html"><a href="lrwor.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="lrwor.html"><a href="lrwor.html#estimating-the-coefficients-of-the-linear-regression-model"><i class="fa fa-check"></i><b>4.2</b> Estimating the Coefficients of the Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-ordinary-least-squares-estimator"><i class="fa fa-check"></i>The Ordinary Least Squares Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lrwor.html"><a href="lrwor.html#measures-of-fit"><i class="fa fa-check"></i><b>4.3</b> Measures of Fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-coefficient-of-determination"><i class="fa fa-check"></i>The Coefficient of Determination</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-standard-error-of-the-regression"><i class="fa fa-check"></i>The Standard Error of the Regression</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#application-to-the-test-score-data"><i class="fa fa-check"></i>Application to the Test Score Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="lrwor.html"><a href="lrwor.html#tlsa"><i class="fa fa-check"></i><b>4.4</b> The Least Squares Assumptions</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-1-the-error-term-has-conditional-mean-of-zero"><i class="fa fa-check"></i>Assumption 1: The Error Term has Conditional Mean of Zero</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-2-independently-and-identically-distributed-data"><i class="fa fa-check"></i>Assumption 2: Independently and Identically Distributed Data</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-3-large-outliers-are-unlikely"><i class="fa fa-check"></i>Assumption 3: Large Outliers are Unlikely</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="lrwor.html"><a href="lrwor.html#tsdotoe"><i class="fa fa-check"></i><b>4.5</b> The Sampling Distribution of the OLS Estimator</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-1"><i class="fa fa-check"></i>Simulation Study 1</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-2"><i class="fa fa-check"></i>Simulation Study 2</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-3"><i class="fa fa-check"></i>Simulation Study 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="lrwor.html"><a href="lrwor.html#exercises-4"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="htaciitslrm.html"><a href="htaciitslrm.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Tests and Confidence Intervals in SLR Model</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="htaciitslrm.html"><a href="htaciitslrm.html#testing-two-sided-hypotheses-concerning-the-slope-coefficient"><i class="fa fa-check"></i><b>5.1</b> Testing Two-Sided Hypotheses concerning the Slope Coefficient</a></li>
+<li class="chapter" data-level="5.2" data-path="htaciitslrm.html"><a href="htaciitslrm.html#cifrc"><i class="fa fa-check"></i><b>5.2</b> Confidence Intervals for Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#simulation-study-confidence-intervals"><i class="fa fa-check"></i>Simulation Study: Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="htaciitslrm.html"><a href="htaciitslrm.html#rwxiabv"><i class="fa fa-check"></i><b>5.3</b> Regression when X is a Binary Variable</a></li>
+<li class="chapter" data-level="5.4" data-path="htaciitslrm.html"><a href="htaciitslrm.html#hah"><i class="fa fa-check"></i><b>5.4</b> Heteroskedasticity and Homoskedasticity</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#a-real-world-example-for-heteroskedasticity"><i class="fa fa-check"></i>A Real-World Example for Heteroskedasticity</a></li>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#should-we-care-about-heteroskedasticity"><i class="fa fa-check"></i>Should We Care About Heteroskedasticity?</a></li>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#computation-of-heteroskedasticity-robust-standard-errors"><i class="fa fa-check"></i>Computation of Heteroskedasticity-Robust Standard Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="htaciitslrm.html"><a href="htaciitslrm.html#the-gauss-markov-theorem"><i class="fa fa-check"></i><b>5.5</b> The Gauss-Markov Theorem</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#simulation-study-blue-estimator"><i class="fa fa-check"></i>Simulation Study: BLUE Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="htaciitslrm.html"><a href="htaciitslrm.html#using-the-t-statistic-in-regression-when-the-sample-size-is-small"><i class="fa fa-check"></i><b>5.6</b> Using the t-Statistic in Regression when the Sample Size Is Small</a></li>
+<li class="chapter" data-level="5.7" data-path="htaciitslrm.html"><a href="htaciitslrm.html#exercises-5"><i class="fa fa-check"></i><b>5.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="rmwmr.html"><a href="rmwmr.html"><i class="fa fa-check"></i><b>6</b> Regression Models with Multiple Regressors</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="rmwmr.html"><a href="rmwmr.html#omitted-variable-bias"><i class="fa fa-check"></i><b>6.1</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="6.2" data-path="rmwmr.html"><a href="rmwmr.html#tmrm"><i class="fa fa-check"></i><b>6.2</b> The Multiple Regression Model</a></li>
+<li class="chapter" data-level="6.3" data-path="rmwmr.html"><a href="rmwmr.html#mofimr"><i class="fa fa-check"></i><b>6.3</b> Measures of Fit in Multiple Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="rmwmr.html"><a href="rmwmr.html#ols-assumptions-in-multiple-regression"><i class="fa fa-check"></i><b>6.4</b> OLS Assumptions in Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rmwmr.html"><a href="rmwmr.html#multicollinearity"><i class="fa fa-check"></i>Multicollinearity</a></li>
+<li class="chapter" data-level="" data-path="rmwmr.html"><a href="rmwmr.html#simulation-study-imperfect-multicollinearity"><i class="fa fa-check"></i>Simulation Study: Imperfect Multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="rmwmr.html"><a href="rmwmr.html#the-distribution-of-the-ols-estimators-in-multiple-regression"><i class="fa fa-check"></i><b>6.5</b> The Distribution of the OLS Estimators in Multiple Regression</a></li>
+<li class="chapter" data-level="6.6" data-path="rmwmr.html"><a href="rmwmr.html#exercises-6"><i class="fa fa-check"></i><b>6.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="htaciimr.html"><a href="htaciimr.html"><i class="fa fa-check"></i><b>7</b> Hypothesis Tests and Confidence Intervals in MR Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="htaciimr.html"><a href="htaciimr.html#hypothesis-tests-and-confidence-intervals-for-a-single-coefficient"><i class="fa fa-check"></i><b>7.1</b> Hypothesis Tests and Confidence Intervals for a Single Coefficient</a></li>
+<li class="chapter" data-level="7.2" data-path="htaciimr.html"><a href="htaciimr.html#an-application-to-test-scores-and-the-student-teacher-ratio"><i class="fa fa-check"></i><b>7.2</b> An Application to Test Scores and the Student-Teacher Ratio</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciimr.html"><a href="htaciimr.html#another-augmentation-of-the-model"><i class="fa fa-check"></i>Another Augmentation of the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="htaciimr.html"><a href="htaciimr.html#joint-hypothesis-testing-using-the-f-statistic"><i class="fa fa-check"></i><b>7.3</b> Joint Hypothesis Testing using the F-Statistic</a></li>
+<li class="chapter" data-level="7.4" data-path="htaciimr.html"><a href="htaciimr.html#confidence-sets-for-multiple-coefficients"><i class="fa fa-check"></i><b>7.4</b> Confidence Sets for Multiple Coefficients</a></li>
+<li class="chapter" data-level="7.5" data-path="htaciimr.html"><a href="htaciimr.html#model-specification-for-multiple-regression"><i class="fa fa-check"></i><b>7.5</b> Model Specification for Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciimr.html"><a href="htaciimr.html#model-specification-in-theory-and-in-practice"><i class="fa fa-check"></i>Model Specification in Theory and in Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="htaciimr.html"><a href="htaciimr.html#analysis-of-the-test-score-data-set"><i class="fa fa-check"></i><b>7.6</b> Analysis of the Test Score Data Set</a></li>
+<li class="chapter" data-level="7.7" data-path="htaciimr.html"><a href="htaciimr.html#exercises-7"><i class="fa fa-check"></i><b>7.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nrf.html"><a href="nrf.html"><i class="fa fa-check"></i><b>8</b> Nonlinear Regression Functions</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="nrf.html"><a href="nrf.html#a-general-strategy-for-modelling-nonlinear-regression-functions"><i class="fa fa-check"></i><b>8.1</b> A General Strategy for Modelling Nonlinear Regression Functions</a></li>
+<li class="chapter" data-level="8.2" data-path="nrf.html"><a href="nrf.html#nfoasiv"><i class="fa fa-check"></i><b>8.2</b> Nonlinear Functions of a Single Independent Variable</a>
+<ul>
+<li class="chapter" data-level="" data-path="nrf.html"><a href="nrf.html#polynomials"><i class="fa fa-check"></i>Polynomials</a></li>
+<li class="chapter" data-level="" data-path="nrf.html"><a href="nrf.html#logarithms"><i class="fa fa-check"></i>Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="nrf.html"><a href="nrf.html#interactions-between-independent-variables"><i class="fa fa-check"></i><b>8.3</b> Interactions between Independent Variables</a></li>
+<li class="chapter" data-level="8.4" data-path="nrf.html"><a href="nrf.html#nonlinear-effects-on-test-scores-of-the-student-teacher-ratio"><i class="fa fa-check"></i><b>8.4</b> Nonlinear Effects on Test Scores of the Student-Teacher Ratio</a></li>
+<li class="chapter" data-level="8.5" data-path="nrf.html"><a href="nrf.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="asbomr.html"><a href="asbomr.html"><i class="fa fa-check"></i><b>9</b> Assessing Studies Based on Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="asbomr.html"><a href="asbomr.html#internal-and-external-validity"><i class="fa fa-check"></i><b>9.1</b> Internal and External Validity</a></li>
+<li class="chapter" data-level="9.2" data-path="asbomr.html"><a href="asbomr.html#ttivomra"><i class="fa fa-check"></i><b>9.2</b> Threats to Internal Validity of Multiple Regression Analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="asbomr.html"><a href="asbomr.html#internal-and-external-validity-when-the-regression-is-used-for-forecasting"><i class="fa fa-check"></i><b>9.3</b> Internal and External Validity when the Regression is used for Forecasting</a></li>
+<li class="chapter" data-level="9.4" data-path="asbomr.html"><a href="asbomr.html#etsacs"><i class="fa fa-check"></i><b>9.4</b> Example: Test Scores and Class Size</a></li>
+<li class="chapter" data-level="9.5" data-path="asbomr.html"><a href="asbomr.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rwpd.html"><a href="rwpd.html"><i class="fa fa-check"></i><b>10</b> Regression with Panel Data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="rwpd.html"><a href="rwpd.html#panel-data"><i class="fa fa-check"></i><b>10.1</b> Panel Data</a></li>
+<li class="chapter" data-level="10.2" data-path="rwpd.html"><a href="rwpd.html#PDWTTP"><i class="fa fa-check"></i><b>10.2</b> Panel Data with Two Time Periods: “Before and After” Comparisons</a></li>
+<li class="chapter" data-level="10.3" data-path="rwpd.html"><a href="rwpd.html#fixed-effects-regression"><i class="fa fa-check"></i><b>10.3</b> Fixed Effects Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rwpd.html"><a href="rwpd.html#estimation-and-inference"><i class="fa fa-check"></i>Estimation and Inference</a></li>
+<li class="chapter" data-level="" data-path="rwpd.html"><a href="rwpd.html#application-to-traffic-deaths"><i class="fa fa-check"></i>Application to Traffic Deaths</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="rwpd.html"><a href="rwpd.html#regression-with-time-fixed-effects"><i class="fa fa-check"></i><b>10.4</b> Regression with Time Fixed Effects</a></li>
+<li class="chapter" data-level="10.5" data-path="rwpd.html"><a href="rwpd.html#tferaaseffer"><i class="fa fa-check"></i><b>10.5</b> The Fixed Effects Regression Assumptions and Standard Errors for Fixed Effects Regression</a></li>
+<li class="chapter" data-level="10.6" data-path="rwpd.html"><a href="rwpd.html#drunk-driving-laws-and-traffic-deaths"><i class="fa fa-check"></i><b>10.6</b> Drunk Driving Laws and Traffic Deaths</a></li>
+<li class="chapter" data-level="10.7" data-path="rwpd.html"><a href="rwpd.html#exercises-10"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="rwabdv.html"><a href="rwabdv.html"><i class="fa fa-check"></i><b>11</b> Regression with a Binary Dependent Variable</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="rwabdv.html"><a href="rwabdv.html#binary-dependent-variables-and-the-linear-probability-model"><i class="fa fa-check"></i><b>11.1</b> Binary Dependent Variables and the Linear Probability Model</a></li>
+<li class="chapter" data-level="11.2" data-path="rwabdv.html"><a href="rwabdv.html#palr"><i class="fa fa-check"></i><b>11.2</b> Probit and Logit Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rwabdv.html"><a href="rwabdv.html#probit-regression"><i class="fa fa-check"></i>Probit Regression</a></li>
+<li class="chapter" data-level="" data-path="rwabdv.html"><a href="rwabdv.html#logit-regression"><i class="fa fa-check"></i>Logit Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="rwabdv.html"><a href="rwabdv.html#estimation-and-inference-in-the-logit-and-probit-models"><i class="fa fa-check"></i><b>11.3</b> Estimation and Inference in the Logit and Probit Models</a></li>
+<li class="chapter" data-level="11.4" data-path="rwabdv.html"><a href="rwabdv.html#application-to-the-boston-hmda-data"><i class="fa fa-check"></i><b>11.4</b> Application to the Boston HMDA Data</a></li>
+<li class="chapter" data-level="11.5" data-path="rwabdv.html"><a href="rwabdv.html#exercises-11"><i class="fa fa-check"></i><b>11.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ivr.html"><a href="ivr.html"><i class="fa fa-check"></i><b>12</b> Instrumental Variables Regression</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ivr.html"><a href="ivr.html#TIVEWASRAASI"><i class="fa fa-check"></i><b>12.1</b> The IV Estimator with a Single Regressor and a Single Instrument</a></li>
+<li class="chapter" data-level="12.2" data-path="ivr.html"><a href="ivr.html#TGIVRM"><i class="fa fa-check"></i><b>12.2</b> The General IV Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="ivr.html"><a href="ivr.html#civ"><i class="fa fa-check"></i><b>12.3</b> Checking Instrument Validity</a></li>
+<li class="chapter" data-level="12.4" data-path="ivr.html"><a href="ivr.html#attdfc"><i class="fa fa-check"></i><b>12.4</b> Application to the Demand for Cigarettes</a></li>
+<li class="chapter" data-level="12.5" data-path="ivr.html"><a href="ivr.html#where-do-valid-instruments-come-from"><i class="fa fa-check"></i><b>12.5</b> Where Do Valid Instruments Come From?</a></li>
+<li class="chapter" data-level="12.6" data-path="ivr.html"><a href="ivr.html#exercises-12"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="eaqe.html"><a href="eaqe.html"><i class="fa fa-check"></i><b>13</b> Experiments and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="eaqe.html"><a href="eaqe.html#poceaie"><i class="fa fa-check"></i><b>13.1</b> Potential Outcomes, Causal Effects and Idealized Experiments</a></li>
+<li class="chapter" data-level="13.2" data-path="eaqe.html"><a href="eaqe.html#threats-to-validity-of-experiments"><i class="fa fa-check"></i><b>13.2</b> Threats to Validity of Experiments</a></li>
+<li class="chapter" data-level="13.3" data-path="eaqe.html"><a href="eaqe.html#experimental-estimates-of-the-effect-of-class-size-reductions"><i class="fa fa-check"></i><b>13.3</b> Experimental Estimates of the Effect of Class Size Reductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#experimental-design-and-the-data-set"><i class="fa fa-check"></i>Experimental Design and the Data Set</a></li>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#analysis-of-the-star-data"><i class="fa fa-check"></i>Analysis of the STAR Data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="eaqe.html"><a href="eaqe.html#qe"><i class="fa fa-check"></i><b>13.4</b> Quasi Experiments</a>
+<ul>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#the-differences-in-differences-estimator"><i class="fa fa-check"></i>The Differences-in-Differences Estimator</a></li>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#regression-discontinuity-estimators"><i class="fa fa-check"></i>Regression Discontinuity Estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="eaqe.html"><a href="eaqe.html#exercises-13"><i class="fa fa-check"></i><b>13.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ittsraf.html"><a href="ittsraf.html"><i class="fa fa-check"></i><b>14</b> Introduction to Time Series Regression and Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ittsraf.html"><a href="ittsraf.html#using-regression-models-for-forecasting"><i class="fa fa-check"></i><b>14.1</b> Using Regression Models for Forecasting</a></li>
+<li class="chapter" data-level="14.2" data-path="ittsraf.html"><a href="ittsraf.html#tsdasc"><i class="fa fa-check"></i><b>14.2</b> Time Series Data and Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#notation-lags-differences-logarithms-and-growth-rates"><i class="fa fa-check"></i>Notation, Lags, Differences, Logarithms and Growth Rates</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ittsraf.html"><a href="ittsraf.html#autoregressions"><i class="fa fa-check"></i><b>14.3</b> Autoregressions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#autoregressive-models-of-order-p"><i class="fa fa-check"></i>Autoregressive Models of Order <span class="math inline">\(p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="ittsraf.html"><a href="ittsraf.html#cybtmpi"><i class="fa fa-check"></i><b>14.4</b> Can You Beat the Market? (Part I)</a></li>
+<li class="chapter" data-level="14.5" data-path="ittsraf.html"><a href="ittsraf.html#apatadlm"><i class="fa fa-check"></i><b>14.5</b> Additional Predictors and The ADL Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#forecast-uncertainty-and-forecast-intervals"><i class="fa fa-check"></i>Forecast Uncertainty and Forecast Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="ittsraf.html"><a href="ittsraf.html#llsuic"><i class="fa fa-check"></i><b>14.6</b> Lag Length Selection using Information Criteria</a></li>
+<li class="chapter" data-level="14.7" data-path="ittsraf.html"><a href="ittsraf.html#nit"><i class="fa fa-check"></i><b>14.7</b> Nonstationarity I: Trends</a></li>
+<li class="chapter" data-level="14.8" data-path="ittsraf.html"><a href="ittsraf.html#niib"><i class="fa fa-check"></i><b>14.8</b> Nonstationarity II: Breaks</a></li>
+<li class="chapter" data-level="14.9" data-path="ittsraf.html"><a href="ittsraf.html#can-you-beat-the-market-part-ii"><i class="fa fa-check"></i><b>14.9</b> Can You Beat the Market? (Part II)</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="eodce.html"><a href="eodce.html"><i class="fa fa-check"></i><b>15</b> Estimation of Dynamic Causal Effects</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="eodce.html"><a href="eodce.html#the-orange-juice-data"><i class="fa fa-check"></i><b>15.1</b> The Orange Juice Data</a></li>
+<li class="chapter" data-level="15.2" data-path="eodce.html"><a href="eodce.html#dynamic-causal-effects"><i class="fa fa-check"></i><b>15.2</b> Dynamic Causal Effects</a></li>
+<li class="chapter" data-level="15.3" data-path="eodce.html"><a href="eodce.html#dynamic-multipliers-and-cumulative-dynamic-multipliers"><i class="fa fa-check"></i><b>15.3</b> Dynamic Multipliers and Cumulative Dynamic Multipliers</a></li>
+<li class="chapter" data-level="15.4" data-path="eodce.html"><a href="eodce.html#hac-standard-errors"><i class="fa fa-check"></i><b>15.4</b> HAC Standard Errors</a></li>
+<li class="chapter" data-level="15.5" data-path="eodce.html"><a href="eodce.html#estimation-of-dynamic-causal-effects-with-strictly-exogeneous-regressors"><i class="fa fa-check"></i><b>15.5</b> Estimation of Dynamic Causal Effects with Strictly Exogeneous Regressors</a></li>
+<li class="chapter" data-level="15.6" data-path="eodce.html"><a href="eodce.html#orange-juice-prices-and-cold-weather"><i class="fa fa-check"></i><b>15.6</b> Orange Juice Prices and Cold Weather</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="atitsr.html"><a href="atitsr.html"><i class="fa fa-check"></i><b>16</b> Additional Topics in Time Series Regression</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="atitsr.html"><a href="atitsr.html#vector-autoregressions"><i class="fa fa-check"></i><b>16.1</b> Vector Autoregressions</a></li>
+<li class="chapter" data-level="16.2" data-path="atitsr.html"><a href="atitsr.html#ooiatdfglsurt"><i class="fa fa-check"></i><b>16.2</b> Orders of Integration and the DF-GLS Unit Root Test</a></li>
+<li class="chapter" data-level="16.3" data-path="atitsr.html"><a href="atitsr.html#cointegration"><i class="fa fa-check"></i><b>16.3</b> Cointegration</a></li>
+<li class="chapter" data-level="16.4" data-path="atitsr.html"><a href="atitsr.html#volatility-clustering-and-autoregressive-conditional-heteroskedasticity"><i class="fa fa-check"></i><b>16.4</b> Volatility Clustering and Autoregressive Conditional Heteroskedasticity</a>
+<ul>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#arch-and-garch-models"><i class="fa fa-check"></i>ARCH and GARCH Models</a></li>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#application-to-stock-price-volatility"><i class="fa fa-check"></i>Application to Stock Price Volatility</a></li>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#summary-8"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Econometrics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="arosur" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> A Review of Statistics using R<a href="arosur.html#arosur" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This section reviews important statistical concepts:</p>
+<ul>
+<li><p>Estimation of unknown population parameters</p></li>
+<li><p>Hypothesis testing</p></li>
+<li><p>Confidence intervals</p></li>
+</ul>
+<p>These methods are heavily used in econometrics. We will discuss them in the simple context of inference about an unknown population mean and discuss several applications in <tt>R</tt>. These <tt>R</tt> applications rely on the following packages which are not part of the base version of <tt>R</tt>:</p>
+<ul>
+<li><p><tt>readxl</tt> - allows to import data from <em>Excel</em> to <tt>R</tt>.</p></li>
+<li><p><tt>dplyr</tt> - provides a flexible grammar for data manipulation.</p></li>
+<li><p><tt>MASS</tt> - a collection of functions for applied statistics.</p></li>
+</ul>
+<p>Make sure these are installed before you go ahead and try to replicate the examples. The safest way to do so is by checking whether the following code chunk executes without any errors.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="arosur.html#cb46-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb46-2"><a href="arosur.html#cb46-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb46-3"><a href="arosur.html#cb46-3" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<div id="estimation-of-the-population-mean" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimation of the Population Mean<a href="arosur.html#estimation-of-the-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="KC3.1" class="keyconcept">
+<h3 class="right">
+Key Concept 3.1
+</h3>
+<h3 class="left">
+Estimators and Estimates
+</h3>
+<p><em>Estimators</em> are functions of sample data drawn from an unknown population. <em>Estimates</em> are numeric values computed by estimators based on the sample data. Estimators are random variables because they are functions of <em>random</em> data. Estimates are nonrandom numbers.</p>
+</div>
+<p>Think of some economic variable, for example hourly earnings of college graduates, denoted by <span class="math inline">\(Y\)</span>. Suppose we are interested in <span class="math inline">\(\mu_Y\)</span> the mean of <span class="math inline">\(Y\)</span>. In order to exactly calculate <span class="math inline">\(\mu_Y\)</span> we would have to interview every working graduate in the economy. We simply cannot do this due to time and cost constraints. However, we can draw a random sample of <span class="math inline">\(n\)</span> i.i.d. observations <span class="math inline">\(Y_1, \dots, Y_n\)</span> and estimate <span class="math inline">\(\mu_Y\)</span> using one of the simplest estimators in the sense of Key Concept 3.1 one can think of, that is,</p>
+<p><span class="math display">\[ \overline{Y} = \frac{1}{n} \sum_{i=1}^n Y_i, \]</span></p>
+<p>the sample mean of <span class="math inline">\(Y\)</span>. Then again, we could use an even simpler estimator for <span class="math inline">\(\mu_Y\)</span>: the very first observation in the sample, <span class="math inline">\(Y_1\)</span>. Is <span class="math inline">\(Y_1\)</span> a good estimator? For now, assume that</p>
+<p><span class="math display">\[ Y \sim \chi_{12}^2, \]</span></p>
+<p>which is not too unreasonable as hourly income is non-negative and we expect many hourly earnings to be in a range of <span class="math inline">\(5\)</span> Euro to <span class="math inline">\(15\)</span> Euro. Moreover, it is common for income distributions to be skewed to the right — a property of the <span class="math inline">\(\chi^2_{12}\)</span> distribution.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="arosur.html#cb47-1" tabindex="-1"></a><span class="co"># plot the chi_12^2 distribution</span></span>
+<span id="cb47-2"><a href="arosur.html#cb47-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df=</span><span class="dv">12</span>), </span>
+<span id="cb47-3"><a href="arosur.html#cb47-3" tabindex="-1"></a>      <span class="at">from =</span> <span class="dv">0</span>, </span>
+<span id="cb47-4"><a href="arosur.html#cb47-4" tabindex="-1"></a>      <span class="at">to =</span> <span class="dv">40</span>, </span>
+<span id="cb47-5"><a href="arosur.html#cb47-5" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;Density&quot;</span>, </span>
+<span id="cb47-6"><a href="arosur.html#cb47-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Hourly earnings in Euro&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-90-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>We now draw a sample of <span class="math inline">\(n=100\)</span> observations and take the first observation <span class="math inline">\(Y_1\)</span> as an estimate for <span class="math inline">\(\mu_Y\)</span></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="arosur.html#cb48-1" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
+<span id="cb48-2"><a href="arosur.html#cb48-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb48-3"><a href="arosur.html#cb48-3" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="arosur.html#cb48-4" tabindex="-1"></a><span class="co"># sample from the chi_12^2 distribution, use only the first observation</span></span>
+<span id="cb48-5"><a href="arosur.html#cb48-5" tabindex="-1"></a>rsamp <span class="ot">&lt;-</span> <span class="fu">rchisq</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">df =</span> <span class="dv">12</span>)</span>
+<span id="cb48-6"><a href="arosur.html#cb48-6" tabindex="-1"></a>rsamp[<span class="dv">1</span>]</span>
+<span id="cb48-7"><a href="arosur.html#cb48-7" tabindex="-1"></a><span class="co">#&gt; [1] 8.257893</span></span></code></pre></div>
+<p>The estimate <span class="math inline">\(8.26\)</span> is not too far away from <span class="math inline">\(\mu_Y = 12\)</span> but it is somewhat intuitive that we could do better: the estimator <span class="math inline">\(Y_1\)</span> discards a lot of information and its variance is the population variance:</p>
+<p><span class="math display">\[ \text{Var}(Y_1) = \text{Var}(Y) = 2 \cdot 12 = 24 \]</span></p>
+<p>This brings us to the following question: What is a <em>good</em> estimator of an unknown parameter in the first place? This question is tackled in Key Concepts 3.2 and 3.3.</p>
+<div id="KC3.2" class="keyconcept">
+<h3 class="right">
+Key Concept 3.2
+</h3>
+<h3 class="left">
+Bias, Consistency and Efficiency
+</h3>
+<p>Desirable characteristics of an estimator include unbiasedness, consistency and efficiency.</p>
+<p><strong>Unbiasedness:</strong><br />
+If the mean of the sampling distribution of some estimator <span class="math inline">\(\hat\mu_Y\)</span> for the population mean <span class="math inline">\(\mu_Y\)</span> equals <span class="math inline">\(\mu_Y\)</span>,
+<span class="math display">\[ E(\hat\mu_Y) = \mu_Y, \]</span>
+the estimator is unbiased for <span class="math inline">\(\mu_Y\)</span>. The <em>bias</em> of <span class="math inline">\(\hat\mu_Y\)</span> then is <span class="math inline">\(0\)</span>:</p>
+<p><span class="math display">\[ E(\hat\mu_Y) - \mu_Y = 0. \]</span></p>
+<p><strong>Consistency:</strong></p>
+<p>We want the uncertainty of the estimator <span class="math inline">\(\mu_Y\)</span> to decrease as the number of observations in the sample grows. More precisely, we want the probability that the estimate <span class="math inline">\(\hat\mu_Y\)</span> falls within a small interval around the true value <span class="math inline">\(\mu_Y\)</span> to get increasingly closer to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> grows. We write this as</p>
+<p><span class="math display">\[ \hat\mu_Y \xrightarrow{p} \mu_Y  \]</span></p>
+<p><strong>Variance and efficiency:</strong></p>
+<p>We want the estimator to be efficient. Suppose we have two estimators, <span class="math inline">\(\hat\mu_Y\)</span> and <span class="math inline">\(\overset{\sim}{\mu}_Y\)</span> and for some given sample size <span class="math inline">\(n\)</span> it holds that</p>
+<p><span class="math display">\[ E(\hat\mu_Y) = E(\overset{\sim}{\mu}_Y) = \mu_Y,\]</span>
+but
+<span class="math display">\[\text{Var}(\hat\mu_Y) &lt; \text{Var}(\overset{\sim}{\mu}_Y).\]</span></p>
+<p>We then prefer to use <span class="math inline">\(\hat\mu_Y\)</span> as it has a lower variance than <span class="math inline">\(\overset{\sim}{\mu}_Y\)</span>, meaning that <span class="math inline">\(\hat\mu_Y\)</span> is more <em>efficient</em> in using the information provided by the observations in the sample.</p>
+</div>
+</div>
+<div id="potsm" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Properties of the Sample Mean<a href="arosur.html#potsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+
+<div class="rmdknit">
+<p>A more precise way to express consistency of an estimator <span class="math inline">\(\hat\mu\)</span> for a parameter <span class="math inline">\(\mu\)</span> is</p>
+<p><span class="math display">\[ P(|\hat{\mu} - \mu|&lt;\epsilon) \xrightarrow[n \rightarrow \infty]{p} 1 \quad \text{for any}\quad\epsilon&gt;0.\]</span></p>
+This expression says that the probability of observing a deviation from the true value <span class="math inline">\(\mu\)</span> that is smaller than some arbitrary <span class="math inline">\(\epsilon &gt; 0\)</span> converges to <span class="math inline">\(1\)</span> as <span class="math inline">\(n\)</span> grows. Consistency does not require unbiasedness.
+</div>
+<p>To examine properties of the sample mean as an estimator for the corresponding population mean, consider the following <tt>R</tt> example.</p>
+<p>We generate a population, denoted as <tt>pop</tt>, consisting of observations <span class="math inline">\(Y_i\)</span>, where <span class="math inline">\(i=1,\dots,10000\)</span>. These observations are generated from a normal distribution with mean <span class="math inline">\(\mu = 10\)</span> and variance <span class="math inline">\(\sigma^2 = 1\)</span>.</p>
+<p>To investigate the behavior of the estimator <span class="math inline">\(\hat{\mu} = \bar{Y}\)</span>, we can draw random samples from this population and calculate <span class="math inline">\(\bar{Y}\)</span> for each of them. This is easily done by making use of the function <tt>replicate()</tt>. The argument <tt>expr</tt> is evaluated <tt>n</tt> times. In this case we draw samples of sizes <span class="math inline">\(n=5\)</span> and <span class="math inline">\(n=25\)</span>, compute the sample means and repeat this exactly <span class="math inline">\(N=25000\)</span> times.</p>
+<p>For comparison purposes we store results for the estimator <span class="math inline">\(Y_1\)</span>, the first observation in a sample of size <span class="math inline">\(5\)</span>, separately.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="arosur.html#cb49-1" tabindex="-1"></a><span class="co"># generate a fictious population</span></span>
+<span id="cb49-2"><a href="arosur.html#cb49-2" tabindex="-1"></a>pop <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10000</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb49-3"><a href="arosur.html#cb49-3" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="arosur.html#cb49-4" tabindex="-1"></a><span class="co"># sample from the population and estimate the mean</span></span>
+<span id="cb49-5"><a href="arosur.html#cb49-5" tabindex="-1"></a>est1 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">expr =</span> <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="at">x =</span> pop, <span class="at">size =</span> <span class="dv">5</span>)), <span class="at">n =</span> <span class="dv">25000</span>)</span>
+<span id="cb49-6"><a href="arosur.html#cb49-6" tabindex="-1"></a></span>
+<span id="cb49-7"><a href="arosur.html#cb49-7" tabindex="-1"></a>est2 <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">expr =</span> <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="at">x =</span> pop, <span class="at">size =</span> <span class="dv">25</span>)), <span class="at">n =</span> <span class="dv">25000</span>)</span>
+<span id="cb49-8"><a href="arosur.html#cb49-8" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="arosur.html#cb49-9" tabindex="-1"></a>fo <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">expr =</span> <span class="fu">sample</span>(<span class="at">x =</span> pop, <span class="at">size =</span> <span class="dv">5</span>)[<span class="dv">1</span>], <span class="at">n =</span> <span class="dv">25000</span>)</span></code></pre></div>
+<p>Check that <tt>est1</tt> and <tt>est2</tt> are vectors of length <span class="math inline">\(25000\)</span>:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="arosur.html#cb50-1" tabindex="-1"></a><span class="co"># check if object type is vector</span></span>
+<span id="cb50-2"><a href="arosur.html#cb50-2" tabindex="-1"></a><span class="fu">is.vector</span>(est1)</span>
+<span id="cb50-3"><a href="arosur.html#cb50-3" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb50-4"><a href="arosur.html#cb50-4" tabindex="-1"></a><span class="fu">is.vector</span>(est2)</span>
+<span id="cb50-5"><a href="arosur.html#cb50-5" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
+<span id="cb50-6"><a href="arosur.html#cb50-6" tabindex="-1"></a></span>
+<span id="cb50-7"><a href="arosur.html#cb50-7" tabindex="-1"></a><span class="co"># check length</span></span>
+<span id="cb50-8"><a href="arosur.html#cb50-8" tabindex="-1"></a><span class="fu">length</span>(est1)</span>
+<span id="cb50-9"><a href="arosur.html#cb50-9" tabindex="-1"></a><span class="co">#&gt; [1] 25000</span></span>
+<span id="cb50-10"><a href="arosur.html#cb50-10" tabindex="-1"></a><span class="fu">length</span>(est2)</span>
+<span id="cb50-11"><a href="arosur.html#cb50-11" tabindex="-1"></a><span class="co">#&gt; [1] 25000</span></span></code></pre></div>
+<p>The code chunk below produces a plot of the sampling distributions of the estimators <span class="math inline">\(\bar{Y}\)</span> and <span class="math inline">\(Y_1\)</span> on the basis of the <span class="math inline">\(25000\)</span> samples in each case. We also plot the density function of the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="arosur.html#cb51-1" tabindex="-1"></a><span class="co"># plot density estimate Y_1</span></span>
+<span id="cb51-2"><a href="arosur.html#cb51-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(fo), </span>
+<span id="cb51-3"><a href="arosur.html#cb51-3" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, </span>
+<span id="cb51-4"><a href="arosur.html#cb51-4" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb51-5"><a href="arosur.html#cb51-5" tabindex="-1"></a>      <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>),</span>
+<span id="cb51-6"><a href="arosur.html#cb51-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Estimates&quot;</span>,</span>
+<span id="cb51-7"><a href="arosur.html#cb51-7" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Sampling Distributions of Unbiased Estimators&quot;</span>)</span>
+<span id="cb51-8"><a href="arosur.html#cb51-8" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="arosur.html#cb51-9" tabindex="-1"></a><span class="co"># add density estimate for the distribution of the sample mean with n=5 to the plot</span></span>
+<span id="cb51-10"><a href="arosur.html#cb51-10" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(est1), </span>
+<span id="cb51-11"><a href="arosur.html#cb51-11" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb51-12"><a href="arosur.html#cb51-12" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb51-13"><a href="arosur.html#cb51-13" tabindex="-1"></a>     <span class="at">bty =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb51-14"><a href="arosur.html#cb51-14" tabindex="-1"></a></span>
+<span id="cb51-15"><a href="arosur.html#cb51-15" tabindex="-1"></a><span class="co"># add density estimate for the distribution of the sample mean with n=25 to the plot</span></span>
+<span id="cb51-16"><a href="arosur.html#cb51-16" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(est2), </span>
+<span id="cb51-17"><a href="arosur.html#cb51-17" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;red2&quot;</span>, </span>
+<span id="cb51-18"><a href="arosur.html#cb51-18" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb51-19"><a href="arosur.html#cb51-19" tabindex="-1"></a></span>
+<span id="cb51-20"><a href="arosur.html#cb51-20" tabindex="-1"></a><span class="co"># add a vertical line at the true parameter</span></span>
+<span id="cb51-21"><a href="arosur.html#cb51-21" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">10</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb51-22"><a href="arosur.html#cb51-22" tabindex="-1"></a></span>
+<span id="cb51-23"><a href="arosur.html#cb51-23" tabindex="-1"></a><span class="co"># add N(10,1) density to the plot</span></span>
+<span id="cb51-24"><a href="arosur.html#cb51-24" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">10</span>), </span>
+<span id="cb51-25"><a href="arosur.html#cb51-25" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb51-26"><a href="arosur.html#cb51-26" tabindex="-1"></a>     <span class="at">lty =</span> <span class="dv">2</span>,</span>
+<span id="cb51-27"><a href="arosur.html#cb51-27" tabindex="-1"></a>     <span class="at">add =</span> T)</span>
+<span id="cb51-28"><a href="arosur.html#cb51-28" tabindex="-1"></a></span>
+<span id="cb51-29"><a href="arosur.html#cb51-29" tabindex="-1"></a><span class="co"># add a legend</span></span>
+<span id="cb51-30"><a href="arosur.html#cb51-30" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb51-31"><a href="arosur.html#cb51-31" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;N(10,1)&quot;</span>,</span>
+<span id="cb51-32"><a href="arosur.html#cb51-32" tabindex="-1"></a>                  <span class="fu">expression</span>(Y[n <span class="sc">==</span> <span class="dv">1</span>]),</span>
+<span id="cb51-33"><a href="arosur.html#cb51-33" tabindex="-1"></a>                  <span class="fu">expression</span>(<span class="fu">bar</span>(Y)[n <span class="sc">==</span> <span class="dv">5</span>]),</span>
+<span id="cb51-34"><a href="arosur.html#cb51-34" tabindex="-1"></a>                  <span class="fu">expression</span>(<span class="fu">bar</span>(Y)[n <span class="sc">==</span> <span class="dv">25</span>])</span>
+<span id="cb51-35"><a href="arosur.html#cb51-35" tabindex="-1"></a>                  ), </span>
+<span id="cb51-36"><a href="arosur.html#cb51-36" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb51-37"><a href="arosur.html#cb51-37" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;green&quot;</span>, <span class="st">&quot;steelblue&quot;</span>, <span class="st">&quot;red2&quot;</span>),</span>
+<span id="cb51-38"><a href="arosur.html#cb51-38" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-96-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>First, <em>all</em> sampling distributions (represented by the solid lines) are centered around <span class="math inline">\(\mu = 10\)</span>. This is evidence for the <em>unbiasedness</em> of <span class="math inline">\(Y_1\)</span>, <span class="math inline">\(\overline{Y}_{5}\)</span> and <span class="math inline">\(\overline{Y}_{25}\)</span>. Of course, the theoretical density <span class="math inline">\(\mathcal{N}(10,1)\)</span> is also centered at <span class="math inline">\(10\)</span>.</p>
+<p>Next, have a look at the spread of the sampling distributions. Several things are noteworthy:</p>
+<ul>
+<li><p>The sampling distribution of <span class="math inline">\(Y_1\)</span> (green curve) tracks the density of the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution (black dashed line) pretty closely. In fact, the sampling distribution of <span class="math inline">\(Y_1\)</span> is the <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution. This is less surprising if you keep in mind that the <span class="math inline">\(Y_1\)</span> estimator does nothing but reporting an observation that is randomly selected from a population with <span class="math inline">\(\mathcal{N}(10,1)\)</span> distribution. Hence, <span class="math inline">\(Y_1 \sim \mathcal{N}(10,1)\)</span>. Note that this result does not depend on the sample size <span class="math inline">\(n\)</span>: the sampling distribution of <span class="math inline">\(Y_1\)</span> <em>is always</em> the population distribution, no matter how large the sample is, <span class="math inline">\(Y_1\)</span> is a good estimate of <span class="math inline">\(\mu_Y\)</span>, but we can do better.</p></li>
+<li><p>Both the sampling distributions of <span class="math inline">\(\overline{Y}\)</span> show less dispersion than the sampling distribution of <span class="math inline">\(Y_1\)</span>. This means that <span class="math inline">\(\overline{Y}\)</span> has a lower variance than <span class="math inline">\(Y_1\)</span>. In view of Key Concepts 3.2 and 3.3, we find that <span class="math inline">\(\overline{Y}\)</span> is a more efficient estimator than <span class="math inline">\(Y_1\)</span>. In fact, this holds for all <span class="math inline">\(n&gt;1\)</span>.</p></li>
+<li><p><span class="math inline">\(\overline{Y}\)</span> shows a behavior illustrating consistency (see Key Concept 3.2). The blue and the red densities are much more concentrated around <span class="math inline">\(\mu=10\)</span> than the green one. As the number of observations is increased from <span class="math inline">\(1\)</span> to <span class="math inline">\(5\)</span>, the sampling distribution tightens around the true parameter. By increasing the sample size to <span class="math inline">\(25\)</span>, this effect becomes more apparent. This implies that the probability of obtaining estimates that are close to the true value increases with <span class="math inline">\(n\)</span>. This is also reflected by the estimated values of the density function close to 10: the larger the sample size, the larger the value of the density.</p></li>
+</ul>
+<p>We encourage you to go ahead and modify the code. Try out different values for the sample size and see how the sampling distribution of <span class="math inline">\(\overline{Y}\)</span> changes!</p>
+<div id="overliney-is-the-least-squares-estimator-of-mu_y" class="section level4 unnumbered hasAnchor">
+<h4><span class="math inline">\(\overline{Y}\)</span> is the Least Squares Estimator of <span class="math inline">\(\mu_Y\)</span><a href="arosur.html#overliney-is-the-least-squares-estimator-of-mu_y" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Assume you have some observations <span class="math inline">\(Y_1,\dots,Y_n\)</span> on <span class="math inline">\(Y \sim \mathcal{N}(10,1)\)</span> (which is unknown) and would like to find an estimator <span class="math inline">\(m\)</span> that predicts the observations as good as possible. Here, we aim to find an estimator <span class="math inline">\(m\)</span> that results in a small total squared deviation between the predicted and observed values. Mathematically, this means we want to find an <span class="math inline">\(m\)</span> that minimizes</p>
+<p><span class="math display" id="eq:sqm">\[\begin{equation}
+  \sum_{i=1}^n (Y_i - m)^2. \tag{3.1}
+\end{equation}\]</span></p>
+<p>Think of <span class="math inline">\(Y_i - m\)</span> as the mistake made when predicting <span class="math inline">\(Y_i\)</span> by <span class="math inline">\(m\)</span>. We could also minimize the sum of absolute deviations from <span class="math inline">\(m\)</span> but minimizing the sum of squared deviations is mathematically more convenient (and will lead to a different result). That is why the estimator we are looking for is called the <em>least squares estimator</em>. <span class="math inline">\(m = \overline{Y}\)</span>, the sample mean, is this estimator.</p>
+<p>We can show this by generating a random sample and plotting <a href="arosur.html#eq:sqm">(3.1)</a> as a function of <span class="math inline">\(m\)</span>.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="arosur.html#cb52-1" tabindex="-1"></a><span class="co"># define the function and vectorize it</span></span>
+<span id="cb52-2"><a href="arosur.html#cb52-2" tabindex="-1"></a>sqm <span class="ot">&lt;-</span> <span class="cf">function</span>(m) {</span>
+<span id="cb52-3"><a href="arosur.html#cb52-3" tabindex="-1"></a> <span class="fu">sum</span>((y<span class="sc">-</span>m)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb52-4"><a href="arosur.html#cb52-4" tabindex="-1"></a>}</span>
+<span id="cb52-5"><a href="arosur.html#cb52-5" tabindex="-1"></a>sqm <span class="ot">&lt;-</span> <span class="fu">Vectorize</span>(sqm)</span>
+<span id="cb52-6"><a href="arosur.html#cb52-6" tabindex="-1"></a></span>
+<span id="cb52-7"><a href="arosur.html#cb52-7" tabindex="-1"></a><span class="co"># draw random sample and compute the mean</span></span>
+<span id="cb52-8"><a href="arosur.html#cb52-8" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">1</span>)</span>
+<span id="cb52-9"><a href="arosur.html#cb52-9" tabindex="-1"></a><span class="fu">mean</span>(y)</span>
+<span id="cb52-10"><a href="arosur.html#cb52-10" tabindex="-1"></a><span class="co">#&gt; [1] 10.1364</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="arosur.html#cb53-1" tabindex="-1"></a><span class="co"># plot the objective function</span></span>
+<span id="cb53-2"><a href="arosur.html#cb53-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">sqm</span>(x), </span>
+<span id="cb53-3"><a href="arosur.html#cb53-3" tabindex="-1"></a>      <span class="at">from =</span> <span class="sc">-</span><span class="dv">50</span>, </span>
+<span id="cb53-4"><a href="arosur.html#cb53-4" tabindex="-1"></a>      <span class="at">to =</span> <span class="dv">70</span>,</span>
+<span id="cb53-5"><a href="arosur.html#cb53-5" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;m&quot;</span>,</span>
+<span id="cb53-6"><a href="arosur.html#cb53-6" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;sqm(m)&quot;</span>)</span>
+<span id="cb53-7"><a href="arosur.html#cb53-7" tabindex="-1"></a></span>
+<span id="cb53-8"><a href="arosur.html#cb53-8" tabindex="-1"></a><span class="co"># add vertical line at mean(y)</span></span>
+<span id="cb53-9"><a href="arosur.html#cb53-9" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(y), </span>
+<span id="cb53-10"><a href="arosur.html#cb53-10" tabindex="-1"></a>       <span class="at">lty =</span> <span class="dv">2</span>, </span>
+<span id="cb53-11"><a href="arosur.html#cb53-11" tabindex="-1"></a>       <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span>
+<span id="cb53-12"><a href="arosur.html#cb53-12" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="arosur.html#cb53-13" tabindex="-1"></a><span class="co"># add annotation at mean(y)</span></span>
+<span id="cb53-14"><a href="arosur.html#cb53-14" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fu">mean</span>(y), </span>
+<span id="cb53-15"><a href="arosur.html#cb53-15" tabindex="-1"></a>     <span class="at">y =</span> <span class="dv">0</span>, </span>
+<span id="cb53-16"><a href="arosur.html#cb53-16" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">paste</span>(<span class="fu">round</span>(<span class="fu">mean</span>(y), <span class="dv">2</span>)))</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-98-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Notice that <a href="arosur.html#eq:sqm">(3.1)</a> is a quadratic function so that there is only one minimum. The plot shows that this minimum lies exactly at the sample mean of the sample data.</p>
+
+<div class="rmdknit">
+<p>Some <tt>R</tt> functions can only interact with functions that take a vector as an input and evaluate the function body on every entry of the vector, for example <tt>curve()</tt>. We call such functions vectorized functions and it is often a good idea to write vectorized functions yourself, although this is cumbersome in some cases. Having a vectorized function in <tt>R</tt> is never a drawback since, these functions work on both single values and vectors.</p>
+<p>Let us look at the function <tt>sqm()</tt>, which is non-vectorized:</p>
+<p><tt>
+sqm &lt;- function(m) {<br />
+     sum((y-m)^2) #body of the function<br />
+}
+</tt></p>
+<p>Providing, e.g., <tt>c(1,2,3)</tt> as the argument <tt>m</tt> would cause an error since then the operation <tt>y-m</tt> is invalid: the vectors <tt>y</tt> and <tt>m</tt> are of incompatible dimensions. This is why we cannot use <tt>sqm()</tt> in conjunction with <tt>curve()</tt>.</p>
+Here <tt>Vectorize()</tt> comes into play. It generates a vectorized version of a non-vectorized function.
+</div>
+</div>
+<div id="why-is-random-sampling-important" class="section level4 unnumbered hasAnchor">
+<h4>Why is Random Sampling Important ?<a href="arosur.html#why-is-random-sampling-important" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>So far, we assumed (sometimes implicitly) that the observed data <span class="math inline">\(Y_1, \dots, Y_n\)</span> are the result of a sampling process that satisfies the assumption of simple random sampling. This assumption often is fulfilled when estimating a population mean using <span class="math inline">\(\overline{Y}\)</span>. If this is not the case, estimates may be biased.</p>
+<p>Let us fall back to <tt>pop</tt>, the fictitious population of <span class="math inline">\(10000\)</span> observations and compute the population mean <span class="math inline">\(\mu_{\texttt{pop}}\)</span>:</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="arosur.html#cb54-1" tabindex="-1"></a><span class="co"># compute the population mean of pop</span></span>
+<span id="cb54-2"><a href="arosur.html#cb54-2" tabindex="-1"></a><span class="fu">mean</span>(pop)</span>
+<span id="cb54-3"><a href="arosur.html#cb54-3" tabindex="-1"></a><span class="co">#&gt; [1] 9.992604</span></span></code></pre></div>
+<p>Next we sample <span class="math inline">\(25\)</span> observations from <tt>pop</tt> with <tt>sample()</tt> and estimate <span class="math inline">\(\mu_{\texttt{pop}}\)</span> using <span class="math inline">\(\overline{Y}\)</span> repeatedly. However, now we use a sampling scheme that deviates from simple random sampling: instead of ensuring that each member of the population has the same chance to end up in a sample, we assign a higher probability of being sampled to the <span class="math inline">\(2500\)</span> smallest observations of the population by setting the argument <tt>prob</tt> to a suitable vector of probability weights:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="arosur.html#cb55-1" tabindex="-1"></a><span class="co"># simulate outcomes for the sample mean when the i.i.d. assumption fails</span></span>
+<span id="cb55-2"><a href="arosur.html#cb55-2" tabindex="-1"></a>est3 <span class="ot">&lt;-</span>  <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">25000</span>, </span>
+<span id="cb55-3"><a href="arosur.html#cb55-3" tabindex="-1"></a>                   <span class="at">expr =</span> <span class="fu">mean</span>(<span class="fu">sample</span>(<span class="at">x =</span> <span class="fu">sort</span>(pop), </span>
+<span id="cb55-4"><a href="arosur.html#cb55-4" tabindex="-1"></a>                                      <span class="at">size =</span> <span class="dv">25</span>, </span>
+<span id="cb55-5"><a href="arosur.html#cb55-5" tabindex="-1"></a>                                      <span class="at">prob =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">4</span>, <span class="dv">2500</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">7500</span>)))))</span>
+<span id="cb55-6"><a href="arosur.html#cb55-6" tabindex="-1"></a></span>
+<span id="cb55-7"><a href="arosur.html#cb55-7" tabindex="-1"></a><span class="co"># compute the sample mean of the outcomes</span></span>
+<span id="cb55-8"><a href="arosur.html#cb55-8" tabindex="-1"></a><span class="fu">mean</span>(est3)</span>
+<span id="cb55-9"><a href="arosur.html#cb55-9" tabindex="-1"></a><span class="co">#&gt; [1] 9.443067</span></span></code></pre></div>
+<p>Next we plot the sampling distribution of <span class="math inline">\(\overline{Y}\)</span> for this non-i.i.d. case and compare it to the sampling distribution when the i.i.d. assumption holds.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="arosur.html#cb56-1" tabindex="-1"></a><span class="co"># sampling distribution of sample mean, i.i.d. holds, n=25</span></span>
+<span id="cb56-2"><a href="arosur.html#cb56-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(est2), </span>
+<span id="cb56-3"><a href="arosur.html#cb56-3" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb56-4"><a href="arosur.html#cb56-4" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb56-5"><a href="arosur.html#cb56-5" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">11</span>),</span>
+<span id="cb56-6"><a href="arosur.html#cb56-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;Estimates&quot;</span>,</span>
+<span id="cb56-7"><a href="arosur.html#cb56-7" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;When the i.i.d. Assumption Fails&quot;</span>)</span>
+<span id="cb56-8"><a href="arosur.html#cb56-8" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="arosur.html#cb56-9" tabindex="-1"></a><span class="co"># sampling distribution of sample mean, i.i.d. fails, n=25</span></span>
+<span id="cb56-10"><a href="arosur.html#cb56-10" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(est3),</span>
+<span id="cb56-11"><a href="arosur.html#cb56-11" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;red2&quot;</span>,</span>
+<span id="cb56-12"><a href="arosur.html#cb56-12" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb56-13"><a href="arosur.html#cb56-13" tabindex="-1"></a></span>
+<span id="cb56-14"><a href="arosur.html#cb56-14" tabindex="-1"></a><span class="co"># add a legend</span></span>
+<span id="cb56-15"><a href="arosur.html#cb56-15" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb56-16"><a href="arosur.html#cb56-16" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="fu">expression</span>(<span class="fu">bar</span>(Y)[n <span class="sc">==</span> <span class="dv">25</span>]<span class="sc">~</span><span class="st">&quot;, i.i.d. fails&quot;</span>),</span>
+<span id="cb56-17"><a href="arosur.html#cb56-17" tabindex="-1"></a>                  <span class="fu">expression</span>(<span class="fu">bar</span>(Y)[n <span class="sc">==</span> <span class="dv">25</span>]<span class="sc">~</span><span class="st">&quot;, i.i.d. holds&quot;</span>)</span>
+<span id="cb56-18"><a href="arosur.html#cb56-18" tabindex="-1"></a>                  ), </span>
+<span id="cb56-19"><a href="arosur.html#cb56-19" tabindex="-1"></a>       <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), </span>
+<span id="cb56-20"><a href="arosur.html#cb56-20" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red2&quot;</span>, <span class="st">&quot;steelblue&quot;</span>),</span>
+<span id="cb56-21"><a href="arosur.html#cb56-21" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-101-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Here, the failure of the i.i.d. assumption implies that, on average, we <em>underestimate</em> <span class="math inline">\(\mu_Y\)</span> using <span class="math inline">\(\overline{Y}\)</span>: the corresponding distribution of <span class="math inline">\(\overline{Y}\)</span> is shifted to the left. In other words, <span class="math inline">\(\overline{Y}\)</span> is a <em>biased</em> estimator for <span class="math inline">\(\mu_Y\)</span> if the i.i.d. assumption does not hold.</p>
+</div>
+</div>
+<div id="hypothesis-tests-concerning-the-population-mean" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Hypothesis Tests concerning the Population Mean<a href="arosur.html#hypothesis-tests-concerning-the-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section we briefly review concepts in hypothesis testing and discuss how to conduct hypothesis tests in <tt>R</tt>. We focus on drawing inferences about an unknown population mean.</p>
+<div id="about-hypotheses-and-hypothesis-testing" class="section level4 unnumbered hasAnchor">
+<h4>About Hypotheses and Hypothesis Testing<a href="arosur.html#about-hypotheses-and-hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In a significance test we want to exploit the information contained in a sample as evidence in favor of against a hypothesis. Essentially, hypotheses are simple questions that can be answered by ‘yes’ or ‘no’. In a hypothesis test we typically deal with two different hypotheses:</p>
+<ul>
+<li><p>The <em>null hypothesis</em>, denoted by <span class="math inline">\(H_0\)</span>, is the hypothesis we are interested in testing.</p></li>
+<li><p>There must be an <em>alternative hypothesis</em>, denoted by <span class="math inline">\(H_1\)</span>, the hypothesis that is thought to hold if the null hypothesis is rejected.</p></li>
+</ul>
+<p>The null hypothesis that the population mean of <span class="math inline">\(Y\)</span> equals the value <span class="math inline">\(\mu_{Y,0}\)</span> is written as</p>
+<p><span class="math display">\[ H_0: E(Y) = \mu_{Y,0}. \]</span></p>
+<p>Often the alternative hypothesis is chosen such that it is the most general one,</p>
+<p><span class="math display">\[ H_1: E(Y) \neq \mu_{Y,0}, \]</span></p>
+<p>meaning that <span class="math inline">\(E(Y)\)</span> may be anything but the value under the null hypothesis. This is called a <em>two-sided</em> alternative.</p>
+<p>For the sake of brevity, we only consider two-sided alternatives in the subsequent sections of this chapter.</p>
+</div>
+<div id="the-p-value" class="section level3 unnumbered hasAnchor">
+<h3>The p-Value<a href="arosur.html#the-p-value" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assume that the null hypothesis is <em>true</em>. The <span class="math inline">\(p\)</span>-value is the probability of drawing data and observing a corresponding test statistic that is at least as adverse to what is stated under the null hypothesis as the test statistic actually computed using the sample data.</p>
+<p>In the context of the population mean and the sample mean, this definition can be stated mathematically in the following way:</p>
+<p><span class="math display" id="eq:pvalue">\[\begin{equation}
+p \text{-value} = P_{H_0}\left[ \lvert \overline{Y} - \mu_{Y,0} \rvert &gt; \lvert \overline{Y}^{act} - \mu_{Y,0} \rvert \right] , \tag{3.2}
+\end{equation}\]</span></p>
+<p>In <a href="arosur.html#eq:pvalue">(3.2)</a>, <span class="math inline">\(\overline{Y}^{act}\)</span> is the sample mean for the data at hand (a value). In order to compute the <span class="math inline">\(p\)</span>-value as in <a href="arosur.html#eq:pvalue">(3.2)</a>, knowledge about the sampling distribution of <span class="math inline">\(\overline{Y}\)</span> (a random variable) when the null hypothesis is true (the <em>null distribution</em>) is required. However, in most cases the sampling distribution and thus the null distribution of <span class="math inline">\(\overline{Y}\)</span> are unknown. Fortunately, the CLT (see Key Concept 2.7) allows for the large-sample approximation <span class="math display">\[ \overline{Y} \approx \mathcal{N}(\mu_{Y,0}, \, \sigma^2_{\overline{Y}}) \ \ , \ \ \sigma^2_{\overline{Y}} = \frac{\sigma_Y^2}{n}, \]</span> assuming the null hypothesis <span class="math inline">\(H_0: E(Y) = \mu_{Y, 0}\)</span> is true. With some algebra it follows for large <span class="math inline">\(n\)</span> that</p>
+<p><span class="math display">\[ \frac{\overline{Y} - \mu_{Y,0}}{\sigma_Y/\sqrt{n}} \sim \mathcal{N}(0,1). \]</span></p>
+<p>So in large samples, the <span class="math inline">\(p\)</span>-value can be computed <em>without</em> knowledge of the exact sampling distribution of <span class="math inline">\(\overline{Y}\)</span> using the above normal approximation.</p>
+</div>
+<div id="calculating-the-p-value-when-the-standard-deviation-is-known" class="section level3 unnumbered hasAnchor">
+<h3>Calculating the p-Value when the Standard Deviation is Known<a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-known" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For now, let us assume that <span class="math inline">\(\sigma_{\overline{Y}}\)</span> is known. Then, we can rewrite <a href="arosur.html#eq:pvalue">(3.2)</a> as</p>
+<p><span class="math display" id="eq:pvaluenorm1">\[\begin{align}
+p \text{-value} =&amp; \, P_{H_0}\left[ \left\lvert \frac{\overline{Y} - \mu_{Y,0}}{\sigma_{\overline{Y}}} \right\rvert &gt; \left\lvert \frac{\overline{Y}^{act} - \mu_{Y,0}}{\sigma_{\overline{Y}}} \right\rvert \right] \\
+=&amp; \, 2 \cdot \Phi \left[ - \left\lvert \frac{\overline{Y}^{act} - \mu_{Y,0}}{\sigma_{\overline{Y}}}  \right\rvert\right].  \tag{3.3}
+\end{align}\]</span></p>
+<p>The <span class="math inline">\(p\)</span>-value is this area in the tails of the <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution that lies beyond</p>
+<p><span class="math display" id="eq:pvaluenorm2">\[\begin{equation}
+\pm \left\lvert \frac{\overline{Y}^{act} - \mu_{Y,0}}{\sigma_{\overline{Y}}} \right\rvert \tag{3.4} \ ,
+\end{equation}\]</span></p>
+<p>We now use <tt>R</tt> to visualize what is stated in <a href="arosur.html#eq:pvaluenorm1">(3.3)</a> and <a href="arosur.html#eq:pvaluenorm2">(3.4)</a>. The next code chunk replicates Figure 3.1 of the book.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="arosur.html#cb57-1" tabindex="-1"></a><span class="co"># plot the standard normal density on the interval [-4,4]</span></span>
+<span id="cb57-2"><a href="arosur.html#cb57-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x),</span>
+<span id="cb57-3"><a href="arosur.html#cb57-3" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb57-4"><a href="arosur.html#cb57-4" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Calculating a p-Value&quot;</span>,</span>
+<span id="cb57-5"><a href="arosur.html#cb57-5" tabindex="-1"></a>      <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span>,</span>
+<span id="cb57-6"><a href="arosur.html#cb57-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;z&quot;</span>,</span>
+<span id="cb57-7"><a href="arosur.html#cb57-7" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb57-8"><a href="arosur.html#cb57-8" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb57-9"><a href="arosur.html#cb57-9" tabindex="-1"></a>      <span class="at">axes =</span> <span class="st">&quot;F&quot;</span>)</span>
+<span id="cb57-10"><a href="arosur.html#cb57-10" tabindex="-1"></a></span>
+<span id="cb57-11"><a href="arosur.html#cb57-11" tabindex="-1"></a><span class="co"># add x-axis</span></span>
+<span id="cb57-12"><a href="arosur.html#cb57-12" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, </span>
+<span id="cb57-13"><a href="arosur.html#cb57-13" tabindex="-1"></a>     <span class="at">at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.5</span>, <span class="dv">0</span>, <span class="fl">1.5</span>), </span>
+<span id="cb57-14"><a href="arosur.html#cb57-14" tabindex="-1"></a>     <span class="at">padj =</span> <span class="fl">0.75</span>,</span>
+<span id="cb57-15"><a href="arosur.html#cb57-15" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="fu">expression</span>(<span class="sc">-</span><span class="fu">frac</span>(<span class="fu">bar</span>(Y)<span class="sc">^</span><span class="st">&quot;act&quot;</span><span class="sc">~-</span><span class="er">~</span><span class="fu">bar</span>(mu)[<span class="st">&quot;Y,0&quot;</span>], sigma[<span class="fu">bar</span>(Y)])),</span>
+<span id="cb57-16"><a href="arosur.html#cb57-16" tabindex="-1"></a>                <span class="dv">0</span>,</span>
+<span id="cb57-17"><a href="arosur.html#cb57-17" tabindex="-1"></a>                <span class="fu">expression</span>(<span class="fu">frac</span>(<span class="fu">bar</span>(Y)<span class="sc">^</span><span class="st">&quot;act&quot;</span><span class="sc">~-</span><span class="er">~</span><span class="fu">bar</span>(mu)[<span class="st">&quot;Y,0&quot;</span>], sigma[<span class="fu">bar</span>(Y)]))))</span>
+<span id="cb57-18"><a href="arosur.html#cb57-18" tabindex="-1"></a></span>
+<span id="cb57-19"><a href="arosur.html#cb57-19" tabindex="-1"></a><span class="co"># shade p-value/2 region in left tail</span></span>
+<span id="cb57-20"><a href="arosur.html#cb57-20" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">0.01</span>), <span class="sc">-</span><span class="fl">1.5</span>),</span>
+<span id="cb57-21"><a href="arosur.html#cb57-21" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">6</span>, <span class="sc">-</span><span class="fl">1.5</span>, <span class="fl">0.01</span>)),<span class="dv">0</span>), </span>
+<span id="cb57-22"><a href="arosur.html#cb57-22" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>)</span>
+<span id="cb57-23"><a href="arosur.html#cb57-23" tabindex="-1"></a></span>
+<span id="cb57-24"><a href="arosur.html#cb57-24" tabindex="-1"></a><span class="co"># shade p-value/2 region in right tail</span></span>
+<span id="cb57-25"><a href="arosur.html#cb57-25" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fu">seq</span>(<span class="fl">1.5</span>, <span class="dv">6</span>, <span class="fl">0.01</span>), <span class="dv">6</span>),</span>
+<span id="cb57-26"><a href="arosur.html#cb57-26" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="fl">1.5</span>, <span class="dv">6</span>, <span class="fl">0.01</span>)), <span class="dv">0</span>), </span>
+<span id="cb57-27"><a href="arosur.html#cb57-27" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-102-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="SVSSDASE" class="section level3 unnumbered hasAnchor">
+<h3>Sample Variance, Sample Standard Deviation and Standard Error<a href="arosur.html#SVSSDASE" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If <span class="math inline">\(\sigma^2_Y\)</span> is unknown, it must be estimated. This can be done using the sample variance</p>
+<p><span class="math display">\[\begin{equation}
+s_Y^2 = \frac{1}{n-1} \sum_{i=1}^n (Y_i - \overline{Y})^2.
+\end{equation}\]</span></p>
+<p>Furthermore</p>
+<p><span class="math display">\[\begin{equation}
+s_Y = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (Y_i - \overline{Y})^2}
+\end{equation}\]</span></p>
+<p>is a suitable estimator for the standard deviation of <span class="math inline">\(Y\)</span>. In <tt>R</tt>, <span class="math inline">\(s_Y\)</span> is implemented in the function <tt>sd()</tt>, see <code>?sd</code>.</p>
+<p>Using <tt>R</tt> we can illustrate that <span class="math inline">\(s_Y\)</span> is a consistent estimator for <span class="math inline">\(\sigma_Y\)</span>, that is</p>
+<p><span class="math display">\[ s_Y \overset{p}{\longrightarrow} \sigma_Y. \]</span></p>
+<p>The idea here is to generate a large number of samples <span class="math inline">\(Y_1,\dots,Y_n\)</span> where, <span class="math inline">\(Y\sim \mathcal{N}(10, 9)\)</span> say, estimate <span class="math inline">\(\sigma_Y\)</span> using <span class="math inline">\(s_Y\)</span> and investigate how the distribution of <span class="math inline">\(s_Y\)</span> changes as <span class="math inline">\(n\)</span> gets larger.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="arosur.html#cb58-1" tabindex="-1"></a><span class="co"># vector of sample sizes</span></span>
+<span id="cb58-2"><a href="arosur.html#cb58-2" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">5000</span>, <span class="dv">2000</span>, <span class="dv">1000</span>, <span class="dv">500</span>)</span>
+<span id="cb58-3"><a href="arosur.html#cb58-3" tabindex="-1"></a></span>
+<span id="cb58-4"><a href="arosur.html#cb58-4" tabindex="-1"></a><span class="co"># sample observations, estimate using &#39;sd()&#39; and plot the estimated distributions</span></span>
+<span id="cb58-5"><a href="arosur.html#cb58-5" tabindex="-1"></a>sq_y <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">expr =</span> <span class="fu">sd</span>(<span class="fu">rnorm</span>(n[<span class="dv">1</span>], <span class="dv">10</span>, <span class="dv">3</span>)))</span>
+<span id="cb58-6"><a href="arosur.html#cb58-6" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(sq_y),</span>
+<span id="cb58-7"><a href="arosur.html#cb58-7" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(<span class="st">&quot;Sampling Distributions of&quot;</span> <span class="sc">~</span> s[Y]),</span>
+<span id="cb58-8"><a href="arosur.html#cb58-8" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="fu">expression</span>(s[y]),</span>
+<span id="cb58-9"><a href="arosur.html#cb58-9" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb58-10"><a href="arosur.html#cb58-10" tabindex="-1"></a></span>
+<span id="cb58-11"><a href="arosur.html#cb58-11" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="sc">:</span><span class="fu">length</span>(n)) {</span>
+<span id="cb58-12"><a href="arosur.html#cb58-12" tabindex="-1"></a>  sq_y <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n =</span> <span class="dv">10000</span>, <span class="at">expr =</span> <span class="fu">sd</span>(<span class="fu">rnorm</span>(n[i], <span class="dv">10</span>, <span class="dv">3</span>)))</span>
+<span id="cb58-13"><a href="arosur.html#cb58-13" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">density</span>(sq_y), </span>
+<span id="cb58-14"><a href="arosur.html#cb58-14" tabindex="-1"></a>        <span class="at">col =</span> i, </span>
+<span id="cb58-15"><a href="arosur.html#cb58-15" tabindex="-1"></a>        <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb58-16"><a href="arosur.html#cb58-16" tabindex="-1"></a>}</span>
+<span id="cb58-17"><a href="arosur.html#cb58-17" tabindex="-1"></a></span>
+<span id="cb58-18"><a href="arosur.html#cb58-18" tabindex="-1"></a><span class="co"># add a legend</span></span>
+<span id="cb58-19"><a href="arosur.html#cb58-19" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb58-20"><a href="arosur.html#cb58-20" tabindex="-1"></a>       <span class="at">legend =</span> <span class="fu">c</span>(<span class="fu">expression</span>(n <span class="sc">==</span> <span class="dv">10000</span>),</span>
+<span id="cb58-21"><a href="arosur.html#cb58-21" tabindex="-1"></a>                  <span class="fu">expression</span>(n <span class="sc">==</span> <span class="dv">5000</span>),</span>
+<span id="cb58-22"><a href="arosur.html#cb58-22" tabindex="-1"></a>                  <span class="fu">expression</span>(n <span class="sc">==</span> <span class="dv">2000</span>),</span>
+<span id="cb58-23"><a href="arosur.html#cb58-23" tabindex="-1"></a>                  <span class="fu">expression</span>(n <span class="sc">==</span> <span class="dv">1000</span>),</span>
+<span id="cb58-24"><a href="arosur.html#cb58-24" tabindex="-1"></a>                  <span class="fu">expression</span>(n <span class="sc">==</span> <span class="dv">500</span>)), </span>
+<span id="cb58-25"><a href="arosur.html#cb58-25" tabindex="-1"></a>       <span class="at">col =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,</span>
+<span id="cb58-26"><a href="arosur.html#cb58-26" tabindex="-1"></a>       <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-103-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>The plot shows that the distribution of <span class="math inline">\(s_Y\)</span> tightens around the true value <span class="math inline">\(\sigma_Y = 3\)</span> as <span class="math inline">\(n\)</span> increases.</p>
+<p>The function that estimates the standard deviation of an estimator is called the <em>standard error of the estimator</em>. Key Concept 3.4 summarizes the terminology in the context of the sample mean.</p>
+<div id="KC3.4" class="keyconcept">
+<h3 class="right">
+Key Concept 3.4
+</h3>
+<h3 class="left">
+The Standard Error of <span class="math inline">\(\overline{Y}\)</span>
+</h3>
+<p>Take an i.i.d. sample <span class="math inline">\(Y_1, \dots, Y_n\)</span>. The mean of <span class="math inline">\(Y\)</span> is consistently estimated by <span class="math inline">\(\overline{Y}\)</span>, the sample mean of the <span class="math inline">\(Y_i\)</span>. Since <span class="math inline">\(\overline{Y}\)</span> is a random variable, it has a sampling distribution with variance <span class="math inline">\(\frac{\sigma_Y^2}{n}\)</span>.</p>
+<p>The standard error of <span class="math inline">\(\overline{Y}\)</span>, denoted <span class="math inline">\(SE(\overline{Y})\)</span> is an estimator of the standard deviation of <span class="math inline">\(\overline{Y}\)</span>:</p>
+<p><span class="math display">\[ SE(\overline{Y}) = \hat\sigma_{\overline{Y}} = \frac{s_Y}{\sqrt{n}}. \]</span></p>
+<p>The caret (^) over <span class="math inline">\(\sigma\)</span> indicates that <span class="math inline">\(\hat\sigma_{\overline{Y}}\)</span> is an estimator for <span class="math inline">\(\sigma_{\overline{Y}}\)</span>.</p>
+</div>
+<p>As an example to underpin Key Concept 3.4, consider a sample of <span class="math inline">\(n=100\)</span> i.i.d. observations of the Bernoulli distributed variable <span class="math inline">\(Y\)</span> with success probability <span class="math inline">\(p=0.1\)</span>. Thus <span class="math inline">\(E(Y)=p=0.1\)</span> and <span class="math inline">\(\text{Var}(Y)=p(1-p)\)</span>. <span class="math inline">\(E(Y)\)</span> can be estimated by <span class="math inline">\(\overline{Y}\)</span>, which then has variance</p>
+<p><span class="math display">\[ \sigma^2_{\overline{Y}} = p(1-p)/n = 0.0009 \]</span></p>
+<p>and standard deviation</p>
+<p><span class="math display">\[ \sigma_{\overline{Y}} = \sqrt{p(1-p)/n} = 0.03. \]</span></p>
+<p>In this case the standard error of <span class="math inline">\(\overline{Y}\)</span> can be estimated by</p>
+<p><span class="math display">\[ SE(\overline{Y}) = \sqrt{\overline{Y}(1-\overline{Y})/n}. \]</span></p>
+<p>Let us check whether <span class="math inline">\(\overline{Y}\)</span> and <span class="math inline">\(SE(\overline{Y})\)</span> estimate the respective true values, on average.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="arosur.html#cb59-1" tabindex="-1"></a><span class="co"># draw 10000 samples of size 100 and estimate the mean of Y and</span></span>
+<span id="cb59-2"><a href="arosur.html#cb59-2" tabindex="-1"></a><span class="co"># estimate the standard error of the sample mean</span></span>
+<span id="cb59-3"><a href="arosur.html#cb59-3" tabindex="-1"></a></span>
+<span id="cb59-4"><a href="arosur.html#cb59-4" tabindex="-1"></a>mean_estimates <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10000</span>)</span>
+<span id="cb59-5"><a href="arosur.html#cb59-5" tabindex="-1"></a>se_estimates <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10000</span>)</span>
+<span id="cb59-6"><a href="arosur.html#cb59-6" tabindex="-1"></a></span>
+<span id="cb59-7"><a href="arosur.html#cb59-7" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb59-8"><a href="arosur.html#cb59-8" tabindex="-1"></a>  </span>
+<span id="cb59-9"><a href="arosur.html#cb59-9" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
+<span id="cb59-10"><a href="arosur.html#cb59-10" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">100</span>,  </span>
+<span id="cb59-11"><a href="arosur.html#cb59-11" tabindex="-1"></a>              <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>),</span>
+<span id="cb59-12"><a href="arosur.html#cb59-12" tabindex="-1"></a>              <span class="at">replace =</span> T)</span>
+<span id="cb59-13"><a href="arosur.html#cb59-13" tabindex="-1"></a>  </span>
+<span id="cb59-14"><a href="arosur.html#cb59-14" tabindex="-1"></a>  mean_estimates[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(s)</span>
+<span id="cb59-15"><a href="arosur.html#cb59-15" tabindex="-1"></a>  se_estimates[i] <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(s) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">mean</span>(s)) <span class="sc">/</span> <span class="dv">100</span>)</span>
+<span id="cb59-16"><a href="arosur.html#cb59-16" tabindex="-1"></a></span>
+<span id="cb59-17"><a href="arosur.html#cb59-17" tabindex="-1"></a>}</span>
+<span id="cb59-18"><a href="arosur.html#cb59-18" tabindex="-1"></a></span>
+<span id="cb59-19"><a href="arosur.html#cb59-19" tabindex="-1"></a><span class="fu">mean</span>(mean_estimates)</span>
+<span id="cb59-20"><a href="arosur.html#cb59-20" tabindex="-1"></a><span class="co">#&gt; [1] 0.100233</span></span>
+<span id="cb59-21"><a href="arosur.html#cb59-21" tabindex="-1"></a><span class="fu">mean</span>(se_estimates)</span>
+<span id="cb59-22"><a href="arosur.html#cb59-22" tabindex="-1"></a><span class="co">#&gt; [1] 0.02958415</span></span></code></pre></div>
+<p>Both estimators seem to be unbiased for the true parameters. In fact, this is true for the sample mean, but not for <span class="math inline">\(SE(\overline{Y})\)</span>. However, both estimators are <em>consistent</em> for the true parameters.</p>
+</div>
+<div id="calculating-the-p-value-when-the-standard-deviation-is-unknown" class="section level3 unnumbered hasAnchor">
+<h3>Calculating the p-value When the Standard Deviation is Unknown<a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-unknown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When <span class="math inline">\(\sigma_Y\)</span> is unknown, the <span class="math inline">\(p\)</span>-value for a hypothesis test concerning <span class="math inline">\(\mu_Y\)</span> using <span class="math inline">\(\overline{Y}\)</span> can be computed by replacing <span class="math inline">\(\sigma_{\overline{Y}}\)</span> in <a href="arosur.html#eq:pvaluenorm1">(3.3)</a> by the standard error <span class="math inline">\(SE(\overline{Y}) = \hat\sigma_{\overline{Y}}\)</span>. Then,</p>
+<p><span class="math display">\[ p\text{-value} = 2\cdot\Phi\left(-\left\lvert \frac{\overline{Y}^{act}-\mu_{Y,0}}{SE(\overline{Y})} \right\rvert \right). \]</span></p>
+<p>This is easily done in <tt>R</tt>:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="arosur.html#cb60-1" tabindex="-1"></a><span class="co"># sample and estimate, compute standard error</span></span>
+<span id="cb60-2"><a href="arosur.html#cb60-2" tabindex="-1"></a>samplemean_act <span class="ot">&lt;-</span> <span class="fu">mean</span>(</span>
+<span id="cb60-3"><a href="arosur.html#cb60-3" tabindex="-1"></a>  <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
+<span id="cb60-4"><a href="arosur.html#cb60-4" tabindex="-1"></a>         <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>), </span>
+<span id="cb60-5"><a href="arosur.html#cb60-5" tabindex="-1"></a>         <span class="at">replace =</span> T, </span>
+<span id="cb60-6"><a href="arosur.html#cb60-6" tabindex="-1"></a>         <span class="at">size =</span> <span class="dv">100</span>))</span>
+<span id="cb60-7"><a href="arosur.html#cb60-7" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="arosur.html#cb60-8" tabindex="-1"></a>SE_samplemean <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(samplemean_act <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> samplemean_act) <span class="sc">/</span> <span class="dv">100</span>)</span>
+<span id="cb60-9"><a href="arosur.html#cb60-9" tabindex="-1"></a></span>
+<span id="cb60-10"><a href="arosur.html#cb60-10" tabindex="-1"></a><span class="co"># null hypothesis</span></span>
+<span id="cb60-11"><a href="arosur.html#cb60-11" tabindex="-1"></a>mean_h0 <span class="ot">&lt;-</span> <span class="fl">0.1</span></span>
+<span id="cb60-12"><a href="arosur.html#cb60-12" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="arosur.html#cb60-13" tabindex="-1"></a><span class="co"># compute the p-value</span></span>
+<span id="cb60-14"><a href="arosur.html#cb60-14" tabindex="-1"></a>pvalue <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span> <span class="fu">abs</span>(samplemean_act <span class="sc">-</span> mean_h0) <span class="sc">/</span> SE_samplemean)</span>
+<span id="cb60-15"><a href="arosur.html#cb60-15" tabindex="-1"></a>pvalue</span>
+<span id="cb60-16"><a href="arosur.html#cb60-16" tabindex="-1"></a><span class="co">#&gt; [1] 0.2396777</span></span></code></pre></div>
+<p>Later in the book, we will encounter more convenient approaches to obtain <span class="math inline">\(t\)</span>-statistics and <span class="math inline">\(p\)</span>-values using <tt>R</tt>.</p>
+</div>
+<div id="the-t-statistic" class="section level3 unnumbered hasAnchor">
+<h3>The t-statistic<a href="arosur.html#the-t-statistic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In hypothesis testing, the standardized sample average</p>
+<p><span class="math display" id="eq:tstat">\[\begin{equation}
+t = \frac{\overline{Y} - \mu_{Y,0}}{SE(\overline{Y})} \tag{3.5}
+\end{equation}\]</span></p>
+<p>is called a <span class="math inline">\(t\)</span>-statistic. This <span class="math inline">\(t\)</span>-statistic plays an important role in testing hypotheses about <span class="math inline">\(\mu_Y\)</span>. It is a prominent example of a test statistic.</p>
+<p>Implicitly, we already have computed a <span class="math inline">\(t\)</span>-statistic for <span class="math inline">\(\overline{Y}\)</span> in the previous code chunk.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="arosur.html#cb61-1" tabindex="-1"></a><span class="co"># compute a t-statistic for the sample mean</span></span>
+<span id="cb61-2"><a href="arosur.html#cb61-2" tabindex="-1"></a>tstatistic <span class="ot">&lt;-</span> (samplemean_act <span class="sc">-</span> mean_h0) <span class="sc">/</span> SE_samplemean</span>
+<span id="cb61-3"><a href="arosur.html#cb61-3" tabindex="-1"></a>tstatistic</span>
+<span id="cb61-4"><a href="arosur.html#cb61-4" tabindex="-1"></a><span class="co">#&gt; [1] -1.175793</span></span></code></pre></div>
+<p>Using <tt>R</tt> we can illustrate that if <span class="math inline">\(\mu_{Y,0}\)</span> equal the true value, that is, if the null hypothesis is true, <a href="arosur.html#eq:tstat">(3.5)</a> is approximately <span class="math inline">\(\mathcal{N}(0,1)\)</span> distributed when <span class="math inline">\(n\)</span> is large.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="arosur.html#cb62-1" tabindex="-1"></a><span class="co"># prepare empty vector for t-statistics</span></span>
+<span id="cb62-2"><a href="arosur.html#cb62-2" tabindex="-1"></a>tstatistics <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="dv">10000</span>)</span>
+<span id="cb62-3"><a href="arosur.html#cb62-3" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="arosur.html#cb62-4" tabindex="-1"></a><span class="co"># set sample size</span></span>
+<span id="cb62-5"><a href="arosur.html#cb62-5" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">300</span></span>
+<span id="cb62-6"><a href="arosur.html#cb62-6" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="arosur.html#cb62-7" tabindex="-1"></a><span class="co"># simulate 10000 t-statistics</span></span>
+<span id="cb62-8"><a href="arosur.html#cb62-8" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>) {</span>
+<span id="cb62-9"><a href="arosur.html#cb62-9" tabindex="-1"></a>  </span>
+<span id="cb62-10"><a href="arosur.html#cb62-10" tabindex="-1"></a>  s <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, </span>
+<span id="cb62-11"><a href="arosur.html#cb62-11" tabindex="-1"></a>              <span class="at">size =</span> n,  </span>
+<span id="cb62-12"><a href="arosur.html#cb62-12" tabindex="-1"></a>              <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.9</span>, <span class="fl">0.1</span>),</span>
+<span id="cb62-13"><a href="arosur.html#cb62-13" tabindex="-1"></a>              <span class="at">replace =</span> T)</span>
+<span id="cb62-14"><a href="arosur.html#cb62-14" tabindex="-1"></a>  </span>
+<span id="cb62-15"><a href="arosur.html#cb62-15" tabindex="-1"></a>  tstatistics[i] <span class="ot">&lt;-</span> (<span class="fu">mean</span>(s)<span class="sc">-</span><span class="fl">0.1</span>)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">var</span>(s)<span class="sc">/</span>n)</span>
+<span id="cb62-16"><a href="arosur.html#cb62-16" tabindex="-1"></a>  </span>
+<span id="cb62-17"><a href="arosur.html#cb62-17" tabindex="-1"></a>}</span></code></pre></div>
+<p>In the simulation above we estimate the variance of the <span class="math inline">\(Y_i\)</span> using <tt>var(s)</tt>. This is more general than <tt>mean(s)*(1-mean(s))</tt> since the latter requires that the data are Bernoulli distributed and that we know this.</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="arosur.html#cb63-1" tabindex="-1"></a><span class="co"># plot density and compare to N(0,1) density</span></span>
+<span id="cb63-2"><a href="arosur.html#cb63-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(tstatistics),</span>
+<span id="cb63-3"><a href="arosur.html#cb63-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;t-statistic&quot;</span>,</span>
+<span id="cb63-4"><a href="arosur.html#cb63-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Estimated Distribution of the t-statistic when n=300&quot;</span>,</span>
+<span id="cb63-5"><a href="arosur.html#cb63-5" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb63-6"><a href="arosur.html#cb63-6" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb63-7"><a href="arosur.html#cb63-7" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>)</span>
+<span id="cb63-8"><a href="arosur.html#cb63-8" tabindex="-1"></a></span>
+<span id="cb63-9"><a href="arosur.html#cb63-9" tabindex="-1"></a><span class="co"># N(0,1) density (dashed)</span></span>
+<span id="cb63-10"><a href="arosur.html#cb63-10" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x), </span>
+<span id="cb63-11"><a href="arosur.html#cb63-11" tabindex="-1"></a>      <span class="at">add =</span> T, </span>
+<span id="cb63-12"><a href="arosur.html#cb63-12" tabindex="-1"></a>      <span class="at">lty =</span> <span class="dv">2</span>, </span>
+<span id="cb63-13"><a href="arosur.html#cb63-13" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-110-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Judging from the plot, the normal approximation works reasonably well for the chosen sample size. This normal approximation has already been used in the definition of the <span class="math inline">\(p\)</span>-value, see <a href="arosur.html#eq:tstat">(3.5)</a>.</p>
+</div>
+<div id="hypothesis-testing-with-a-prespecified-significance-level" class="section level3 unnumbered hasAnchor">
+<h3>Hypothesis Testing with a Prespecified Significance Level<a href="arosur.html#hypothesis-testing-with-a-prespecified-significance-level" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="KC3.5" class="keyconcept">
+<h3 class="right">
+Key Concept 3.5
+</h3>
+<h3 class="left">
+The Terminology of Hypothesis Testing
+</h3>
+<p>In hypothesis testing, two types of mistakes are possible:</p>
+<ol style="list-style-type: decimal">
+<li><p>The null hypothesis <em>is</em> rejected although it is true (type-I-error)</p></li>
+<li><p>The null hypothesis <em>is not</em> rejected although it is false (type-II-error)</p></li>
+</ol>
+<p>The <strong>significance level</strong> of the test is the probability to commit a type-I-error we are willing to accept in advance. E.g., using a prespecified significance level of <span class="math inline">\(0.05\)</span>, we reject the null hypothesis if and only if the <span class="math inline">\(p\)</span>-value is less than <span class="math inline">\(0.05\)</span>. The significance level is chosen before the test is conducted.</p>
+<p>An equivalent procedure is to reject the null hypothesis if the observed test statistic is, in absolute value terms, larger than the <strong>critical value</strong> of the test statistic. The critical value is determined by the significance level chosen and defines two disjoint sets of values which are called <strong>acceptance region</strong> and <strong>rejection region</strong>. The acceptance region contains all values of the test statistic for which the test does not reject while the rejection region contains all the values for which the test does reject.</p>
+<p>The <strong><span class="math inline">\(p\)</span>-value</strong> is the probability that, in repeated sampling under the same conditions a test statistic is observed that provides just as much evidence against the null hypothesis as the test statistic actually observed.</p>
+<p>The actual probability that the test rejects the true null hypothesis is called the <strong>size of the test</strong>. In an ideal setting, the size does equal the significance level.</p>
+<p>The probability that the test correctly rejects a false null hypothesis is called <strong>power</strong>.</p>
+</div>
+<p>Reconsider the <tt>pvalue</tt> computed further above:</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="arosur.html#cb64-1" tabindex="-1"></a><span class="co"># check whether p-value &lt; 0.05</span></span>
+<span id="cb64-2"><a href="arosur.html#cb64-2" tabindex="-1"></a>pvalue <span class="sc">&lt;</span> <span class="fl">0.05</span></span>
+<span id="cb64-3"><a href="arosur.html#cb64-3" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<p>The condition is not fulfilled so we do not reject the null hypothesis correctly.</p>
+<p>When working with a <span class="math inline">\(t\)</span>-statistic instead, it is equivalent to apply the following rule:</p>
+<p><span class="math display">\[ \text{Reject } H_0 \text{ if } \lvert t^{act} \rvert &gt; 1.96. \]</span></p>
+<p>We reject the null hypothesis at the significance level of <span class="math inline">\(5\%\)</span> if the computed <span class="math inline">\(t\)</span>-statistic lies beyond the critical value of 1.96 in absolute value terms. <span class="math inline">\(1.96\)</span> is the <span class="math inline">\(0.975\)</span>-quantile of the standard normal distribution.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="arosur.html#cb65-1" tabindex="-1"></a><span class="co"># check the critical value</span></span>
+<span id="cb65-2"><a href="arosur.html#cb65-2" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> <span class="fl">0.975</span>)</span>
+<span id="cb65-3"><a href="arosur.html#cb65-3" tabindex="-1"></a><span class="co">#&gt; [1] 1.959964</span></span>
+<span id="cb65-4"><a href="arosur.html#cb65-4" tabindex="-1"></a></span>
+<span id="cb65-5"><a href="arosur.html#cb65-5" tabindex="-1"></a><span class="co"># check whether the null is rejected using the t-statistic computed further above</span></span>
+<span id="cb65-6"><a href="arosur.html#cb65-6" tabindex="-1"></a><span class="fu">abs</span>(tstatistic) <span class="sc">&gt;</span> <span class="fl">1.96</span></span>
+<span id="cb65-7"><a href="arosur.html#cb65-7" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span></code></pre></div>
+<p>Just like using the <span class="math inline">\(p\)</span>-value, we cannot reject the null hypothesis using the corresponding <span class="math inline">\(t\)</span>-statistic. Key Concept 3.6 summarizes the procedure of performing a two-sided hypothesis test about the population mean <span class="math inline">\(E(Y)\)</span>.</p>
+<div id="KC3.6" class="keyconcept">
+<h3 class="right">
+Key Concept 3.6
+</h3>
+<h3 class="left">
+Testing the Hypothesis <span class="math inline">\(E(Y) = \mu_{Y,0}\)</span> Against the Alternative <span class="math inline">\(E(Y) \neq \mu_{Y,0}\)</span>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p>Estimate <span class="math inline">\(\mu_{Y}\)</span> using <span class="math inline">\(\overline{Y}\)</span> and compute the standard error of <span class="math inline">\(\overline{Y}\)</span>, <span class="math inline">\(SE(\overline{Y})\)</span>.</p></li>
+<li><p>Compute the <span class="math inline">\(t\)</span>-statistic.</p></li>
+<li><p>Compute the <span class="math inline">\(p\)</span>-value and reject the null hypothesis at the <span class="math inline">\(5\%\)</span> level of significance if the <span class="math inline">\(p\)</span>-value is smaller than <span class="math inline">\(0.05\)</span> or, equivalently, if
+<span class="math display">\[ \left\lvert t^{act} \right\rvert &gt; 1.96. \]</span></p></li>
+</ol>
+</div>
+</div>
+<div id="one-sided-alternatives" class="section level3 unnumbered hasAnchor">
+<h3>One-sided Alternatives<a href="arosur.html#one-sided-alternatives" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Sometimes we are interested in testing if the mean is bigger or smaller than some value hypothesized under the null. To stick to the book, take the presumed wage gap between well and less educated working individuals. Since we anticipate that such a differential exists, a relevant alternative (to the null hypothesis that there is no wage differential) is that well educated individuals earn more, i.e., that the average hourly wage for this group, <span class="math inline">\(\mu_Y\)</span> is <em>bigger</em> than <span class="math inline">\(\mu_{Y,0}\)</span>, the average wage of less educated workers which we assume to be known here for simplicity (Section <a href="arosur.html#cmfdp">3.5</a> discusses how to test the equivalence of to unknown population means).</p>
+<p>This is an example of a <em>right-sided test</em> and the hypotheses pair is chosen to be</p>
+<p><span class="math display">\[ H_0: \mu_Y = \mu_{Y,0} \ \ \text{vs} \ \ H_1: \mu_Y &gt; \mu_{Y,0}. \]</span></p>
+<p>We reject the null hypothesis if the computed test-statistic is larger than the critical value <span class="math inline">\(1.64\)</span>, the <span class="math inline">\(0.95\)</span>-quantile of the <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution. This ensures that <span class="math inline">\(1-0.95=5\%\)</span> probability mass remains in the area to the right of the critical value. As before, we can visualize this in <tt>R</tt> using the function <tt>polygon()</tt>.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="arosur.html#cb66-1" tabindex="-1"></a><span class="co"># plot the standard normal density on the domain [-4,4]</span></span>
+<span id="cb66-2"><a href="arosur.html#cb66-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x),</span>
+<span id="cb66-3"><a href="arosur.html#cb66-3" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb66-4"><a href="arosur.html#cb66-4" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Rejection Region of a Right-Sided Test&quot;</span>,</span>
+<span id="cb66-5"><a href="arosur.html#cb66-5" tabindex="-1"></a>      <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span>,</span>
+<span id="cb66-6"><a href="arosur.html#cb66-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;t-statistic&quot;</span>,</span>
+<span id="cb66-7"><a href="arosur.html#cb66-7" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb66-8"><a href="arosur.html#cb66-8" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb66-9"><a href="arosur.html#cb66-9" tabindex="-1"></a>      <span class="at">axes =</span> <span class="st">&quot;F&quot;</span>)</span>
+<span id="cb66-10"><a href="arosur.html#cb66-10" tabindex="-1"></a></span>
+<span id="cb66-11"><a href="arosur.html#cb66-11" tabindex="-1"></a><span class="co"># add the x-axis</span></span>
+<span id="cb66-12"><a href="arosur.html#cb66-12" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, </span>
+<span id="cb66-13"><a href="arosur.html#cb66-13" tabindex="-1"></a>     <span class="at">at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="fl">1.64</span>, <span class="dv">4</span>), </span>
+<span id="cb66-14"><a href="arosur.html#cb66-14" tabindex="-1"></a>     <span class="at">padj =</span> <span class="fl">0.5</span>,</span>
+<span id="cb66-15"><a href="arosur.html#cb66-15" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="dv">0</span>, <span class="fu">expression</span>(Phi<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span>(.<span class="dv">95</span>)<span class="sc">==</span><span class="fl">1.64</span>), <span class="st">&quot;&quot;</span>))</span>
+<span id="cb66-16"><a href="arosur.html#cb66-16" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="arosur.html#cb66-17" tabindex="-1"></a><span class="co"># shade the rejection region in the left tail</span></span>
+<span id="cb66-18"><a href="arosur.html#cb66-18" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="fl">1.64</span>, <span class="fu">seq</span>(<span class="fl">1.64</span>, <span class="dv">4</span>, <span class="fl">0.01</span>), <span class="dv">4</span>),</span>
+<span id="cb66-19"><a href="arosur.html#cb66-19" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="fl">1.64</span>, <span class="dv">4</span>, <span class="fl">0.01</span>)), <span class="dv">0</span>), </span>
+<span id="cb66-20"><a href="arosur.html#cb66-20" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-117-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Analogously, for the left-sided test we have <span class="math display">\[H_0: \mu_Y = \mu_{Y,0} \ \ \text{vs.} \ \ H_1: \mu_Y &lt; \mu_{Y,0}.\]</span> The null is rejected if the observed test statistic falls short of the critical value which, for a test at the <span class="math inline">\(0.05\)</span> level of significance, is given by <span class="math inline">\(-1.64\)</span>, the <span class="math inline">\(0.05\)</span>-quantile of the <span class="math inline">\(\mathcal{N}(0,1)\)</span> distribution. <span class="math inline">\(5\%\)</span> probability mass lies to the left of the critical value.</p>
+<p>It is straightforward to adapt the code chunk above to the case of a left-sided test. We only have to adjust the color shading and the tick marks.</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="arosur.html#cb67-1" tabindex="-1"></a><span class="co"># plot the the standard normal density on the domain [-4,4]</span></span>
+<span id="cb67-2"><a href="arosur.html#cb67-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x),</span>
+<span id="cb67-3"><a href="arosur.html#cb67-3" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>),</span>
+<span id="cb67-4"><a href="arosur.html#cb67-4" tabindex="-1"></a>      <span class="at">main =</span> <span class="st">&quot;Rejection Region of a Left-Sided Test&quot;</span>,</span>
+<span id="cb67-5"><a href="arosur.html#cb67-5" tabindex="-1"></a>      <span class="at">yaxs =</span> <span class="st">&quot;i&quot;</span>,</span>
+<span id="cb67-6"><a href="arosur.html#cb67-6" tabindex="-1"></a>      <span class="at">xlab =</span> <span class="st">&quot;t-statistic&quot;</span>,</span>
+<span id="cb67-7"><a href="arosur.html#cb67-7" tabindex="-1"></a>      <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb67-8"><a href="arosur.html#cb67-8" tabindex="-1"></a>      <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb67-9"><a href="arosur.html#cb67-9" tabindex="-1"></a>      <span class="at">axes =</span> <span class="st">&quot;F&quot;</span>)</span>
+<span id="cb67-10"><a href="arosur.html#cb67-10" tabindex="-1"></a></span>
+<span id="cb67-11"><a href="arosur.html#cb67-11" tabindex="-1"></a><span class="co"># add x-axis</span></span>
+<span id="cb67-12"><a href="arosur.html#cb67-12" tabindex="-1"></a><span class="fu">axis</span>(<span class="dv">1</span>, </span>
+<span id="cb67-13"><a href="arosur.html#cb67-13" tabindex="-1"></a>     <span class="at">at =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="fl">1.64</span>, <span class="dv">4</span>), </span>
+<span id="cb67-14"><a href="arosur.html#cb67-14" tabindex="-1"></a>     <span class="at">padj =</span> <span class="fl">0.5</span>,</span>
+<span id="cb67-15"><a href="arosur.html#cb67-15" tabindex="-1"></a>     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="dv">0</span>, <span class="fu">expression</span>(Phi<span class="sc">^-</span><span class="dv">1</span><span class="sc">~</span>(.<span class="dv">05</span>)<span class="sc">==-</span><span class="fl">1.64</span>), <span class="st">&quot;&quot;</span>))</span>
+<span id="cb67-16"><a href="arosur.html#cb67-16" tabindex="-1"></a></span>
+<span id="cb67-17"><a href="arosur.html#cb67-17" tabindex="-1"></a><span class="co"># shade rejection region in right tail</span></span>
+<span id="cb67-18"><a href="arosur.html#cb67-18" tabindex="-1"></a><span class="fu">polygon</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="fl">1.64</span>, <span class="fl">0.01</span>), <span class="sc">-</span><span class="fl">1.64</span>),</span>
+<span id="cb67-19"><a href="arosur.html#cb67-19" tabindex="-1"></a>        <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="sc">-</span><span class="fl">1.64</span>, <span class="fl">0.01</span>)), <span class="dv">0</span>), </span>
+<span id="cb67-20"><a href="arosur.html#cb67-20" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-118-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="confidence-intervals-for-the-population-mean" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Confidence Intervals for the Population Mean<a href="arosur.html#confidence-intervals-for-the-population-mean" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As mentioned before, we will never estimate the <em>exact</em> value of the population mean of <span class="math inline">\(Y\)</span> using a random sample. However, we can compute confidence intervals for the population mean. In general, a confidence interval for an unknown parameter is a recipe that, in repeated samples, yields intervals that contain the true parameter with a prespecified probability, the <em>confidence level</em>. Confidence intervals are computed using the information available in the sample. Since this information is the result of a random process, confidence intervals are random variables themselves.</p>
+<p>Key Concept 3.7 shows how to compute confidence intervals for the unknown population mean <span class="math inline">\(E(Y)\)</span>.</p>
+<div id="KC3.7" class="keyconcept">
+<h3 class="right">
+Key Concept 3.7
+</h3>
+<h3 class="left">
+Confidence Intervals for the Population Mean
+</h3>
+<p>A <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(\mu_Y\)</span> is a random variable that contains the true <span class="math inline">\(\mu_Y\)</span> in <span class="math inline">\(95\%\)</span> of all possible random samples. When <span class="math inline">\(n\)</span> is large we can use the normal approximation. Then, <span class="math inline">\(99\%\)</span>, <span class="math inline">\(95\%\)</span>, <span class="math inline">\(90\%\)</span> confidence intervals are</p>
+<p><span class="math display">\[\begin{align}
+&amp;99\%\text{ confidence interval for } \mu_Y = \left[ \overline{Y} \pm 2.58 \times SE(\overline{Y}) \right], \\
+&amp;95\%\text{ confidence interval for } \mu_Y = \left[\overline{Y} \pm 1.96 \times SE(\overline{Y}) \right], \\
+&amp;90\%\text{ confidence interval for } \mu_Y = \left[ \overline{Y} \pm 1.64 \times SE(\overline{Y}) \right].
+\end{align}\]</span></p>
+<p>These confidence intervals are sets of null hypotheses we cannot reject in a two-sided hypothesis test at the given level of confidence.</p>
+<p>Now consider the following statements.</p>
+<ol style="list-style-type: decimal">
+<li><p>In repeated sampling, the interval
+<span class="math display">\[ \left[ \overline{Y} \pm 1.96 \times SE(\overline{Y}) \right] \]</span>
+covers the true value of <span class="math inline">\(\mu_Y\)</span> with a probability of <span class="math inline">\(95\%\)</span>.</p></li>
+<li><p>We have computed <span class="math inline">\(\overline{Y} = 5.1\)</span> and <span class="math inline">\(SE(\overline{Y})=2.5\)</span> so the interval
+<span class="math display">\[ \left[ 5.1  \pm 1.96 \times 2.5 \right] = \left[0.2,10\right] \]</span> covers the true value of <span class="math inline">\(\mu_Y\)</span> with a probability of <span class="math inline">\(95\%\)</span>.</p></li>
+</ol>
+<p>While 1. is right (this is in line with the definition above), 2. is wrong and none of your lecturers wants to read such a sentence in a term paper, written exam or similar, believe us.
+The difference is that, while 1. is the definition of a random variable, 2. is one possible <em>outcome</em> of this random variable so there is no meaning in making any probabilistic statement about it. Either the computed interval does cover <span class="math inline">\(\mu_Y\)</span> <em>or</em> it does not!</p>
+</div>
+<p>In <tt>R</tt>, testing of hypotheses about the mean of a population on the basis of a random sample is very easy due to functions like <tt>t.test()</tt> from the <tt>stats</tt> package. It produces an object of type <tt>list</tt>. Luckily, one of the most simple ways to use <tt>t.test()</tt> is when you want to obtain a <span class="math inline">\(95\%\)</span> confidence interval for some population mean. We start by generating some random data and calling <tt>t.test()</tt> in conjunction with <tt>ls()</tt> to obtain a breakdown of the output components.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="arosur.html#cb68-1" tabindex="-1"></a><span class="co"># set seed</span></span>
+<span id="cb68-2"><a href="arosur.html#cb68-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb68-3"><a href="arosur.html#cb68-3" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="arosur.html#cb68-4" tabindex="-1"></a><span class="co"># generate some sample data</span></span>
+<span id="cb68-5"><a href="arosur.html#cb68-5" tabindex="-1"></a>sampledata <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb68-6"><a href="arosur.html#cb68-6" tabindex="-1"></a></span>
+<span id="cb68-7"><a href="arosur.html#cb68-7" tabindex="-1"></a><span class="co"># check the type of the outcome produced by t.test</span></span>
+<span id="cb68-8"><a href="arosur.html#cb68-8" tabindex="-1"></a><span class="fu">typeof</span>(<span class="fu">t.test</span>(sampledata))</span>
+<span id="cb68-9"><a href="arosur.html#cb68-9" tabindex="-1"></a><span class="co">#&gt; [1] &quot;list&quot;</span></span>
+<span id="cb68-10"><a href="arosur.html#cb68-10" tabindex="-1"></a></span>
+<span id="cb68-11"><a href="arosur.html#cb68-11" tabindex="-1"></a><span class="co"># display the list elements produced by t.test</span></span>
+<span id="cb68-12"><a href="arosur.html#cb68-12" tabindex="-1"></a><span class="fu">ls</span>(<span class="fu">t.test</span>(sampledata))</span>
+<span id="cb68-13"><a href="arosur.html#cb68-13" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;alternative&quot; &quot;conf.int&quot;    &quot;data.name&quot;   &quot;estimate&quot;    &quot;method&quot;     </span></span>
+<span id="cb68-14"><a href="arosur.html#cb68-14" tabindex="-1"></a><span class="co">#&gt;  [6] &quot;null.value&quot;  &quot;p.value&quot;     &quot;parameter&quot;   &quot;statistic&quot;   &quot;stderr&quot;</span></span></code></pre></div>
+<p>Though we find that many items are reported, at the moment we are only interested in computing a <span class="math inline">\(95\%\)</span> confidence set for the mean.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="arosur.html#cb69-1" tabindex="-1"></a><span class="fu">t.test</span>(sampledata)<span class="sc">$</span><span class="st">&quot;conf.int&quot;</span></span>
+<span id="cb69-2"><a href="arosur.html#cb69-2" tabindex="-1"></a><span class="co">#&gt; [1]  9.306651 12.871096</span></span>
+<span id="cb69-3"><a href="arosur.html#cb69-3" tabindex="-1"></a><span class="co">#&gt; attr(,&quot;conf.level&quot;)</span></span>
+<span id="cb69-4"><a href="arosur.html#cb69-4" tabindex="-1"></a><span class="co">#&gt; [1] 0.95</span></span></code></pre></div>
+<p>This tells us that the <span class="math inline">\(95\%\)</span> confidence interval is</p>
+<p><span class="math display">\[ \left[9.31, 12.87\right]. \]</span></p>
+<p>In this example, the computed interval obviously does cover the true <span class="math inline">\(\mu_Y\)</span> which we know to be <span class="math inline">\(10\)</span>.</p>
+<p>Let us have a look at the whole standard output produced by <tt>t.test()</tt>.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="arosur.html#cb70-1" tabindex="-1"></a><span class="fu">t.test</span>(sampledata)</span>
+<span id="cb70-2"><a href="arosur.html#cb70-2" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb70-3"><a href="arosur.html#cb70-3" tabindex="-1"></a><span class="co">#&gt;  One Sample t-test</span></span>
+<span id="cb70-4"><a href="arosur.html#cb70-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb70-5"><a href="arosur.html#cb70-5" tabindex="-1"></a><span class="co">#&gt; data:  sampledata</span></span>
+<span id="cb70-6"><a href="arosur.html#cb70-6" tabindex="-1"></a><span class="co">#&gt; t = 12.346, df = 99, p-value &lt; 2.2e-16</span></span>
+<span id="cb70-7"><a href="arosur.html#cb70-7" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true mean is not equal to 0</span></span>
+<span id="cb70-8"><a href="arosur.html#cb70-8" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb70-9"><a href="arosur.html#cb70-9" tabindex="-1"></a><span class="co">#&gt;   9.306651 12.871096</span></span>
+<span id="cb70-10"><a href="arosur.html#cb70-10" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb70-11"><a href="arosur.html#cb70-11" tabindex="-1"></a><span class="co">#&gt; mean of x </span></span>
+<span id="cb70-12"><a href="arosur.html#cb70-12" tabindex="-1"></a><span class="co">#&gt;  11.08887</span></span></code></pre></div>
+<p>We see that <tt>t.test()</tt> does not only compute a <span class="math inline">\(95\%\)</span> confidence interval but automatically conducts a two-sided significance test of the hypothesis <span class="math inline">\(H_0: \mu_Y = 0\)</span> at the level of <span class="math inline">\(5\%\)</span> and reports relevant parameters thereof: the alternative hypothesis, the estimated mean, the resulting <span class="math inline">\(t\)</span>-statistic, the degrees of freedom of the underlying <span class="math inline">\(t\)</span>-distribution (note that <tt>t.test()</tt> performs the normal approximation) and the corresponding <span class="math inline">\(p\)</span>-value. This is very convenient!</p>
+<p>In this example, we come to the conclusion that the population mean is significantly different from <span class="math inline">\(0\)</span> (which is correct) at the level of <span class="math inline">\(5\%\)</span>, since <span class="math inline">\(\mu_Y = 0\)</span> is not an element of the <span class="math inline">\(95\%\)</span> confidence interval</p>
+<p><span class="math display">\[ 0 \not\in \left[9.31,12.87\right]. \]</span>
+We come to an equivalent result when using the <span class="math inline">\(p\)</span>-value rejection rule since</p>
+<p><span class="math display">\[ p\text{-value} = 2.2\cdot 10^{-16} \ll 0.05. \]</span></p>
+</div>
+<div id="cmfdp" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Comparing Means from Different Populations<a href="arosur.html#cmfdp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose you are interested in the means of two different populations, denote them <span class="math inline">\(\mu_1\)</span> and <span class="math inline">\(\mu_2\)</span>. More specifically, you are interested in whether these population means are different from each other and plan to use a hypothesis test to verify this on the basis of independent sample data from both populations. A suitable pair of hypotheses is</p>
+<p><span class="math display" id="eq:hypmeans">\[\begin{equation}
+H_0: \mu_1 - \mu_2 = d_0 \ \ \text{vs.} \ \ H_1: \mu_1 - \mu_2 \neq d_0, \tag{3.6}
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(d_0\)</span> denotes the hypothesized difference in means (so <span class="math inline">\(d_0=0\)</span> when the means are equal, under the null hypothesis). The book teaches us that <span class="math inline">\(H_0\)</span> can be tested with the <span class="math inline">\(t\)</span>-statistic</p>
+<p><span class="math display" id="eq:tstatmeans">\[\begin{equation}
+t=\frac{(\overline{Y}_1 - \overline{Y}_2) - d_0}{SE(\overline{Y}_1 - \overline{Y}_2)} \tag{3.7}
+\end{equation}\]</span></p>
+<p>where</p>
+<p><span class="math display">\[\begin{equation}
+SE(\overline{Y}_1 - \overline{Y}_2) = \sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}.
+\end{equation}\]</span></p>
+<p>This is called a two sample <span class="math inline">\(t\)</span>-test. For large <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span>, <a href="arosur.html#eq:tstatmeans">(3.7)</a> is standard normal under the null hypothesis. Analogously to the simple <span class="math inline">\(t\)</span>-test we can compute confidence intervals for the true difference in population means:</p>
+<p><span class="math display">\[ (\overline{Y}_1 - \overline{Y}_2) \pm 1.96 \times SE(\overline{Y}_1 - \overline{Y}_2) \]</span></p>
+<p>is a <span class="math inline">\(95\%\)</span> confidence interval for <span class="math inline">\(d\)</span>. <br> In <tt>R</tt>, hypotheses as in <a href="arosur.html#eq:hypmeans">(3.6)</a> can be tested with <tt>t.test()</tt>, too. Note that <tt>t.test()</tt> chooses <span class="math inline">\(d_0 = 0\)</span> by default. This can be changed by setting the argument <tt>mu</tt> accordingly.</p>
+<p>The subsequent code chunk demonstrates how to perform a two sample <span class="math inline">\(t\)</span>-test in <tt>R</tt> using simulated data.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="arosur.html#cb71-1" tabindex="-1"></a><span class="co"># set random seed</span></span>
+<span id="cb71-2"><a href="arosur.html#cb71-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb71-3"><a href="arosur.html#cb71-3" tabindex="-1"></a></span>
+<span id="cb71-4"><a href="arosur.html#cb71-4" tabindex="-1"></a><span class="co"># draw data from two different populations with equal mean</span></span>
+<span id="cb71-5"><a href="arosur.html#cb71-5" tabindex="-1"></a>sample_pop1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb71-6"><a href="arosur.html#cb71-6" tabindex="-1"></a>sample_pop2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="dv">10</span>, <span class="dv">20</span>)</span>
+<span id="cb71-7"><a href="arosur.html#cb71-7" tabindex="-1"></a></span>
+<span id="cb71-8"><a href="arosur.html#cb71-8" tabindex="-1"></a><span class="co"># perform a two sample t-test</span></span>
+<span id="cb71-9"><a href="arosur.html#cb71-9" tabindex="-1"></a><span class="fu">t.test</span>(sample_pop1, sample_pop2)</span>
+<span id="cb71-10"><a href="arosur.html#cb71-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb71-11"><a href="arosur.html#cb71-11" tabindex="-1"></a><span class="co">#&gt;  Welch Two Sample t-test</span></span>
+<span id="cb71-12"><a href="arosur.html#cb71-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb71-13"><a href="arosur.html#cb71-13" tabindex="-1"></a><span class="co">#&gt; data:  sample_pop1 and sample_pop2</span></span>
+<span id="cb71-14"><a href="arosur.html#cb71-14" tabindex="-1"></a><span class="co">#&gt; t = 0.872, df = 140.52, p-value = 0.3847</span></span>
+<span id="cb71-15"><a href="arosur.html#cb71-15" tabindex="-1"></a><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span></span>
+<span id="cb71-16"><a href="arosur.html#cb71-16" tabindex="-1"></a><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span id="cb71-17"><a href="arosur.html#cb71-17" tabindex="-1"></a><span class="co">#&gt;  -2.338012  6.028083</span></span>
+<span id="cb71-18"><a href="arosur.html#cb71-18" tabindex="-1"></a><span class="co">#&gt; sample estimates:</span></span>
+<span id="cb71-19"><a href="arosur.html#cb71-19" tabindex="-1"></a><span class="co">#&gt; mean of x mean of y </span></span>
+<span id="cb71-20"><a href="arosur.html#cb71-20" tabindex="-1"></a><span class="co">#&gt; 11.088874  9.243838</span></span></code></pre></div>
+<p>We find that the two sample <span class="math inline">\(t\)</span>-test does not reject the (true) null hypothesis that <span class="math inline">\(d_0 = 0\)</span>.</p>
+</div>
+<div id="aattggoe" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> An Application to the Gender Gap of Earnings<a href="arosur.html#aattggoe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section discusses how to reproduce the results presented in the box <em>The Gender Gap of Earnings of College Graduates in the United States</em> of the book.</p>
+<p>In order to reproduce Table 3.1 of the book you need to download the replication data which are hosted by Pearson and can be downloaded <a href="https://github.com/mca91/EconometricsWithR/raw/master/data/cps_ch3.xlsx">here</a>. This file contains data that range from <span class="math inline">\(1992\)</span> to <span class="math inline">\(2008\)</span> and earnings are reported in prices of <span class="math inline">\(2008\)</span>.</p>
+<p>There are several ways to import the <tt>.xlsx</tt>-files into <tt>R</tt>. Our suggestion is the function <tt>read_excel()</tt> from the <tt>readxl</tt> package <span class="citation">(<a href="#ref-R-readxl">Wickham and Bryan 2023</a>)</span>. The package is not a part of <tt>R</tt>’s base version and has to be installed manually.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="arosur.html#cb72-1" tabindex="-1"></a><span class="co"># load the &#39;readxl&#39; package</span></span>
+<span id="cb72-2"><a href="arosur.html#cb72-2" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code></pre></div>
+<p>You are now ready to import the dataset. Make sure you use the correct path to import the downloaded file! In our example, the file is saved in a subfolder of the working directory named <tt>data</tt>. If you are not sure what your current working directory is, use <tt>getwd()</tt>, see also <tt>?getwd</tt>. This will give you the path that points to the place <tt>R</tt> is currently looking for files to work with.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="arosur.html#cb73-1" tabindex="-1"></a><span class="co"># import the data into R</span></span>
+<span id="cb73-2"><a href="arosur.html#cb73-2" tabindex="-1"></a>cps <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="at">path =</span> <span class="st">&quot;data/cps_ch3.xlsx&quot;</span>)</span></code></pre></div>
+<p>Next, install and load the package <tt>dyplr</tt> <span class="citation">(<a href="#ref-R-dplyr">Wickham et al. 2023</a>)</span>. This package provides some handy functions that simplify data wrangling a lot. It makes use of the <tt>%&gt;%</tt> operator.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="arosur.html#cb74-1" tabindex="-1"></a><span class="co"># load the &#39;dplyr&#39; package</span></span>
+<span id="cb74-2"><a href="arosur.html#cb74-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>First, get an overview over the dataset. Next, use <tt>%&gt;%</tt> and some functions from the <tt>dplyr</tt> package to group the observations by gender and year and compute descriptive statistics for both groups.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="arosur.html#cb75-1" tabindex="-1"></a><span class="co"># get an overview of the data structure</span></span>
+<span id="cb75-2"><a href="arosur.html#cb75-2" tabindex="-1"></a><span class="fu">head</span>(cps)</span>
+<span id="cb75-3"><a href="arosur.html#cb75-3" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 × 3</span></span>
+<span id="cb75-4"><a href="arosur.html#cb75-4" tabindex="-1"></a><span class="co">#&gt;   a_sex  year ahe08</span></span>
+<span id="cb75-5"><a href="arosur.html#cb75-5" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb75-6"><a href="arosur.html#cb75-6" tabindex="-1"></a><span class="co">#&gt; 1     1  1992  17.2</span></span>
+<span id="cb75-7"><a href="arosur.html#cb75-7" tabindex="-1"></a><span class="co">#&gt; 2     1  1992  15.3</span></span>
+<span id="cb75-8"><a href="arosur.html#cb75-8" tabindex="-1"></a><span class="co">#&gt; 3     1  1992  22.9</span></span>
+<span id="cb75-9"><a href="arosur.html#cb75-9" tabindex="-1"></a><span class="co">#&gt; 4     2  1992  13.3</span></span>
+<span id="cb75-10"><a href="arosur.html#cb75-10" tabindex="-1"></a><span class="co">#&gt; 5     1  1992  22.1</span></span>
+<span id="cb75-11"><a href="arosur.html#cb75-11" tabindex="-1"></a><span class="co">#&gt; 6     2  1992  12.2</span></span>
+<span id="cb75-12"><a href="arosur.html#cb75-12" tabindex="-1"></a></span>
+<span id="cb75-13"><a href="arosur.html#cb75-13" tabindex="-1"></a><span class="co"># group data by gender and year and compute the mean, standard deviation</span></span>
+<span id="cb75-14"><a href="arosur.html#cb75-14" tabindex="-1"></a><span class="co"># and number of observations for each group</span></span>
+<span id="cb75-15"><a href="arosur.html#cb75-15" tabindex="-1"></a>avgs <span class="ot">&lt;-</span> cps <span class="sc">%&gt;%</span> </span>
+<span id="cb75-16"><a href="arosur.html#cb75-16" tabindex="-1"></a>        <span class="fu">group_by</span>(a_sex, year) <span class="sc">%&gt;%</span> </span>
+<span id="cb75-17"><a href="arosur.html#cb75-17" tabindex="-1"></a>        <span class="fu">summarise</span>(<span class="fu">mean</span>(ahe08), </span>
+<span id="cb75-18"><a href="arosur.html#cb75-18" tabindex="-1"></a>                  <span class="fu">sd</span>(ahe08), </span>
+<span id="cb75-19"><a href="arosur.html#cb75-19" tabindex="-1"></a>                  <span class="fu">n</span>())</span>
+<span id="cb75-20"><a href="arosur.html#cb75-20" tabindex="-1"></a></span>
+<span id="cb75-21"><a href="arosur.html#cb75-21" tabindex="-1"></a><span class="co"># print the results to the console</span></span>
+<span id="cb75-22"><a href="arosur.html#cb75-22" tabindex="-1"></a><span class="fu">print</span>(avgs)</span>
+<span id="cb75-23"><a href="arosur.html#cb75-23" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 × 5</span></span>
+<span id="cb75-24"><a href="arosur.html#cb75-24" tabindex="-1"></a><span class="co">#&gt; # Groups:   a_sex [2]</span></span>
+<span id="cb75-25"><a href="arosur.html#cb75-25" tabindex="-1"></a><span class="co">#&gt;    a_sex  year `mean(ahe08)` `sd(ahe08)` `n()`</span></span>
+<span id="cb75-26"><a href="arosur.html#cb75-26" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;       &lt;dbl&gt; &lt;int&gt;</span></span>
+<span id="cb75-27"><a href="arosur.html#cb75-27" tabindex="-1"></a><span class="co">#&gt;  1     1  1992          23.3       10.2   1594</span></span>
+<span id="cb75-28"><a href="arosur.html#cb75-28" tabindex="-1"></a><span class="co">#&gt;  2     1  1996          22.5       10.1   1379</span></span>
+<span id="cb75-29"><a href="arosur.html#cb75-29" tabindex="-1"></a><span class="co">#&gt;  3     1  2000          24.9       11.6   1303</span></span>
+<span id="cb75-30"><a href="arosur.html#cb75-30" tabindex="-1"></a><span class="co">#&gt;  4     1  2004          25.1       12.0   1894</span></span>
+<span id="cb75-31"><a href="arosur.html#cb75-31" tabindex="-1"></a><span class="co">#&gt;  5     1  2008          25.0       11.8   1838</span></span>
+<span id="cb75-32"><a href="arosur.html#cb75-32" tabindex="-1"></a><span class="co">#&gt;  6     2  1992          20.0        7.87  1368</span></span>
+<span id="cb75-33"><a href="arosur.html#cb75-33" tabindex="-1"></a><span class="co">#&gt;  7     2  1996          19.0        7.95  1230</span></span>
+<span id="cb75-34"><a href="arosur.html#cb75-34" tabindex="-1"></a><span class="co">#&gt;  8     2  2000          20.7        9.36  1181</span></span>
+<span id="cb75-35"><a href="arosur.html#cb75-35" tabindex="-1"></a><span class="co">#&gt;  9     2  2004          21.0        9.36  1735</span></span>
+<span id="cb75-36"><a href="arosur.html#cb75-36" tabindex="-1"></a><span class="co">#&gt; 10     2  2008          20.9        9.66  1871</span></span></code></pre></div>
+<p>With the pipe operator <tt>%&gt;%</tt>, we simply chain different <tt>R</tt> functions that produce compatible input and output. In the code above, we take the dataset <tt>cps</tt> and use it as an input for the function <tt>group_by()</tt>. The output of <tt>group_by</tt> is subsequently used as an input for <tt>summarise()</tt> and so forth.</p>
+<p>Now that we have computed the statistics of interest for both genders, we can investigate how the gap in earnings between both groups evolves over time.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="arosur.html#cb76-1" tabindex="-1"></a><span class="co"># split the dataset by gender</span></span>
+<span id="cb76-2"><a href="arosur.html#cb76-2" tabindex="-1"></a>male <span class="ot">&lt;-</span> avgs <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(a_sex <span class="sc">==</span> <span class="dv">1</span>) </span>
+<span id="cb76-3"><a href="arosur.html#cb76-3" tabindex="-1"></a></span>
+<span id="cb76-4"><a href="arosur.html#cb76-4" tabindex="-1"></a>female <span class="ot">&lt;-</span> avgs <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">filter</span>(a_sex <span class="sc">==</span> <span class="dv">2</span>)</span>
+<span id="cb76-5"><a href="arosur.html#cb76-5" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="arosur.html#cb76-6" tabindex="-1"></a><span class="co"># rename columns of both splits</span></span>
+<span id="cb76-7"><a href="arosur.html#cb76-7" tabindex="-1"></a><span class="fu">colnames</span>(male)   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Sex&quot;</span>, <span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Y_bar_m&quot;</span>, <span class="st">&quot;s_m&quot;</span>, <span class="st">&quot;n_m&quot;</span>)</span>
+<span id="cb76-8"><a href="arosur.html#cb76-8" tabindex="-1"></a><span class="fu">colnames</span>(female) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Sex&quot;</span>, <span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Y_bar_f&quot;</span>, <span class="st">&quot;s_f&quot;</span>, <span class="st">&quot;n_f&quot;</span>)</span>
+<span id="cb76-9"><a href="arosur.html#cb76-9" tabindex="-1"></a></span>
+<span id="cb76-10"><a href="arosur.html#cb76-10" tabindex="-1"></a><span class="co"># estimate gender gaps</span></span>
+<span id="cb76-11"><a href="arosur.html#cb76-11" tabindex="-1"></a>gap <span class="ot">&lt;-</span> male<span class="sc">$</span>Y_bar_m <span class="sc">-</span> female<span class="sc">$</span>Y_bar_f</span>
+<span id="cb76-12"><a href="arosur.html#cb76-12" tabindex="-1"></a></span>
+<span id="cb76-13"><a href="arosur.html#cb76-13" tabindex="-1"></a><span class="co"># compute standard errors</span></span>
+<span id="cb76-14"><a href="arosur.html#cb76-14" tabindex="-1"></a>gap_se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(male<span class="sc">$</span>s_m<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> male<span class="sc">$</span>n_m <span class="sc">+</span> female<span class="sc">$</span>s_f<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> female<span class="sc">$</span>n_f)</span>
+<span id="cb76-15"><a href="arosur.html#cb76-15" tabindex="-1"></a></span>
+<span id="cb76-16"><a href="arosur.html#cb76-16" tabindex="-1"></a><span class="co">#Compute confidence intervals for all dates</span></span>
+<span id="cb76-17"><a href="arosur.html#cb76-17" tabindex="-1"></a>gap_ci_l <span class="ot">&lt;-</span> gap <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> gap_se</span>
+<span id="cb76-18"><a href="arosur.html#cb76-18" tabindex="-1"></a></span>
+<span id="cb76-19"><a href="arosur.html#cb76-19" tabindex="-1"></a>gap_ci_u <span class="ot">&lt;-</span> gap <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> gap_se</span>
+<span id="cb76-20"><a href="arosur.html#cb76-20" tabindex="-1"></a></span>
+<span id="cb76-21"><a href="arosur.html#cb76-21" tabindex="-1"></a>result <span class="ot">&lt;-</span> <span class="fu">cbind</span>(male[,<span class="sc">-</span><span class="dv">1</span>], female[,<span class="sc">-</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)], gap, gap_se, gap_ci_l, gap_ci_u)</span>
+<span id="cb76-22"><a href="arosur.html#cb76-22" tabindex="-1"></a></span>
+<span id="cb76-23"><a href="arosur.html#cb76-23" tabindex="-1"></a><span class="co"># print the results to the console</span></span>
+<span id="cb76-24"><a href="arosur.html#cb76-24" tabindex="-1"></a><span class="fu">print</span>(result, <span class="at">digits =</span> <span class="dv">3</span>)</span>
+<span id="cb76-25"><a href="arosur.html#cb76-25" tabindex="-1"></a><span class="co">#&gt;   Year Y_bar_m  s_m  n_m Y_bar_f  s_f  n_f  gap gap_se gap_ci_l gap_ci_u</span></span>
+<span id="cb76-26"><a href="arosur.html#cb76-26" tabindex="-1"></a><span class="co">#&gt; 1 1992    23.3 10.2 1594    20.0 7.87 1368 3.23  0.332     2.58     3.88</span></span>
+<span id="cb76-27"><a href="arosur.html#cb76-27" tabindex="-1"></a><span class="co">#&gt; 2 1996    22.5 10.1 1379    19.0 7.95 1230 3.49  0.354     2.80     4.19</span></span>
+<span id="cb76-28"><a href="arosur.html#cb76-28" tabindex="-1"></a><span class="co">#&gt; 3 2000    24.9 11.6 1303    20.7 9.36 1181 4.14  0.421     3.32     4.97</span></span>
+<span id="cb76-29"><a href="arosur.html#cb76-29" tabindex="-1"></a><span class="co">#&gt; 4 2004    25.1 12.0 1894    21.0 9.36 1735 4.10  0.356     3.40     4.80</span></span>
+<span id="cb76-30"><a href="arosur.html#cb76-30" tabindex="-1"></a><span class="co">#&gt; 5 2008    25.0 11.8 1838    20.9 9.66 1871 4.10  0.354     3.41     4.80</span></span></code></pre></div>
+<p>We observe virtually the same results as the ones presented in the book. The computed statistics suggest that there is a gender gap in earnings. Note that we can reject the null hypothesis that the gap is zero for all periods. Further, estimates of the gap and bounds of the <span class="math inline">\(95\%\)</span> confidence intervals indicate that the gap has been quite stable in the recent past.</p>
+</div>
+<div id="scatterplots-sample-covariance-and-sample-correlation" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Scatterplots, Sample Covariance and Sample Correlation<a href="arosur.html#scatterplots-sample-covariance-and-sample-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A scatter plot represents two dimensional data, for example <span class="math inline">\(n\)</span> observations on <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, by points in a coordinate system. It is very easy to generate scatter plots using the <tt>plot()</tt> function in <tt>R</tt>. Let us generate some artificial data on age and earnings of workers and plot it.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="arosur.html#cb77-1" tabindex="-1"></a><span class="co"># set random seed</span></span>
+<span id="cb77-2"><a href="arosur.html#cb77-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb77-3"><a href="arosur.html#cb77-3" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="arosur.html#cb77-4" tabindex="-1"></a><span class="co"># generate dataset</span></span>
+<span id="cb77-5"><a href="arosur.html#cb77-5" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="at">n =</span> <span class="dv">100</span>, </span>
+<span id="cb77-6"><a href="arosur.html#cb77-6" tabindex="-1"></a>           <span class="at">min =</span> <span class="dv">18</span>, </span>
+<span id="cb77-7"><a href="arosur.html#cb77-7" tabindex="-1"></a>           <span class="at">max =</span> <span class="dv">70</span>)</span>
+<span id="cb77-8"><a href="arosur.html#cb77-8" tabindex="-1"></a></span>
+<span id="cb77-9"><a href="arosur.html#cb77-9" tabindex="-1"></a>Y <span class="ot">&lt;-</span> X <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">15</span>)</span>
+<span id="cb77-10"><a href="arosur.html#cb77-10" tabindex="-1"></a></span>
+<span id="cb77-11"><a href="arosur.html#cb77-11" tabindex="-1"></a><span class="co"># plot observations</span></span>
+<span id="cb77-12"><a href="arosur.html#cb77-12" tabindex="-1"></a><span class="fu">plot</span>(X, </span>
+<span id="cb77-13"><a href="arosur.html#cb77-13" tabindex="-1"></a>     Y, </span>
+<span id="cb77-14"><a href="arosur.html#cb77-14" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;p&quot;</span>,</span>
+<span id="cb77-15"><a href="arosur.html#cb77-15" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;A Scatterplot of X and Y&quot;</span>,</span>
+<span id="cb77-16"><a href="arosur.html#cb77-16" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Age&quot;</span>,</span>
+<span id="cb77-17"><a href="arosur.html#cb77-17" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Earnings&quot;</span>,</span>
+<span id="cb77-18"><a href="arosur.html#cb77-18" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb77-19"><a href="arosur.html#cb77-19" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-130-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>The plot shows positive correlation between age and earnings. This is in line with the notion that older workers earn more than those who joined the working population recently.</p>
+<div id="sample-covariance-and-correlation" class="section level4 unnumbered hasAnchor">
+<h4>Sample Covariance and Correlation<a href="arosur.html#sample-covariance-and-correlation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>By now you should be familiar with the concepts of variance and covariance. If not, we recommend you to work your way through Chapter 2 of the book.</p>
+<p>Just like the variance, covariance and correlation of two variables are properties that relate to the (unknown) joint probability distribution of these variables. We can estimate covariance and correlation by means of suitable estimators using a sample <span class="math inline">\((X_i,Y_i)\)</span>, <span class="math inline">\(i=1,\dots,n\)</span>.</p>
+<p>The sample covariance</p>
+<p><span class="math display">\[ s_{XY} = \frac{1}{n-1} \sum_{i=1}^n (X_i - \overline{X})(Y_i - \overline{Y}) \]</span></p>
+<p>is an estimator for the population variance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> whereas the sample correlation</p>
+<p><span class="math display">\[ r_{XY} = \frac{s_{XY}}{s_Xs_Y} \]</span>
+can be used to estimate the population correlation, a standardized measure for the strength of the linear relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. See Chapter 3.7 in the book for a more detailed treatment of these estimators.</p>
+<p>As for variance and standard deviation, these estimators are implemented as <tt>R</tt> functions in the <tt>stats</tt> package. We can use them to estimate population covariance and population correlation of the artificial data on age and earnings.</p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="arosur.html#cb78-1" tabindex="-1"></a><span class="co"># compute sample covariance of X and Y</span></span>
+<span id="cb78-2"><a href="arosur.html#cb78-2" tabindex="-1"></a><span class="fu">cov</span>(X, Y)</span>
+<span id="cb78-3"><a href="arosur.html#cb78-3" tabindex="-1"></a><span class="co">#&gt; [1] 213.934</span></span>
+<span id="cb78-4"><a href="arosur.html#cb78-4" tabindex="-1"></a></span>
+<span id="cb78-5"><a href="arosur.html#cb78-5" tabindex="-1"></a><span class="co"># compute sample correlation between X and Y</span></span>
+<span id="cb78-6"><a href="arosur.html#cb78-6" tabindex="-1"></a><span class="fu">cor</span>(X, Y)</span>
+<span id="cb78-7"><a href="arosur.html#cb78-7" tabindex="-1"></a><span class="co">#&gt; [1] 0.706372</span></span>
+<span id="cb78-8"><a href="arosur.html#cb78-8" tabindex="-1"></a></span>
+<span id="cb78-9"><a href="arosur.html#cb78-9" tabindex="-1"></a><span class="co"># an equivalent way to compute the sample correlation</span></span>
+<span id="cb78-10"><a href="arosur.html#cb78-10" tabindex="-1"></a><span class="fu">cov</span>(X, Y) <span class="sc">/</span> (<span class="fu">sd</span>(X) <span class="sc">*</span> <span class="fu">sd</span>(Y))</span>
+<span id="cb78-11"><a href="arosur.html#cb78-11" tabindex="-1"></a><span class="co">#&gt; [1] 0.706372</span></span></code></pre></div>
+<p>The estimates indicate that <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are moderately correlated.</p>
+<p>The next code chunk uses the function <tt>mvnorm()</tt> from package <tt>MASS</tt> <span class="citation">(<a href="#ref-R-MASS">Ripley 2023</a>)</span> to generate bivariate sample data with different degrees of correlation.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="arosur.html#cb79-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb79-2"><a href="arosur.html#cb79-2" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="arosur.html#cb79-3" tabindex="-1"></a><span class="co"># set random seed</span></span>
+<span id="cb79-4"><a href="arosur.html#cb79-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb79-5"><a href="arosur.html#cb79-5" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="arosur.html#cb79-6" tabindex="-1"></a><span class="co"># positive correlation (0.81)</span></span>
+<span id="cb79-7"><a href="arosur.html#cb79-7" tabindex="-1"></a>example1 <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">100</span>,</span>
+<span id="cb79-8"><a href="arosur.html#cb79-8" tabindex="-1"></a>                    <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb79-9"><a href="arosur.html#cb79-9" tabindex="-1"></a>                    <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb79-10"><a href="arosur.html#cb79-10" tabindex="-1"></a>                    <span class="at">empirical =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb79-11"><a href="arosur.html#cb79-11" tabindex="-1"></a></span>
+<span id="cb79-12"><a href="arosur.html#cb79-12" tabindex="-1"></a><span class="co"># negative correlation (-0.81)</span></span>
+<span id="cb79-13"><a href="arosur.html#cb79-13" tabindex="-1"></a>example2 <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">100</span>,</span>
+<span id="cb79-14"><a href="arosur.html#cb79-14" tabindex="-1"></a>                    <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb79-15"><a href="arosur.html#cb79-15" tabindex="-1"></a>                    <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">3</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb79-16"><a href="arosur.html#cb79-16" tabindex="-1"></a>                    <span class="at">empirical =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb79-17"><a href="arosur.html#cb79-17" tabindex="-1"></a></span>
+<span id="cb79-18"><a href="arosur.html#cb79-18" tabindex="-1"></a><span class="co"># no correlation </span></span>
+<span id="cb79-19"><a href="arosur.html#cb79-19" tabindex="-1"></a>example3 <span class="ot">&lt;-</span> <span class="fu">mvrnorm</span>(<span class="dv">100</span>,</span>
+<span id="cb79-20"><a href="arosur.html#cb79-20" tabindex="-1"></a>                    <span class="at">mu =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), </span>
+<span id="cb79-21"><a href="arosur.html#cb79-21" tabindex="-1"></a>                    <span class="at">Sigma =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>), <span class="at">ncol =</span> <span class="dv">2</span>),</span>
+<span id="cb79-22"><a href="arosur.html#cb79-22" tabindex="-1"></a>                    <span class="at">empirical =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb79-23"><a href="arosur.html#cb79-23" tabindex="-1"></a></span>
+<span id="cb79-24"><a href="arosur.html#cb79-24" tabindex="-1"></a><span class="co"># no correlation (quadratic relationship)</span></span>
+<span id="cb79-25"><a href="arosur.html#cb79-25" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="fl">0.01</span>)</span>
+<span id="cb79-26"><a href="arosur.html#cb79-26" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="sc">-</span> X<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(X))</span>
+<span id="cb79-27"><a href="arosur.html#cb79-27" tabindex="-1"></a></span>
+<span id="cb79-28"><a href="arosur.html#cb79-28" tabindex="-1"></a>example4 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X, Y)</span>
+<span id="cb79-29"><a href="arosur.html#cb79-29" tabindex="-1"></a></span>
+<span id="cb79-30"><a href="arosur.html#cb79-30" tabindex="-1"></a><span class="co"># divide plot area as 2-by-2 array</span></span>
+<span id="cb79-31"><a href="arosur.html#cb79-31" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb79-32"><a href="arosur.html#cb79-32" tabindex="-1"></a></span>
+<span id="cb79-33"><a href="arosur.html#cb79-33" tabindex="-1"></a><span class="co"># plot datasets</span></span>
+<span id="cb79-34"><a href="arosur.html#cb79-34" tabindex="-1"></a><span class="fu">plot</span>(example1, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Y&quot;</span>, </span>
+<span id="cb79-35"><a href="arosur.html#cb79-35" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Correlation = 0.81&quot;</span>)</span>
+<span id="cb79-36"><a href="arosur.html#cb79-36" tabindex="-1"></a></span>
+<span id="cb79-37"><a href="arosur.html#cb79-37" tabindex="-1"></a><span class="fu">plot</span>(example2, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Y&quot;</span>, </span>
+<span id="cb79-38"><a href="arosur.html#cb79-38" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Correlation = -0.81&quot;</span>)</span>
+<span id="cb79-39"><a href="arosur.html#cb79-39" tabindex="-1"></a></span>
+<span id="cb79-40"><a href="arosur.html#cb79-40" tabindex="-1"></a><span class="fu">plot</span>(example3, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Y&quot;</span>, </span>
+<span id="cb79-41"><a href="arosur.html#cb79-41" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Correlation = 0&quot;</span>)</span>
+<span id="cb79-42"><a href="arosur.html#cb79-42" tabindex="-1"></a></span>
+<span id="cb79-43"><a href="arosur.html#cb79-43" tabindex="-1"></a><span class="fu">plot</span>(example4, <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">xlab =</span> <span class="st">&quot;X&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;Y&quot;</span>, </span>
+<span id="cb79-44"><a href="arosur.html#cb79-44" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Correlation = 0&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-132-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="exercises-3" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Exercises<a href="arosur.html#exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="biased" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>1. Biased …<a href="arosur.html#biased" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider the following alternative estimator for <span class="math inline">\(\mu_Y\)</span>, the mean of the <span class="math inline">\(Y_i\)</span></p>
+<p><span class="math display">\[\widetilde{Y}=\frac{1}{n-1}\sum\limits_{i=1}^n Y_i\]</span></p>
+<p>In this exercise we will illustrate that this estimator is a biased estimator for <span class="math inline">\(\mu_Y\)</span>.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Define a function <tt>Y_tilde</tt> that implements the estimator above.</p></li>
+<li><p>Randomly draw 5 observations from the <span class="math inline">\(\mathcal{N}(10, 25)\)</span> distribution and compute an estimate using <tt>Y_tilde()</tt>. Repeat this procedure 10000 times and store the results in <tt>est_biased</tt>.</p></li>
+<li><p>Plot a histogram of <tt>est_biased</tt>.</p></li>
+<li><p>Add a red vertical line at <span class="math inline">\(\mu=10\)</span> using the function <tt>abline()</tt>.</p></li>
+</ul>
+<iframe src="DCL/ex3_1.html" frameborder="0" scrolling="no" style="width:100%;height:400px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>To compute the sum of a vector you can use <tt>sum()</tt>, to get the length of a vector you can use <tt>length()</tt>.</p></li>
+<li><p>Use the function <tt>replicate()</tt> to compute repeatedly estimates of random samples. With the arguments <tt>expr</tt> and <tt>n</tt> you can specify the operation and how often it has to be replicated.</p></li>
+<li><p>A histogram can be plotted with the function <tt>hist()</tt>.</p></li>
+<li><p>The point on the x-axis as well as the color for the vertical line can be specified via the arguments <tt>v</tt> and <tt>col</tt>.</p></li>
+</ul>
+</div>
+<div id="but-consistent-estimator" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>2. … but consistent estimator<a href="arosur.html#but-consistent-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider again the estimator from the previous exercise. It is available in your environment as the function <tt>Y_tilde()</tt>. You are requested to do the same procedure as in the previous exercise. This time, however, increase the number of observations to draw from 5 to 1000.</p>
+<p>What do you notice? What can you say about this estimator?</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Randomly draw 1000 observations from the <span class="math inline">\(\mathcal{N}(10, 25)\)</span> distribution and compute an estimate of the mean using <tt>Y_tilde()</tt>. Repeat this procedure 10000 times and store the results in <tt>est_consistent</tt>.</p></li>
+<li><p>Plot a histogram of <tt>est_consistent</tt>.</p></li>
+<li><p>Add a red vertical line at <span class="math inline">\(\mu=10\)</span> using the function <tt>abline()</tt>.</p></li>
+</ul>
+<iframe src="DCL/ex3_2.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>Use the function <tt>replicate()</tt> to compute estimates of repeatedly drawn random samples. Using the arguments <tt>expr</tt> and <tt>n</tt> you may specify the operation and how often it will be replicated.</p></li>
+<li><p>A histogram can be plotted with the function <tt>hist()</tt>.</p></li>
+<li><p>The position on the x-axis as well as the color for the vertical line can be specified via the arguments <tt>v</tt> and <tt>col</tt>.</p></li>
+</ul>
+</div>
+<div id="efficiency-of-an-estimator" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>3. Efficiency of an Estimator<a href="arosur.html#efficiency-of-an-estimator" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In this exercise we want to illustrate the result that the sample mean</p>
+<p><span class="math display">\[\hat{\mu}_Y=\sum\limits_{i=1}^{n}a_iY_i\]</span> with the equal weighting scheme <span class="math inline">\(a_i=\frac{1}{n}\)</span> for <span class="math inline">\(i=1,...,n\)</span> is the best linear unbiased estimator (BLUE) of <span class="math inline">\(\mu_Y\)</span>.</p>
+<p>As an alternative, consider the estimator</p>
+<p><span class="math display">\[\tilde{\mu}_Y=\sum\limits_{i=1}^{n}b_iY_i\]</span></p>
+<p>where <span class="math inline">\(b_i\)</span> gives the first <span class="math inline">\(\frac{n}{2}\)</span> observations a higher weighting than the second <span class="math inline">\(\frac{n}{2}\)</span> observations (we assume that <span class="math inline">\(n\)</span> is even for simplicity).</p>
+<p>The vector of weights <tt>w</tt> has been defined already and is available in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Verify that <span class="math inline">\(\tilde{\mu}\)</span> is an unbiased estimator of <span class="math inline">\(\mu_Y\)</span>, the mean of the <span class="math inline">\(Y_i\)</span>.</p></li>
+<li><p>Implement the alternative estimator of <span class="math inline">\(\mu_Y\)</span> as a function <tt>mu_tilde()</tt>.</p></li>
+<li><p>Randomly draw 100 observations from the <span class="math inline">\(\mathcal{N}(5, 100)\)</span> distribution and compute estimates with both estimators. Repeat this procedure 10000 times and store the results in <tt>est_bar</tt> and <tt>est_tilde</tt>.</p></li>
+<li><p>Compute the sample variances of <tt>est_bar</tt> and <tt>est_tilde</tt>. What can you say about both estimators?</p></li>
+</ul>
+<iframe src="DCL/ex3_3.html" frameborder="0" scrolling="no" style="width:100%;height:420px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>In order for <span class="math inline">\(\tilde{\mu}\)</span> to be an unbiased estimator all weights have to sum up to 1.</p></li>
+<li><p>Use the function <tt>replicate()</tt> to compute estimates of repeatedly drawn samples. With the arguments <tt>expr</tt> and <tt>n</tt> you can specify the operation and how often it is replicated.</p></li>
+<li><p>You may use <tt>var()</tt> the compute the sample variance.</p></li>
+</ul>
+</div>
+<div id="hypothesis-test-t-statistic" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>4. Hypothesis Test — <span class="math inline">\(t\)</span>-statistic<a href="arosur.html#hypothesis-test-t-statistic" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider the CPS dataset from Chapter <a href="arosur.html#aattggoe">3.6</a> again. The dataset <tt>cps</tt> is available in your working environment.</p>
+<p>We suppose that the average hourly earnings (in prices of 2012) <tt>ahe12</tt> exceed 23.50 <span class="math inline">\(\$/h\)</span> and wish to test this hypothesis at a significance level of <span class="math inline">\(\alpha=0.05\)</span>. Please do the following:</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Compute the test statistic by hand and assign it to <tt>tstat</tt>.</p></li>
+<li><p>Use <tt>tstat</tt> to accept or reject the null hypothesis. Please do so using the normal approximation.</p></li>
+</ul>
+<iframe src="DCL/ex3_4.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>We test <span class="math inline">\(H_0:\mu_{Y_{ahe}}\leq 23.5\)</span> vs. <span class="math inline">\(H_1:\mu_{Y_{ahe}}&gt;23.5\)</span>. That is, we conduct a right-sided test.</p></li>
+<li><p>The <span class="math inline">\(t\)</span>-statistic is defined as <span class="math inline">\(\frac{\bar{Y}-\mu_{Y,0}}{s_{Y}/\sqrt{n}}\)</span> where <span class="math inline">\(s_Y\)</span> denotes the sample variance.</p></li>
+<li><p>To decide whether the null hypothesis is accepted or rejected you can compare the <span class="math inline">\(t\)</span>-statistic with the respective quantile of the standard normal distribution. Use logical operators.</p></li>
+</ul>
+</div>
+<div id="hypothesis-test-p-value" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>5. Hypothesis Test — <span class="math inline">\(p\)</span>-value<a href="arosur.html#hypothesis-test-p-value" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Reconsider the test situation from the previous exercise. The dataset <tt>cps</tt> as well as the vector <tt>tstat</tt> are available in your working environment.</p>
+<p>Instead of using the <span class="math inline">\(t\)</span>-statistic as decision criterion you may also use the <span class="math inline">\(p\)</span>-value. Now please do the following:</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Compute the <span class="math inline">\(p\)</span>-value by hand and assign it to <tt>pval</tt>.</p></li>
+<li><p>Use <tt>pval</tt> to accept or reject the null hypothesis.</p></li>
+</ul>
+<iframe src="DCL/ex3_5.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>The <span class="math inline">\(p\)</span>-value for a right-sided test can be computed as <span class="math inline">\(p=P(t&gt;t^{act}|H_0)\)</span>.</p></li>
+<li><p>We reject the null if <span class="math inline">\(p&lt;\alpha\)</span>. Use logical operators to check for this.</p></li>
+</ul>
+</div>
+<div id="hypothesis-test-one-sample-t-test" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>6. Hypothesis Test — One Sample <span class="math inline">\(t\)</span>-test<a href="arosur.html#hypothesis-test-one-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In the last two exercises we discussed two ways of conducting a hypothesis test. These approaches are somewhat cumbersome to apply by hand which is why <tt>R</tt> provides the function <tt>t.test()</tt>. It does most of the work automatically. <tt>t.test()</tt> provides <span class="math inline">\(t\)</span>-statistics, <span class="math inline">\(p\)</span>-values and even confidence intervals (more on the latter in later exercises). Note that <tt>t.test()</tt> uses the <span class="math inline">\(t\)</span>-distribution instead of the normal distribution which becomes important when the sample size is small.</p>
+<p>The dataset <tt>cps</tt> and the variable <tt>pval</tt> from Exercise 3.4 are available in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Conduct the hypothesis test from previous exercises using the function <tt>t.test()</tt>.</p></li>
+<li><p>Extract the <span class="math inline">\(t\)</span>-statistic and the <span class="math inline">\(p\)</span>-value from the list created by <tt>t.test()</tt>. Assign them to the variables <tt>tstat</tt> and <tt>pvalue</tt>.</p></li>
+<li><p>Verify that using the normal approximation here is valid as well by computing the difference between both <span class="math inline">\(p\)</span>-values.</p></li>
+</ul>
+<iframe src="DCL/ex3_6.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>The type of the test as well as the null hypothesis can be specified via the arguments <tt>alternative</tt> and <tt>mu</tt>.</p></li>
+<li><p>The <span class="math inline">\(t\)</span>-statistic and the <span class="math inline">\(p\)</span>-value can be obtained via <tt>$statistic</tt> and <tt>$p.value</tt>, respectively.</p></li>
+</ul>
+</div>
+<div id="hypothesis-test-two-sample-t-test" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>7. Hypothesis Test — Two Sample <span class="math inline">\(t\)</span>-test<a href="arosur.html#hypothesis-test-two-sample-t-test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider the annual maximum sea levels at Port Pirie (Southern Australia) and Fremantle (Western Australia) for the last 30 years.</p>
+<p>The observations are made available as vectors <tt>portpirie</tt> and <tt>fremantle</tt> in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>Test whether there is a significant difference in the annual maximum sea levels at a significance level of <span class="math inline">\(\alpha=0.05\)</span>.</li>
+</ul>
+<iframe src="DCL/ex3_7.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>We test <span class="math inline">\(H_0:\mu_{P}-\mu_{F}=0\)</span> vs. <span class="math inline">\(H_1:\mu_{P}-\mu_{F}\ne 0\)</span>. That is, we conduct a two sample <span class="math inline">\(t\)</span>-test.</p></li>
+<li><p>For a two sample <span class="math inline">\(t\)</span>-test the function <tt>t.test()</tt> expects two vectors containing the data.</p></li>
+</ul>
+</div>
+<div id="confidence-interval" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>8. Confidence Interval<a href="arosur.html#confidence-interval" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Reconsider the test situation concerning the annual maximum sea levels at Port Pirie and Fremantle.</p>
+<p>The variables <tt>portpirie</tt> and <tt>fremantle</tt> are again available in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>Construct a <span class="math inline">\(95\%\)</span>-confidence interval for the difference in the sea levels using <tt>t.test()</tt>.</li>
+</ul>
+<iframe src="DCL/ex3_8.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hint:</strong></p>
+<ul>
+<li>The function <tt>t.test()</tt> computes a <span class="math inline">\(95\%\)</span> confidence interval by default. This is accessible via <tt>$conf.int</tt>.</li>
+</ul>
+</div>
+<div id="covariance-and-correlation-i" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>9. (Co)variance and Correlation I<a href="arosur.html#covariance-and-correlation-i" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Consider a random sample <span class="math inline">\((X_i, Y_i)\)</span> for <span class="math inline">\(i=1,...,100\)</span>.</p>
+<p>The respective vectors <tt>X</tt> and <tt>Y</tt> are available in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li><p>Compute the variance of <span class="math inline">\(X\)</span> using the function <tt>cov()</tt>.</p></li>
+<li><p>Compute the covariance of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+<li><p>Compute the correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p></li>
+</ul>
+<iframe src="DCL/ex3_9.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hints:</strong></p>
+<ul>
+<li><p>The variance is a special case of the covariance.</p></li>
+<li><p><tt>cov()</tt> as well as <tt>cor()</tt> expect a vector for each variable.</p></li>
+</ul>
+</div>
+<div id="covariance-and-correlation-ii" class="section level4 unnumbered hasAnchor DCexercise">
+<h4>10. (Co)variance and Correlation II<a href="arosur.html#covariance-and-correlation-ii" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In this exercise we want to examine the limitations of the correlation as a dependency measure.</p>
+<p>Once the session has initialized you will see the plot of 100 realizations from two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>The respective observations are available in the vectors <tt>X</tt> and <tt>Y</tt> in your working environment.</p>
+<p><strong>Instructions:</strong></p>
+<ul>
+<li>Compute the correlation between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>. Interpret your result critically.</li>
+</ul>
+<iframe src="DCL/ex3_10.html" frameborder="0" scrolling="no" style="width:100%;height:340px">
+</iframe>
+<p><strong>Hint:</strong></p>
+<ul>
+<li><tt>cor()</tt> expects a vector for each variable.</li>
+</ul>
+</div>
+
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-R-MASS" class="csl-entry">
+Ripley, Brian. 2023. <em><span class="nocase">MASS: Support Functions and Datasets for Venables and Ripley’s MASS</span></em> (version 7.3-60). <a href="http://www.stats.ox.ac.uk/pub/MASS4/">http://www.stats.ox.ac.uk/pub/MASS4/</a>.
+</div>
+<div id="ref-R-readxl" class="csl-entry">
+Wickham, Hadley, and Jennifer Bryan. 2023. <em><span class="nocase">readxl: Read Excel Files</span></em> (version 1.4.3). <a href="https://readxl.tidyverse.org">https://readxl.tidyverse.org</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em><span class="nocase">dplyr: A Grammar of Data Manipulation</span></em> (version 1.1.3). <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lrwor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mca91/EconometricsWithR/edit/master/03-ch3.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

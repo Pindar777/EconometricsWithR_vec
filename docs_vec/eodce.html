@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en-US" xml:lang="en-US">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>15 Estimation of Dynamic Causal Effects | Introduction to Econometrics with R</title>
+  <meta name="description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="generator" content="bookdown 0.36 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="15 Estimation of Dynamic Causal Effects | Introduction to Econometrics with R" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://www.econometrics-with-r.org//images/cover.png" />
+  <meta property="og:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="github-repo" content="mca91/EconometricsWithR" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="15 Estimation of Dynamic Causal Effects | Introduction to Econometrics with R" />
+  
+  <meta name="twitter:description" content="Beginners with little background in statistics and econometrics often have a hard time understanding the benefits of having programming skills for learning and applying Econometrics. ‘Introduction to Econometrics with R’ is an interactive companion to the well-received textbook ‘Introduction to Econometrics’ by James H. Stock and Mark W. Watson (2015). It gives a gentle introduction to the essentials of R programming and guides students in implementing the empirical applications presented throughout the textbook using the newly aquired skills. This is supported by interactive programming exercises generated with DataCamp Light and integration of interactive visualizations of central concepts which are based on the flexible JavaScript library D3.js." />
+  <meta name="twitter:image" content="https://www.econometrics-with-r.org//images/cover.png" />
+
+<meta name="author" content="Christoph Hanck, Martin Arnold, Alexander Gerber, and Martin Schmelzer" />
+
+
+<meta name="date" content="2024-12-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ittsraf.html"/>
+<link rel="next" href="atitsr.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.3/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="images/logo.png" alt="logo" width="50%" height="50%"style="margin: 15px 0 0 0"></center></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="introduction.html"><a href="introduction.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction.html"><a href="introduction.html#colophon"><i class="fa fa-check"></i><b>1.1</b> Colophon</a></li>
+<li class="chapter" data-level="1.2" data-path="introduction.html"><a href="introduction.html#a-very-short-introduction-to-r-and-rstudio"><i class="fa fa-check"></i><b>1.2</b> A Very Short Introduction to <tt>R</tt> and <em>RStudio</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="pt.html"><a href="pt.html"><i class="fa fa-check"></i><b>2</b> Probability Theory</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pt.html"><a href="pt.html#random-variables-and-probability-distributions"><i class="fa fa-check"></i><b>2.1</b> Random Variables and Probability Distributions</a>
+<ul>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#probability-distributions-of-discrete-random-variables"><i class="fa fa-check"></i>Probability Distributions of Discrete Random Variables</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#bernoulli-trials"><i class="fa fa-check"></i>Bernoulli Trials</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#expected-value-mean-and-variance"><i class="fa fa-check"></i>Expected Value, Mean and Variance</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#probability-distributions-of-continuous-random-variables"><i class="fa fa-check"></i>Probability Distributions of Continuous Random Variables</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-normal-distribution"><i class="fa fa-check"></i>The Normal Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-chi-squared-distribution"><i class="fa fa-check"></i>The Chi-Squared Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#thetdist"><i class="fa fa-check"></i>The Student t Distribution</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#the-f-distribution"><i class="fa fa-check"></i>The F Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="pt.html"><a href="pt.html#RSATDOSA"><i class="fa fa-check"></i><b>2.2</b> Random Sampling and the Distribution of Sample Averages</a>
+<ul>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#mean-and-variance-of-the-sample-mean"><i class="fa fa-check"></i>Mean and Variance of the Sample Mean</a></li>
+<li class="chapter" data-level="" data-path="pt.html"><a href="pt.html#large-sample-approximations-to-sampling-distributions"><i class="fa fa-check"></i>Large Sample Approximations to Sampling Distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="pt.html"><a href="pt.html#exercises-2"><i class="fa fa-check"></i><b>2.3</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arosur.html"><a href="arosur.html"><i class="fa fa-check"></i><b>3</b> A Review of Statistics using R</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="arosur.html"><a href="arosur.html#estimation-of-the-population-mean"><i class="fa fa-check"></i><b>3.1</b> Estimation of the Population Mean</a></li>
+<li class="chapter" data-level="3.2" data-path="arosur.html"><a href="arosur.html#potsm"><i class="fa fa-check"></i><b>3.2</b> Properties of the Sample Mean</a></li>
+<li class="chapter" data-level="3.3" data-path="arosur.html"><a href="arosur.html#hypothesis-tests-concerning-the-population-mean"><i class="fa fa-check"></i><b>3.3</b> Hypothesis Tests concerning the Population Mean</a>
+<ul>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#the-p-value"><i class="fa fa-check"></i>The p-Value</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-known"><i class="fa fa-check"></i>Calculating the p-Value when the Standard Deviation is Known</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#SVSSDASE"><i class="fa fa-check"></i>Sample Variance, Sample Standard Deviation and Standard Error</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#calculating-the-p-value-when-the-standard-deviation-is-unknown"><i class="fa fa-check"></i>Calculating the p-value When the Standard Deviation is Unknown</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#the-t-statistic"><i class="fa fa-check"></i>The t-statistic</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#hypothesis-testing-with-a-prespecified-significance-level"><i class="fa fa-check"></i>Hypothesis Testing with a Prespecified Significance Level</a></li>
+<li class="chapter" data-level="" data-path="arosur.html"><a href="arosur.html#one-sided-alternatives"><i class="fa fa-check"></i>One-sided Alternatives</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="arosur.html"><a href="arosur.html#confidence-intervals-for-the-population-mean"><i class="fa fa-check"></i><b>3.4</b> Confidence Intervals for the Population Mean</a></li>
+<li class="chapter" data-level="3.5" data-path="arosur.html"><a href="arosur.html#cmfdp"><i class="fa fa-check"></i><b>3.5</b> Comparing Means from Different Populations</a></li>
+<li class="chapter" data-level="3.6" data-path="arosur.html"><a href="arosur.html#aattggoe"><i class="fa fa-check"></i><b>3.6</b> An Application to the Gender Gap of Earnings</a></li>
+<li class="chapter" data-level="3.7" data-path="arosur.html"><a href="arosur.html#scatterplots-sample-covariance-and-sample-correlation"><i class="fa fa-check"></i><b>3.7</b> Scatterplots, Sample Covariance and Sample Correlation</a></li>
+<li class="chapter" data-level="3.8" data-path="arosur.html"><a href="arosur.html#exercises-3"><i class="fa fa-check"></i><b>3.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lrwor.html"><a href="lrwor.html"><i class="fa fa-check"></i><b>4</b> Linear Regression with One Regressor</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="lrwor.html"><a href="lrwor.html#simple-linear-regression"><i class="fa fa-check"></i><b>4.1</b> Simple Linear Regression</a></li>
+<li class="chapter" data-level="4.2" data-path="lrwor.html"><a href="lrwor.html#estimating-the-coefficients-of-the-linear-regression-model"><i class="fa fa-check"></i><b>4.2</b> Estimating the Coefficients of the Linear Regression Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-ordinary-least-squares-estimator"><i class="fa fa-check"></i>The Ordinary Least Squares Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="lrwor.html"><a href="lrwor.html#measures-of-fit"><i class="fa fa-check"></i><b>4.3</b> Measures of Fit</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-coefficient-of-determination"><i class="fa fa-check"></i>The Coefficient of Determination</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#the-standard-error-of-the-regression"><i class="fa fa-check"></i>The Standard Error of the Regression</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#application-to-the-test-score-data"><i class="fa fa-check"></i>Application to the Test Score Data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="lrwor.html"><a href="lrwor.html#tlsa"><i class="fa fa-check"></i><b>4.4</b> The Least Squares Assumptions</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-1-the-error-term-has-conditional-mean-of-zero"><i class="fa fa-check"></i>Assumption 1: The Error Term has Conditional Mean of Zero</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-2-independently-and-identically-distributed-data"><i class="fa fa-check"></i>Assumption 2: Independently and Identically Distributed Data</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#assumption-3-large-outliers-are-unlikely"><i class="fa fa-check"></i>Assumption 3: Large Outliers are Unlikely</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="lrwor.html"><a href="lrwor.html#tsdotoe"><i class="fa fa-check"></i><b>4.5</b> The Sampling Distribution of the OLS Estimator</a>
+<ul>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-1"><i class="fa fa-check"></i>Simulation Study 1</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-2"><i class="fa fa-check"></i>Simulation Study 2</a></li>
+<li class="chapter" data-level="" data-path="lrwor.html"><a href="lrwor.html#simulation-study-3"><i class="fa fa-check"></i>Simulation Study 3</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="lrwor.html"><a href="lrwor.html#exercises-4"><i class="fa fa-check"></i><b>4.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="htaciitslrm.html"><a href="htaciitslrm.html"><i class="fa fa-check"></i><b>5</b> Hypothesis Tests and Confidence Intervals in SLR Model</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="htaciitslrm.html"><a href="htaciitslrm.html#testing-two-sided-hypotheses-concerning-the-slope-coefficient"><i class="fa fa-check"></i><b>5.1</b> Testing Two-Sided Hypotheses concerning the Slope Coefficient</a></li>
+<li class="chapter" data-level="5.2" data-path="htaciitslrm.html"><a href="htaciitslrm.html#cifrc"><i class="fa fa-check"></i><b>5.2</b> Confidence Intervals for Regression Coefficients</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#simulation-study-confidence-intervals"><i class="fa fa-check"></i>Simulation Study: Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="htaciitslrm.html"><a href="htaciitslrm.html#rwxiabv"><i class="fa fa-check"></i><b>5.3</b> Regression when X is a Binary Variable</a></li>
+<li class="chapter" data-level="5.4" data-path="htaciitslrm.html"><a href="htaciitslrm.html#hah"><i class="fa fa-check"></i><b>5.4</b> Heteroskedasticity and Homoskedasticity</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#a-real-world-example-for-heteroskedasticity"><i class="fa fa-check"></i>A Real-World Example for Heteroskedasticity</a></li>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#should-we-care-about-heteroskedasticity"><i class="fa fa-check"></i>Should We Care About Heteroskedasticity?</a></li>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#computation-of-heteroskedasticity-robust-standard-errors"><i class="fa fa-check"></i>Computation of Heteroskedasticity-Robust Standard Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="htaciitslrm.html"><a href="htaciitslrm.html#the-gauss-markov-theorem"><i class="fa fa-check"></i><b>5.5</b> The Gauss-Markov Theorem</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciitslrm.html"><a href="htaciitslrm.html#simulation-study-blue-estimator"><i class="fa fa-check"></i>Simulation Study: BLUE Estimator</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="htaciitslrm.html"><a href="htaciitslrm.html#using-the-t-statistic-in-regression-when-the-sample-size-is-small"><i class="fa fa-check"></i><b>5.6</b> Using the t-Statistic in Regression when the Sample Size Is Small</a></li>
+<li class="chapter" data-level="5.7" data-path="htaciitslrm.html"><a href="htaciitslrm.html#exercises-5"><i class="fa fa-check"></i><b>5.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="rmwmr.html"><a href="rmwmr.html"><i class="fa fa-check"></i><b>6</b> Regression Models with Multiple Regressors</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="rmwmr.html"><a href="rmwmr.html#omitted-variable-bias"><i class="fa fa-check"></i><b>6.1</b> Omitted Variable Bias</a></li>
+<li class="chapter" data-level="6.2" data-path="rmwmr.html"><a href="rmwmr.html#tmrm"><i class="fa fa-check"></i><b>6.2</b> The Multiple Regression Model</a></li>
+<li class="chapter" data-level="6.3" data-path="rmwmr.html"><a href="rmwmr.html#mofimr"><i class="fa fa-check"></i><b>6.3</b> Measures of Fit in Multiple Regression</a></li>
+<li class="chapter" data-level="6.4" data-path="rmwmr.html"><a href="rmwmr.html#ols-assumptions-in-multiple-regression"><i class="fa fa-check"></i><b>6.4</b> OLS Assumptions in Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rmwmr.html"><a href="rmwmr.html#multicollinearity"><i class="fa fa-check"></i>Multicollinearity</a></li>
+<li class="chapter" data-level="" data-path="rmwmr.html"><a href="rmwmr.html#simulation-study-imperfect-multicollinearity"><i class="fa fa-check"></i>Simulation Study: Imperfect Multicollinearity</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="rmwmr.html"><a href="rmwmr.html#the-distribution-of-the-ols-estimators-in-multiple-regression"><i class="fa fa-check"></i><b>6.5</b> The Distribution of the OLS Estimators in Multiple Regression</a></li>
+<li class="chapter" data-level="6.6" data-path="rmwmr.html"><a href="rmwmr.html#exercises-6"><i class="fa fa-check"></i><b>6.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="htaciimr.html"><a href="htaciimr.html"><i class="fa fa-check"></i><b>7</b> Hypothesis Tests and Confidence Intervals in MR Models</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="htaciimr.html"><a href="htaciimr.html#hypothesis-tests-and-confidence-intervals-for-a-single-coefficient"><i class="fa fa-check"></i><b>7.1</b> Hypothesis Tests and Confidence Intervals for a Single Coefficient</a></li>
+<li class="chapter" data-level="7.2" data-path="htaciimr.html"><a href="htaciimr.html#an-application-to-test-scores-and-the-student-teacher-ratio"><i class="fa fa-check"></i><b>7.2</b> An Application to Test Scores and the Student-Teacher Ratio</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciimr.html"><a href="htaciimr.html#another-augmentation-of-the-model"><i class="fa fa-check"></i>Another Augmentation of the Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="htaciimr.html"><a href="htaciimr.html#joint-hypothesis-testing-using-the-f-statistic"><i class="fa fa-check"></i><b>7.3</b> Joint Hypothesis Testing using the F-Statistic</a></li>
+<li class="chapter" data-level="7.4" data-path="htaciimr.html"><a href="htaciimr.html#confidence-sets-for-multiple-coefficients"><i class="fa fa-check"></i><b>7.4</b> Confidence Sets for Multiple Coefficients</a></li>
+<li class="chapter" data-level="7.5" data-path="htaciimr.html"><a href="htaciimr.html#model-specification-for-multiple-regression"><i class="fa fa-check"></i><b>7.5</b> Model Specification for Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="htaciimr.html"><a href="htaciimr.html#model-specification-in-theory-and-in-practice"><i class="fa fa-check"></i>Model Specification in Theory and in Practice</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="htaciimr.html"><a href="htaciimr.html#analysis-of-the-test-score-data-set"><i class="fa fa-check"></i><b>7.6</b> Analysis of the Test Score Data Set</a></li>
+<li class="chapter" data-level="7.7" data-path="htaciimr.html"><a href="htaciimr.html#exercises-7"><i class="fa fa-check"></i><b>7.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="nrf.html"><a href="nrf.html"><i class="fa fa-check"></i><b>8</b> Nonlinear Regression Functions</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="nrf.html"><a href="nrf.html#a-general-strategy-for-modelling-nonlinear-regression-functions"><i class="fa fa-check"></i><b>8.1</b> A General Strategy for Modelling Nonlinear Regression Functions</a></li>
+<li class="chapter" data-level="8.2" data-path="nrf.html"><a href="nrf.html#nfoasiv"><i class="fa fa-check"></i><b>8.2</b> Nonlinear Functions of a Single Independent Variable</a>
+<ul>
+<li class="chapter" data-level="" data-path="nrf.html"><a href="nrf.html#polynomials"><i class="fa fa-check"></i>Polynomials</a></li>
+<li class="chapter" data-level="" data-path="nrf.html"><a href="nrf.html#logarithms"><i class="fa fa-check"></i>Logarithms</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="nrf.html"><a href="nrf.html#interactions-between-independent-variables"><i class="fa fa-check"></i><b>8.3</b> Interactions between Independent Variables</a></li>
+<li class="chapter" data-level="8.4" data-path="nrf.html"><a href="nrf.html#nonlinear-effects-on-test-scores-of-the-student-teacher-ratio"><i class="fa fa-check"></i><b>8.4</b> Nonlinear Effects on Test Scores of the Student-Teacher Ratio</a></li>
+<li class="chapter" data-level="8.5" data-path="nrf.html"><a href="nrf.html#exercises-8"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="asbomr.html"><a href="asbomr.html"><i class="fa fa-check"></i><b>9</b> Assessing Studies Based on Multiple Regression</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="asbomr.html"><a href="asbomr.html#internal-and-external-validity"><i class="fa fa-check"></i><b>9.1</b> Internal and External Validity</a></li>
+<li class="chapter" data-level="9.2" data-path="asbomr.html"><a href="asbomr.html#ttivomra"><i class="fa fa-check"></i><b>9.2</b> Threats to Internal Validity of Multiple Regression Analysis</a></li>
+<li class="chapter" data-level="9.3" data-path="asbomr.html"><a href="asbomr.html#internal-and-external-validity-when-the-regression-is-used-for-forecasting"><i class="fa fa-check"></i><b>9.3</b> Internal and External Validity when the Regression is used for Forecasting</a></li>
+<li class="chapter" data-level="9.4" data-path="asbomr.html"><a href="asbomr.html#etsacs"><i class="fa fa-check"></i><b>9.4</b> Example: Test Scores and Class Size</a></li>
+<li class="chapter" data-level="9.5" data-path="asbomr.html"><a href="asbomr.html#exercises-9"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="rwpd.html"><a href="rwpd.html"><i class="fa fa-check"></i><b>10</b> Regression with Panel Data</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="rwpd.html"><a href="rwpd.html#panel-data"><i class="fa fa-check"></i><b>10.1</b> Panel Data</a></li>
+<li class="chapter" data-level="10.2" data-path="rwpd.html"><a href="rwpd.html#PDWTTP"><i class="fa fa-check"></i><b>10.2</b> Panel Data with Two Time Periods: “Before and After” Comparisons</a></li>
+<li class="chapter" data-level="10.3" data-path="rwpd.html"><a href="rwpd.html#fixed-effects-regression"><i class="fa fa-check"></i><b>10.3</b> Fixed Effects Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rwpd.html"><a href="rwpd.html#estimation-and-inference"><i class="fa fa-check"></i>Estimation and Inference</a></li>
+<li class="chapter" data-level="" data-path="rwpd.html"><a href="rwpd.html#application-to-traffic-deaths"><i class="fa fa-check"></i>Application to Traffic Deaths</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="rwpd.html"><a href="rwpd.html#regression-with-time-fixed-effects"><i class="fa fa-check"></i><b>10.4</b> Regression with Time Fixed Effects</a></li>
+<li class="chapter" data-level="10.5" data-path="rwpd.html"><a href="rwpd.html#tferaaseffer"><i class="fa fa-check"></i><b>10.5</b> The Fixed Effects Regression Assumptions and Standard Errors for Fixed Effects Regression</a></li>
+<li class="chapter" data-level="10.6" data-path="rwpd.html"><a href="rwpd.html#drunk-driving-laws-and-traffic-deaths"><i class="fa fa-check"></i><b>10.6</b> Drunk Driving Laws and Traffic Deaths</a></li>
+<li class="chapter" data-level="10.7" data-path="rwpd.html"><a href="rwpd.html#exercises-10"><i class="fa fa-check"></i><b>10.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="rwabdv.html"><a href="rwabdv.html"><i class="fa fa-check"></i><b>11</b> Regression with a Binary Dependent Variable</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="rwabdv.html"><a href="rwabdv.html#binary-dependent-variables-and-the-linear-probability-model"><i class="fa fa-check"></i><b>11.1</b> Binary Dependent Variables and the Linear Probability Model</a></li>
+<li class="chapter" data-level="11.2" data-path="rwabdv.html"><a href="rwabdv.html#palr"><i class="fa fa-check"></i><b>11.2</b> Probit and Logit Regression</a>
+<ul>
+<li class="chapter" data-level="" data-path="rwabdv.html"><a href="rwabdv.html#probit-regression"><i class="fa fa-check"></i>Probit Regression</a></li>
+<li class="chapter" data-level="" data-path="rwabdv.html"><a href="rwabdv.html#logit-regression"><i class="fa fa-check"></i>Logit Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="11.3" data-path="rwabdv.html"><a href="rwabdv.html#estimation-and-inference-in-the-logit-and-probit-models"><i class="fa fa-check"></i><b>11.3</b> Estimation and Inference in the Logit and Probit Models</a></li>
+<li class="chapter" data-level="11.4" data-path="rwabdv.html"><a href="rwabdv.html#application-to-the-boston-hmda-data"><i class="fa fa-check"></i><b>11.4</b> Application to the Boston HMDA Data</a></li>
+<li class="chapter" data-level="11.5" data-path="rwabdv.html"><a href="rwabdv.html#exercises-11"><i class="fa fa-check"></i><b>11.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="ivr.html"><a href="ivr.html"><i class="fa fa-check"></i><b>12</b> Instrumental Variables Regression</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="ivr.html"><a href="ivr.html#TIVEWASRAASI"><i class="fa fa-check"></i><b>12.1</b> The IV Estimator with a Single Regressor and a Single Instrument</a></li>
+<li class="chapter" data-level="12.2" data-path="ivr.html"><a href="ivr.html#TGIVRM"><i class="fa fa-check"></i><b>12.2</b> The General IV Regression Model</a></li>
+<li class="chapter" data-level="12.3" data-path="ivr.html"><a href="ivr.html#civ"><i class="fa fa-check"></i><b>12.3</b> Checking Instrument Validity</a></li>
+<li class="chapter" data-level="12.4" data-path="ivr.html"><a href="ivr.html#attdfc"><i class="fa fa-check"></i><b>12.4</b> Application to the Demand for Cigarettes</a></li>
+<li class="chapter" data-level="12.5" data-path="ivr.html"><a href="ivr.html#where-do-valid-instruments-come-from"><i class="fa fa-check"></i><b>12.5</b> Where Do Valid Instruments Come From?</a></li>
+<li class="chapter" data-level="12.6" data-path="ivr.html"><a href="ivr.html#exercises-12"><i class="fa fa-check"></i><b>12.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="eaqe.html"><a href="eaqe.html"><i class="fa fa-check"></i><b>13</b> Experiments and Quasi-Experiments</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="eaqe.html"><a href="eaqe.html#poceaie"><i class="fa fa-check"></i><b>13.1</b> Potential Outcomes, Causal Effects and Idealized Experiments</a></li>
+<li class="chapter" data-level="13.2" data-path="eaqe.html"><a href="eaqe.html#threats-to-validity-of-experiments"><i class="fa fa-check"></i><b>13.2</b> Threats to Validity of Experiments</a></li>
+<li class="chapter" data-level="13.3" data-path="eaqe.html"><a href="eaqe.html#experimental-estimates-of-the-effect-of-class-size-reductions"><i class="fa fa-check"></i><b>13.3</b> Experimental Estimates of the Effect of Class Size Reductions</a>
+<ul>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#experimental-design-and-the-data-set"><i class="fa fa-check"></i>Experimental Design and the Data Set</a></li>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#analysis-of-the-star-data"><i class="fa fa-check"></i>Analysis of the STAR Data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.4" data-path="eaqe.html"><a href="eaqe.html#qe"><i class="fa fa-check"></i><b>13.4</b> Quasi Experiments</a>
+<ul>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#the-differences-in-differences-estimator"><i class="fa fa-check"></i>The Differences-in-Differences Estimator</a></li>
+<li class="chapter" data-level="" data-path="eaqe.html"><a href="eaqe.html#regression-discontinuity-estimators"><i class="fa fa-check"></i>Regression Discontinuity Estimators</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="eaqe.html"><a href="eaqe.html#exercises-13"><i class="fa fa-check"></i><b>13.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="ittsraf.html"><a href="ittsraf.html"><i class="fa fa-check"></i><b>14</b> Introduction to Time Series Regression and Forecasting</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="ittsraf.html"><a href="ittsraf.html#using-regression-models-for-forecasting"><i class="fa fa-check"></i><b>14.1</b> Using Regression Models for Forecasting</a></li>
+<li class="chapter" data-level="14.2" data-path="ittsraf.html"><a href="ittsraf.html#tsdasc"><i class="fa fa-check"></i><b>14.2</b> Time Series Data and Serial Correlation</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#notation-lags-differences-logarithms-and-growth-rates"><i class="fa fa-check"></i>Notation, Lags, Differences, Logarithms and Growth Rates</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="ittsraf.html"><a href="ittsraf.html#autoregressions"><i class="fa fa-check"></i><b>14.3</b> Autoregressions</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#autoregressive-models-of-order-p"><i class="fa fa-check"></i>Autoregressive Models of Order <span class="math inline">\(p\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.4" data-path="ittsraf.html"><a href="ittsraf.html#cybtmpi"><i class="fa fa-check"></i><b>14.4</b> Can You Beat the Market? (Part I)</a></li>
+<li class="chapter" data-level="14.5" data-path="ittsraf.html"><a href="ittsraf.html#apatadlm"><i class="fa fa-check"></i><b>14.5</b> Additional Predictors and The ADL Model</a>
+<ul>
+<li class="chapter" data-level="" data-path="ittsraf.html"><a href="ittsraf.html#forecast-uncertainty-and-forecast-intervals"><i class="fa fa-check"></i>Forecast Uncertainty and Forecast Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="ittsraf.html"><a href="ittsraf.html#llsuic"><i class="fa fa-check"></i><b>14.6</b> Lag Length Selection using Information Criteria</a></li>
+<li class="chapter" data-level="14.7" data-path="ittsraf.html"><a href="ittsraf.html#nit"><i class="fa fa-check"></i><b>14.7</b> Nonstationarity I: Trends</a></li>
+<li class="chapter" data-level="14.8" data-path="ittsraf.html"><a href="ittsraf.html#niib"><i class="fa fa-check"></i><b>14.8</b> Nonstationarity II: Breaks</a></li>
+<li class="chapter" data-level="14.9" data-path="ittsraf.html"><a href="ittsraf.html#can-you-beat-the-market-part-ii"><i class="fa fa-check"></i><b>14.9</b> Can You Beat the Market? (Part II)</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="eodce.html"><a href="eodce.html"><i class="fa fa-check"></i><b>15</b> Estimation of Dynamic Causal Effects</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="eodce.html"><a href="eodce.html#the-orange-juice-data"><i class="fa fa-check"></i><b>15.1</b> The Orange Juice Data</a></li>
+<li class="chapter" data-level="15.2" data-path="eodce.html"><a href="eodce.html#dynamic-causal-effects"><i class="fa fa-check"></i><b>15.2</b> Dynamic Causal Effects</a></li>
+<li class="chapter" data-level="15.3" data-path="eodce.html"><a href="eodce.html#dynamic-multipliers-and-cumulative-dynamic-multipliers"><i class="fa fa-check"></i><b>15.3</b> Dynamic Multipliers and Cumulative Dynamic Multipliers</a></li>
+<li class="chapter" data-level="15.4" data-path="eodce.html"><a href="eodce.html#hac-standard-errors"><i class="fa fa-check"></i><b>15.4</b> HAC Standard Errors</a></li>
+<li class="chapter" data-level="15.5" data-path="eodce.html"><a href="eodce.html#estimation-of-dynamic-causal-effects-with-strictly-exogeneous-regressors"><i class="fa fa-check"></i><b>15.5</b> Estimation of Dynamic Causal Effects with Strictly Exogeneous Regressors</a></li>
+<li class="chapter" data-level="15.6" data-path="eodce.html"><a href="eodce.html#orange-juice-prices-and-cold-weather"><i class="fa fa-check"></i><b>15.6</b> Orange Juice Prices and Cold Weather</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="atitsr.html"><a href="atitsr.html"><i class="fa fa-check"></i><b>16</b> Additional Topics in Time Series Regression</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="atitsr.html"><a href="atitsr.html#vector-autoregressions"><i class="fa fa-check"></i><b>16.1</b> Vector Autoregressions</a></li>
+<li class="chapter" data-level="16.2" data-path="atitsr.html"><a href="atitsr.html#ooiatdfglsurt"><i class="fa fa-check"></i><b>16.2</b> Orders of Integration and the DF-GLS Unit Root Test</a></li>
+<li class="chapter" data-level="16.3" data-path="atitsr.html"><a href="atitsr.html#cointegration"><i class="fa fa-check"></i><b>16.3</b> Cointegration</a></li>
+<li class="chapter" data-level="16.4" data-path="atitsr.html"><a href="atitsr.html#volatility-clustering-and-autoregressive-conditional-heteroskedasticity"><i class="fa fa-check"></i><b>16.4</b> Volatility Clustering and Autoregressive Conditional Heteroskedasticity</a>
+<ul>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#arch-and-garch-models"><i class="fa fa-check"></i>ARCH and GARCH Models</a></li>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#application-to-stock-price-volatility"><i class="fa fa-check"></i>Application to Stock Price Volatility</a></li>
+<li class="chapter" data-level="" data-path="atitsr.html"><a href="atitsr.html#summary-8"><i class="fa fa-check"></i>Summary</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Introduction to Econometrics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="eodce" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">15</span> Estimation of Dynamic Causal Effects<a href="eodce.html#eodce" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>It sometimes is of interest to know the size of current and future reaction of <span class="math inline">\(Y\)</span> to a change in <span class="math inline">\(X\)</span>. This is called the <em>dynamic causal effect</em> on <span class="math inline">\(Y\)</span> of a change in <span class="math inline">\(X\)</span>. In this Chapter we discuss how to estimate dynamic causal effects in <tt>R</tt> applications, where we investigate the dynamic effect of cold weather in Florida on the price of orange juice concentrate.</p>
+<p>The discussion covers:</p>
+<ul>
+<li>estimation of distributed lag models,</li>
+<li>heteroskedasticity- and autocorrelation-consistent (HAC) standard errors,</li>
+<li>generalized least squares (GLS) estimation of ADL models.</li>
+</ul>
+<p>To reproduce code examples, install the <tt>R</tt> packages listed below beforehand and make sure that the subsequent code chunk executes without any errors.</p>
+<ul>
+<li><tt>AER</tt> <span class="citation">(<a href="#ref-R-AER">Christian Kleiber and Zeileis 2008</a>)</span>,</li>
+<li><tt>dynlm</tt> <span class="citation">(<a href="#ref-R-dynlm">Zeileis 2019</a>)</span>,</li>
+<li><tt>nlme</tt> <span class="citation">(<a href="#ref-R-nlme">Pinheiro, Bates, and R Core Team 2023</a>)</span>,
+<!-- + <tt>orcutt</tt> [@R-orcutt], --></li>
+<li><tt>quantmod</tt> <span class="citation">(<a href="#ref-R-quantmod">Ryan and Ulrich 2023</a>)</span>,</li>
+<li><tt>stargazer</tt> <span class="citation">(<a href="#ref-R-stargazer">Hlavac 2022</a>)</span>.</li>
+</ul>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="eodce.html#cb412-1" tabindex="-1"></a><span class="fu">library</span>(AER)</span>
+<span id="cb412-2"><a href="eodce.html#cb412-2" tabindex="-1"></a><span class="fu">library</span>(quantmod)</span>
+<span id="cb412-3"><a href="eodce.html#cb412-3" tabindex="-1"></a><span class="fu">library</span>(dynlm)</span>
+<span id="cb412-4"><a href="eodce.html#cb412-4" tabindex="-1"></a><span class="co"># library(orcutt)</span></span>
+<span id="cb412-5"><a href="eodce.html#cb412-5" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb412-6"><a href="eodce.html#cb412-6" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code></pre></div>
+<div id="the-orange-juice-data" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> The Orange Juice Data<a href="eodce.html#the-orange-juice-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The largest cultivation region for oranges in the U.S. is located in Florida which usually has ideal climate for the fruit growth. It thus is the source of almost all frozen juice concentrate produced in the country. However, from time to time and depending on their severeness, cold snaps cause a loss of harvests such that the supply of oranges decreases and consequently the price of frozen juice concentrate rises. The timing of the price increases is complicated: a cut in today’s supply of concentrate influences not just today’s price but also future prices because supply in future periods will decrease, too. Clearly, the magnitude of today’s and future prices increases due to freeze is an empirical question that can be investigated using a distributed lag model — a time series model that relates price changes to weather conditions.</p>
+<p>To begin with the analysis, we reproduce Figure 15.1 of the book which displays plots of the price index for frozen concentrated orange juice, percentage changes in the price as well as monthly freezing degree days in Orlando, the center of Florida’s orange-growing region.</p>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="eodce.html#cb413-1" tabindex="-1"></a><span class="co"># load the frozen orange juice data set</span></span>
+<span id="cb413-2"><a href="eodce.html#cb413-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;FrozenJuice&quot;</span>)</span>
+<span id="cb413-3"><a href="eodce.html#cb413-3" tabindex="-1"></a></span>
+<span id="cb413-4"><a href="eodce.html#cb413-4" tabindex="-1"></a><span class="co"># compute the price index for frozen concentrated juice</span></span>
+<span id="cb413-5"><a href="eodce.html#cb413-5" tabindex="-1"></a>FOJCPI <span class="ot">&lt;-</span> FrozenJuice[, <span class="st">&quot;price&quot;</span>]<span class="sc">/</span>FrozenJuice[, <span class="st">&quot;ppi&quot;</span>]</span>
+<span id="cb413-6"><a href="eodce.html#cb413-6" tabindex="-1"></a>FOJC_pctc <span class="ot">&lt;-</span> <span class="dv">100</span> <span class="sc">*</span> <span class="fu">diff</span>(<span class="fu">log</span>(FOJCPI))</span>
+<span id="cb413-7"><a href="eodce.html#cb413-7" tabindex="-1"></a>FDD <span class="ot">&lt;-</span> FrozenJuice[, <span class="st">&quot;fdd&quot;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="eodce.html#cb414-1" tabindex="-1"></a><span class="co"># convert series to xts objects</span></span>
+<span id="cb414-2"><a href="eodce.html#cb414-2" tabindex="-1"></a>FOJCPI_xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(FOJCPI)</span>
+<span id="cb414-3"><a href="eodce.html#cb414-3" tabindex="-1"></a>FDD_xts <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(FrozenJuice[, <span class="dv">3</span>])</span>
+<span id="cb414-4"><a href="eodce.html#cb414-4" tabindex="-1"></a></span>
+<span id="cb414-5"><a href="eodce.html#cb414-5" tabindex="-1"></a><span class="co"># Plot orange juice price index</span></span>
+<span id="cb414-6"><a href="eodce.html#cb414-6" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(FOJCPI),</span>
+<span id="cb414-7"><a href="eodce.html#cb414-7" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb414-8"><a href="eodce.html#cb414-8" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb414-9"><a href="eodce.html#cb414-9" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="cb414-10"><a href="eodce.html#cb414-10" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Price index&quot;</span>, </span>
+<span id="cb414-11"><a href="eodce.html#cb414-11" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Frozen Concentrated Orange Juice&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-672-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="eodce.html#cb415-1" tabindex="-1"></a><span class="co"># divide plotting area</span></span>
+<span id="cb415-2"><a href="eodce.html#cb415-2" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb415-3"><a href="eodce.html#cb415-3" tabindex="-1"></a></span>
+<span id="cb415-4"><a href="eodce.html#cb415-4" tabindex="-1"></a><span class="co"># Plot percentage changes in prices</span></span>
+<span id="cb415-5"><a href="eodce.html#cb415-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(FOJC_pctc),</span>
+<span id="cb415-6"><a href="eodce.html#cb415-6" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb415-7"><a href="eodce.html#cb415-7" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb415-8"><a href="eodce.html#cb415-8" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="cb415-9"><a href="eodce.html#cb415-9" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Percent&quot;</span>,</span>
+<span id="cb415-10"><a href="eodce.html#cb415-10" tabindex="-1"></a>     <span class="at">cex.main=</span><span class="fl">0.8</span>,</span>
+<span id="cb415-11"><a href="eodce.html#cb415-11" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Monthly Changes in the Price of Frozen Conentrated Orange Juice&quot;</span>)</span>
+<span id="cb415-12"><a href="eodce.html#cb415-12" tabindex="-1"></a></span>
+<span id="cb415-13"><a href="eodce.html#cb415-13" tabindex="-1"></a><span class="co"># plot freezing degree days</span></span>
+<span id="cb415-14"><a href="eodce.html#cb415-14" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">as.zoo</span>(FDD),</span>
+<span id="cb415-15"><a href="eodce.html#cb415-15" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb415-16"><a href="eodce.html#cb415-16" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>,</span>
+<span id="cb415-17"><a href="eodce.html#cb415-17" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Date&quot;</span>,</span>
+<span id="cb415-18"><a href="eodce.html#cb415-18" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Freezing degree days&quot;</span>,</span>
+<span id="cb415-19"><a href="eodce.html#cb415-19" tabindex="-1"></a>     <span class="at">cex.main=</span><span class="fl">0.8</span>,</span>
+<span id="cb415-20"><a href="eodce.html#cb415-20" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Monthly Freezing Degree Days in Orlando, FL&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-673-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Periods with a high amount of freezing degree days are followed by large month-to-month price changes. These coinciding movements motivate a simple regression of price changes (<span class="math inline">\(\%ChgOJC_t\)</span>) on freezing degree days (<span class="math inline">\(FDD_t\)</span>) to estimate the effect of an additional freezing degree day on the price in the current month. For this, as for all other regressions in this chapter, we use <span class="math inline">\(T=611\)</span> observations (January 1950 to December 2000).</p>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="eodce.html#cb416-1" tabindex="-1"></a><span class="co"># simple regression of percentage changes on freezing degree days</span></span>
+<span id="cb416-2"><a href="eodce.html#cb416-2" tabindex="-1"></a>orange_SR <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> FDD)</span>
+<span id="cb416-3"><a href="eodce.html#cb416-3" tabindex="-1"></a><span class="fu">coeftest</span>(orange_SR, <span class="at">vcov. =</span> vcovHAC)</span>
+<span id="cb416-4"><a href="eodce.html#cb416-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb416-5"><a href="eodce.html#cb416-5" tabindex="-1"></a><span class="co">#&gt; t test of coefficients:</span></span>
+<span id="cb416-6"><a href="eodce.html#cb416-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb416-7"><a href="eodce.html#cb416-7" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
+<span id="cb416-8"><a href="eodce.html#cb416-8" tabindex="-1"></a><span class="co">#&gt; (Intercept) -0.42095    0.18683 -2.2531 0.0246064 *  </span></span>
+<span id="cb416-9"><a href="eodce.html#cb416-9" tabindex="-1"></a><span class="co">#&gt; FDD          0.46724    0.13385  3.4906 0.0005167 ***</span></span>
+<span id="cb416-10"><a href="eodce.html#cb416-10" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb416-11"><a href="eodce.html#cb416-11" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>Notice that the standard errors are computed using a “HAC” estimator of the variance-covariance matrix, see Chapter <a href="ittsraf.html#apatadlm">14.5</a> for a discussion of this estimator.</p>
+<p><span class="math display">\[\begin{align*}
+  \widehat{\%ChgOJC_t} = -\underset{(0.19)}{0.42} + \underset{(0.13)}{0.47} FDD_t.
+\end{align*}\]</span></p>
+<p>The estimated coefficient on <span class="math inline">\(FDD_t\)</span> has the following interpretation: an additional freezing degree day in month <span class="math inline">\(t\)</span> leads to a price increase 0f <span class="math inline">\(0.47\)</span> percentage points in the same month.</p>
+<p>To consider effects of cold snaps on the orange juice price over the subsequent periods, we include lagged values of <span class="math inline">\(FDD_t\)</span> in our model which leads to a <em>distributed lag regression model</em>. We estimate a specification using a contemporaneous and six lagged values of <span class="math inline">\(FDD_t\)</span> as regressors.</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="eodce.html#cb417-1" tabindex="-1"></a><span class="co"># distributed lag model with 6 lags of freezing degree days</span></span>
+<span id="cb417-2"><a href="eodce.html#cb417-2" tabindex="-1"></a>orange_DLM <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> FDD <span class="sc">+</span> <span class="fu">L</span>(FDD, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>))</span>
+<span id="cb417-3"><a href="eodce.html#cb417-3" tabindex="-1"></a><span class="fu">coeftest</span>(orange_DLM, <span class="at">vcov. =</span> vcovHAC)</span>
+<span id="cb417-4"><a href="eodce.html#cb417-4" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb417-5"><a href="eodce.html#cb417-5" tabindex="-1"></a><span class="co">#&gt; t test of coefficients:</span></span>
+<span id="cb417-6"><a href="eodce.html#cb417-6" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb417-7"><a href="eodce.html#cb417-7" tabindex="-1"></a><span class="co">#&gt;               Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
+<span id="cb417-8"><a href="eodce.html#cb417-8" tabindex="-1"></a><span class="co">#&gt; (Intercept)  -0.692961   0.212445 -3.2618 0.0011700 ** </span></span>
+<span id="cb417-9"><a href="eodce.html#cb417-9" tabindex="-1"></a><span class="co">#&gt; FDD           0.471433   0.135195  3.4871 0.0005242 ***</span></span>
+<span id="cb417-10"><a href="eodce.html#cb417-10" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)1  0.145021   0.081557  1.7782 0.0758853 .  </span></span>
+<span id="cb417-11"><a href="eodce.html#cb417-11" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)2  0.058364   0.058911  0.9907 0.3222318    </span></span>
+<span id="cb417-12"><a href="eodce.html#cb417-12" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)3  0.074166   0.047143  1.5732 0.1162007    </span></span>
+<span id="cb417-13"><a href="eodce.html#cb417-13" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)4  0.036304   0.029335  1.2376 0.2163670    </span></span>
+<span id="cb417-14"><a href="eodce.html#cb417-14" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)5  0.048756   0.031370  1.5543 0.1206535    </span></span>
+<span id="cb417-15"><a href="eodce.html#cb417-15" tabindex="-1"></a><span class="co">#&gt; L(FDD, 1:6)6  0.050246   0.045129  1.1134 0.2659919    </span></span>
+<span id="cb417-16"><a href="eodce.html#cb417-16" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb417-17"><a href="eodce.html#cb417-17" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>As the result we obtain</p>
+<p><span class="math display" id="eq:orangemod1">\[\begin{align}
+  \begin{split}
+  \widehat{\%ChgOJC_t} =&amp; -\underset{(0.21)}{0.69} + \underset{(0.14)}{0.47} FDD_t + \underset{(0.08)}{0.15} FDD_{t-1} + \underset{(0.06)}{0.06} FDD_{t-2} + \underset{(0.05)}{0.07} FDD_{t-3} \\ &amp;+ \underset{(0.03)}{0.04} FDD_{t-4} + \underset{(0.03)}{0.05} FDD_{t-5} + \underset{(0.05)}{0.05} FDD_{t-6},
+  \end{split}
+  \tag{15.1}
+\end{align}\]</span></p>
+<p>where the coefficient on <span class="math inline">\(FDD_{t-1}\)</span> estimates the price increase in period <span class="math inline">\(t\)</span> caused by an additional freezing degree day in the preceding month, the coefficient on <span class="math inline">\(FDD_{t-2}\)</span> estimates the effect of an additional freezing degree day two month ago and so on. Consequently, the coefficients in <a href="eodce.html#eq:orangemod1">(15.1)</a> can be interpreted as price changes in current and future periods due to an unit increase in the current month’s freezing degree days.</p>
+</div>
+<div id="dynamic-causal-effects" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Dynamic Causal Effects<a href="eodce.html#dynamic-causal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section of the book describes the general idea of a dynamic causal effect and how the concept of a randomized controlled experiment can be translated to time series applications, using several examples.</p>
+<p>In general, for empirical attempts to measure a dynamic causal effect, the assumptions of stationarity (see Key Concept 14.5) and exogeneity must hold. In time series applications up until here we have assumed that the model error term has conditional mean zero given current and past values of the regressors. For estimation of a dynamic causal effect using a distributed lag model, assuming a stronger form termed <em>strict exogeneity</em> may be useful. Strict exogeneity states that the error term has mean zero conditional on past, present <em>and future</em> values of the independent variables.</p>
+<p>The two concepts of exogeneity and the distributed lag model are summarized in Key Concept 15.1.</p>
+<div id="KC15.1" class="keyconcept">
+<h3 class="right">
+Key Concept 15.1
+</h3>
+<h3 class="left">
+The Distributed Lag Model and Exogeneity
+</h3>
+<p>
+<p>The general distributed lag model is
+<span class="math display" id="eq:dlm">\[\begin{align}
+  Y_t = \beta_0 + \beta_1 X_t + \beta_2 X_{t-1} + \beta_3 X_{t-2} + \dots + \beta_{r+1} X_{t-r} + u_t, \tag{15.2}
+\end{align}\]</span>
+where it is assumed that</p>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(X\)</span> is an exogenous variable, <span class="math display">\[E(u_t\vert X_t, X_{t-1}, X_{t-2},\dots) = 0.\]</span></p></li>
+<li><ul>
+<li>a <span class="math inline">\(X_t,Y_t\)</span> have a stationary distribution.</li>
+<li>b <span class="math inline">\((Y_t,X_t)\)</span> and <span class="math inline">\((Y_{t-j},X_{t-j})\)</span> become independently distributed as <span class="math inline">\(j\)</span> gets large.</li>
+</ul></li>
+<li><p>Large outliers are unlikely. In particular, we need that all the variables have more than eight nonzero and finite moments — a stronger assumption than before (four finite nonzero moments) that is required for computation of the HAC covariance matrix estimator.</p></li>
+<li><p>There is no perfect multicollinearity.</p></li>
+</ol>
+<p>The distributed lag model may be extended to include contemporaneous and past values of additional regressors.</p>
+<p><strong>On the assumption of exogeneity</strong></p>
+<ul>
+<li><p>There is another form of exogeneity termed <em>strict exogeneity</em> which assumes <span class="math display">\[E(u_t\vert \dots, X_{t+2},X_{t+1},X_t,X_{t-1},X_{t-2},\dots)=0,\]</span> that is the error term has mean zero conditional on past, present and future values of <span class="math inline">\(X\)</span>. Strict exogeneity implies exogeneity (as defined in 1. above) but not the other way around. From this point on we will therefore distinguish between exogeneity and strict exogeneity.</p></li>
+<li><p>Exogeneity as in 1. suffices for the OLS estimators of the coefficient in distributed lag models to be consistent. However, if the the assumption of strict exogeneity is valid, more efficient estimators can be applied.</p></li>
+</ul>
+</p>
+</div>
+</div>
+<div id="dynamic-multipliers-and-cumulative-dynamic-multipliers" class="section level2 hasAnchor" number="15.3">
+<h2><span class="header-section-number">15.3</span> Dynamic Multipliers and Cumulative Dynamic Multipliers<a href="eodce.html#dynamic-multipliers-and-cumulative-dynamic-multipliers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following terminology regarding the coefficients in the distributed lag model <a href="eodce.html#eq:dlm">(15.2)</a> is useful for upcoming applications:</p>
+<ul>
+<li><p>The dynamic causal effect is also called the <em>dynamic multiplier</em>. <span class="math inline">\(\beta_{h+1}\)</span> in <a href="eodce.html#eq:dlm">(15.2)</a> is the <span class="math inline">\(h\)</span>-period dynamic multiplier.</p></li>
+<li><p>The contemporaneous effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>, <span class="math inline">\(\beta_1\)</span>, is termed the <em>impact effect</em>.</p></li>
+<li><p>The <span class="math inline">\(h\)</span>-period <em>cumulative dynamic multiplier</em> of a unit change in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is defined as the cumulative sum of the dynamic multipliers. In particular, <span class="math inline">\(\beta_1\)</span> is the zero-period cumulative dynamic multiplier, <span class="math inline">\(\beta_1 + \beta_2\)</span> is the one-period cumulative dynamic multiplier and so forth.</p>
+<p>The cumulative dynamic multipliers of the distributed lag model <a href="eodce.html#eq:dlm">(15.2)</a> are the coefficients <span class="math inline">\(\delta_1,\delta_2,\dots,\delta_r,\delta_{r+1}\)</span> in the modified regression
+<span class="math display" id="eq:DCMreg">\[\begin{align}
+Y_t =&amp; \, \delta_0 + \delta_1 \Delta X_t + \delta_2 \Delta X_{t-1} + \dots + \delta_r \Delta X_{t-r+1} + \delta_{r+1} X_{t-r} + u_t, \tag{15.3}
+\end{align}\]</span> and thus can be directly estimated using OLS which makes it convenient to compute their HAC standard errors. <span class="math inline">\(\delta_{r+1}\)</span> is called the <em>long-run cumulative dynamic multiplier</em>.</p></li>
+</ul>
+<p>It is straightforward to compute the cumulative dynamic multipliers for <a href="eodce.html#eq:orangemod1">(15.1)</a>, the estimated distributed lag regression of changes in orange juice concentrate prices on freezing degree days, using the corresponding model object <tt>orange_DLM</tt> and the function <tt>cumsum()</tt>.</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="eodce.html#cb418-1" tabindex="-1"></a><span class="co"># compute cumulative multipliers</span></span>
+<span id="cb418-2"><a href="eodce.html#cb418-2" tabindex="-1"></a>cum_mult <span class="ot">&lt;-</span><span class="fu">cumsum</span>(orange_DLM<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb418-3"><a href="eodce.html#cb418-3" tabindex="-1"></a></span>
+<span id="cb418-4"><a href="eodce.html#cb418-4" tabindex="-1"></a><span class="co"># rename entries</span></span>
+<span id="cb418-5"><a href="eodce.html#cb418-5" tabindex="-1"></a><span class="fu">names</span>(cum_mult) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">sep =</span> <span class="st">&quot;-&quot;</span>, <span class="st">&quot;period CDM&quot;</span>)</span>
+<span id="cb418-6"><a href="eodce.html#cb418-6" tabindex="-1"></a></span>
+<span id="cb418-7"><a href="eodce.html#cb418-7" tabindex="-1"></a>cum_mult</span>
+<span id="cb418-8"><a href="eodce.html#cb418-8" tabindex="-1"></a><span class="co">#&gt; 0-period CDM 1-period CDM 2-period CDM 3-period CDM 4-period CDM 5-period CDM </span></span>
+<span id="cb418-9"><a href="eodce.html#cb418-9" tabindex="-1"></a><span class="co">#&gt;    0.4714329    0.6164542    0.6748177    0.7489835    0.7852874    0.8340436 </span></span>
+<span id="cb418-10"><a href="eodce.html#cb418-10" tabindex="-1"></a><span class="co">#&gt; 6-period CDM </span></span>
+<span id="cb418-11"><a href="eodce.html#cb418-11" tabindex="-1"></a><span class="co">#&gt;    0.8842895</span></span></code></pre></div>
+<p>Translating the distributed lag model with six lags of <span class="math inline">\(FDD\)</span> to <a href="eodce.html#eq:DCMreg">(15.3)</a>, we see that the OLS coefficient estimates in this model coincide with the multipliers stored in <tt>cum_mult</tt>.</p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="eodce.html#cb419-1" tabindex="-1"></a><span class="co"># estimate cumulative dynamic multipliers using the modified regression</span></span>
+<span id="cb419-2"><a href="eodce.html#cb419-2" tabindex="-1"></a>cum_mult_reg <span class="ot">&lt;-</span><span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">d</span>(FDD) <span class="sc">+</span> <span class="fu">d</span>(<span class="fu">L</span>(FDD,<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>)) <span class="sc">+</span> <span class="fu">L</span>(FDD,<span class="dv">6</span>))</span>
+<span id="cb419-3"><a href="eodce.html#cb419-3" tabindex="-1"></a><span class="fu">coef</span>(cum_mult_reg)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb419-4"><a href="eodce.html#cb419-4" tabindex="-1"></a><span class="co">#&gt;          d(FDD) d(L(FDD, 1:5))1 d(L(FDD, 1:5))2 d(L(FDD, 1:5))3 d(L(FDD, 1:5))4 </span></span>
+<span id="cb419-5"><a href="eodce.html#cb419-5" tabindex="-1"></a><span class="co">#&gt;       0.4714329       0.6164542       0.6748177       0.7489835       0.7852874 </span></span>
+<span id="cb419-6"><a href="eodce.html#cb419-6" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))5       L(FDD, 6) </span></span>
+<span id="cb419-7"><a href="eodce.html#cb419-7" tabindex="-1"></a><span class="co">#&gt;       0.8340436       0.8842895</span></span></code></pre></div>
+<p>As noted above, using a model specification as in <a href="eodce.html#eq:DCMreg">(15.3)</a> allows to easily obtain standard errors for the estimated dynamic cumulative multipliers.</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="eodce.html#cb420-1" tabindex="-1"></a><span class="co"># obtain coefficient summary that reports HAC standard errors</span></span>
+<span id="cb420-2"><a href="eodce.html#cb420-2" tabindex="-1"></a><span class="fu">coeftest</span>(cum_mult_reg, <span class="at">vcov. =</span> vcovHAC)</span>
+<span id="cb420-3"><a href="eodce.html#cb420-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb420-4"><a href="eodce.html#cb420-4" tabindex="-1"></a><span class="co">#&gt; t test of coefficients:</span></span>
+<span id="cb420-5"><a href="eodce.html#cb420-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb420-6"><a href="eodce.html#cb420-6" tabindex="-1"></a><span class="co">#&gt;                 Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
+<span id="cb420-7"><a href="eodce.html#cb420-7" tabindex="-1"></a><span class="co">#&gt; (Intercept)     -0.69296    0.23668 -2.9278 0.0035431 ** </span></span>
+<span id="cb420-8"><a href="eodce.html#cb420-8" tabindex="-1"></a><span class="co">#&gt; d(FDD)           0.47143    0.13583  3.4709 0.0005562 ***</span></span>
+<span id="cb420-9"><a href="eodce.html#cb420-9" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))1  0.61645    0.13145  4.6896 3.395e-06 ***</span></span>
+<span id="cb420-10"><a href="eodce.html#cb420-10" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))2  0.67482    0.16009  4.2151 2.882e-05 ***</span></span>
+<span id="cb420-11"><a href="eodce.html#cb420-11" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))3  0.74898    0.17263  4.3387 1.682e-05 ***</span></span>
+<span id="cb420-12"><a href="eodce.html#cb420-12" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))4  0.78529    0.17351  4.5260 7.255e-06 ***</span></span>
+<span id="cb420-13"><a href="eodce.html#cb420-13" tabindex="-1"></a><span class="co">#&gt; d(L(FDD, 1:5))5  0.83404    0.18236  4.5737 5.827e-06 ***</span></span>
+<span id="cb420-14"><a href="eodce.html#cb420-14" tabindex="-1"></a><span class="co">#&gt; L(FDD, 6)        0.88429    0.19303  4.5810 5.634e-06 ***</span></span>
+<span id="cb420-15"><a href="eodce.html#cb420-15" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb420-16"><a href="eodce.html#cb420-16" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+</div>
+<div id="hac-standard-errors" class="section level2 hasAnchor" number="15.4">
+<h2><span class="header-section-number">15.4</span> HAC Standard Errors<a href="eodce.html#hac-standard-errors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The error term <span class="math inline">\(u_t\)</span> in the distributed lag model <a href="eodce.html#eq:dlm">(15.2)</a> may be serially correlated due to serially correlated determinants of <span class="math inline">\(Y_t\)</span> that are not included as regressors. When these factors are not correlated with the regressors included in the model, serially correlated errors do not violate the assumption of exogeneity such that the OLS estimator remains unbiased and consistent.</p>
+<p>However, autocorrelated standard errors render the usual homoskedasticity-only <em>and</em> heteroskedasticity-robust standard errors invalid and may cause misleading inference. HAC errors are a remedy.</p>
+<div id="KC15.2" class="keyconcept">
+<h3 class="right">
+Key Concept 15.2
+</h3>
+<h3 class="left">
+HAC Standard errors
+</h3>
+<p>
+<p><strong>Problem</strong>:</p>
+<p>If the error term <span class="math inline">\(u_t\)</span> in the distributed lag model <a href="eodce.html#eq:dlm">(15.2)</a> is serially correlated, statistical inference that rests on usual (heteroskedasticity-robust) standard errors can be strongly misleading.</p>
+<p><strong>Solution</strong>:</p>
+<p>Heteroskedasticity- and autocorrelation-consistent (HAC) estimators of the variance-covariance matrix circumvent this issue. There are <tt>R</tt> functions like <tt>vcovHAC()</tt> from the package <tt>sandwich</tt> which are convenient for computation of such estimators.</p>
+The package <tt>sandwich</tt> also contains the function <tt>NeweyWest()</tt>, an implementation of the HAC variance-covariance estimator proposed by <span class="citation">Newey and West (<a href="#ref-newey1987">1987</a>)</span>.
+</p>
+</div>
+<p>Consider the distributed lag regression model with no lags and a single regressor <span class="math inline">\(X_t\)</span>
+<span class="math display">\[\begin{align*}
+  Y_t = \beta_0 + \beta_1 X_t + u_t,
+\end{align*}\]</span>
+with autocorrelated errors. A brief derivation of
+<span class="math display" id="eq:nwhac">\[\begin{align}
+  \overset{\sim}{\sigma}^2_{\widehat{\beta}_1} = \widehat{\sigma}^2_{\widehat{\beta}_1} \widehat{f}_t, \tag{15.4}
+\end{align}\]</span>
+the so-called <em>Newey-West variance estimator</em> for the variance of the OLS estimator of <span class="math inline">\(\beta_1\)</span> is presented in Chapter 15.4 of the book. <span class="math inline">\(\widehat{\sigma}^2_{\widehat{\beta}_1}\)</span> in <a href="eodce.html#eq:nwhac">(15.4)</a> is the heteroskedasticity-robust variance estimate of <span class="math inline">\(\widehat{\beta}_1\)</span> and
+<span class="math display" id="eq:nwhacf">\[\begin{align}
+  \widehat{f}_t = 1 + 2 \sum_{j=1}^{m-1} \left(\frac{m-j}{m}\right) \overset{\sim}{\rho}_j \tag{15.5}
+\end{align}\]</span>
+is a correction factor that adjusts for serially correlated errors and involves estimates of <span class="math inline">\(m-1\)</span> autocorrelation coefficients <span class="math inline">\(\overset{\sim}{\rho}_j\)</span>. As it turns out, using the sample autocorrelation as implemented in <tt>acf()</tt> to estimate the autocorrelation coefficients renders <a href="eodce.html#eq:nwhac">(15.4)</a> inconsistent, see pp. 650-651 of the book for a detailed argument. Therefore, we use a somewhat different estimator. For a time series <span class="math inline">\(X\)</span> we have <span class="math display">\[ \ \overset{\sim}{\rho}_j = \frac{\sum_{t=j+1}^T \hat v_t \hat v_{t-j}}{\sum_{t=1}^T \hat v_t^2}, \ \text{with} \ \hat v= (X_t-\overline{X}) \hat u_t. \]</span> We implement this estimator in the function <tt>acf_c()</tt> below.</p>
+<p><span class="math inline">\(m\)</span> in <a href="eodce.html#eq:nwhacf">(15.5)</a> is a truncation parameter to be chosen. A rule of thumb for choosing <span class="math inline">\(m\)</span> is
+<span class="math display" id="eq:hactruncrot">\[\begin{align}
+  m = \left \lceil{0.75 \cdot T^{1/3}}\right\rceil. \tag{15.6}
+\end{align}\]</span></p>
+<p>We simulate a time series that, as stated above, follows a distributed lag model with autocorrelated errors and then show how to compute the Newey-West HAC estimate of <span class="math inline">\(SE(\widehat{\beta}_1)\)</span> using <tt>R</tt>. This is done via two separate but, as we will see, identical approaches: at first we follow the derivation presented in the book step-by-step and compute the estimate “manually”. We then show that the result is exactly the estimate obtained when using the function <tt>NeweyWest()</tt>.</p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="eodce.html#cb421-1" tabindex="-1"></a><span class="co"># function that computes rho tilde</span></span>
+<span id="cb421-2"><a href="eodce.html#cb421-2" tabindex="-1"></a>acf_c <span class="ot">&lt;-</span> <span class="cf">function</span>(x, j) {</span>
+<span id="cb421-3"><a href="eodce.html#cb421-3" tabindex="-1"></a>  <span class="fu">return</span>(</span>
+<span id="cb421-4"><a href="eodce.html#cb421-4" tabindex="-1"></a>    <span class="fu">t</span>(x[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span>j)]) <span class="sc">%*%</span> <span class="fu">na.omit</span>(<span class="fu">Lag</span>(x, j)) <span class="sc">/</span> <span class="fu">t</span>(x) <span class="sc">%*%</span> x</span>
+<span id="cb421-5"><a href="eodce.html#cb421-5" tabindex="-1"></a>  )</span>
+<span id="cb421-6"><a href="eodce.html#cb421-6" tabindex="-1"></a>}</span>
+<span id="cb421-7"><a href="eodce.html#cb421-7" tabindex="-1"></a></span>
+<span id="cb421-8"><a href="eodce.html#cb421-8" tabindex="-1"></a><span class="co"># simulate time series with serially correlated errors</span></span>
+<span id="cb421-9"><a href="eodce.html#cb421-9" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb421-10"><a href="eodce.html#cb421-10" tabindex="-1"></a></span>
+<span id="cb421-11"><a href="eodce.html#cb421-11" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb421-12"><a href="eodce.html#cb421-12" tabindex="-1"></a></span>
+<span id="cb421-13"><a href="eodce.html#cb421-13" tabindex="-1"></a>eps <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> N, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ma =</span> <span class="fl">0.5</span>))</span>
+<span id="cb421-14"><a href="eodce.html#cb421-14" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">runif</span>(N, <span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb421-15"><a href="eodce.html#cb421-15" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fl">0.5</span> <span class="sc">*</span> X <span class="sc">+</span> eps</span>
+<span id="cb421-16"><a href="eodce.html#cb421-16" tabindex="-1"></a></span>
+<span id="cb421-17"><a href="eodce.html#cb421-17" tabindex="-1"></a><span class="co"># compute OLS residuals</span></span>
+<span id="cb421-18"><a href="eodce.html#cb421-18" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X)<span class="sc">$</span>res</span>
+<span id="cb421-19"><a href="eodce.html#cb421-19" tabindex="-1"></a></span>
+<span id="cb421-20"><a href="eodce.html#cb421-20" tabindex="-1"></a><span class="co"># compute v</span></span>
+<span id="cb421-21"><a href="eodce.html#cb421-21" tabindex="-1"></a>v <span class="ot">&lt;-</span> (X <span class="sc">-</span> <span class="fu">mean</span>(X)) <span class="sc">*</span> res</span>
+<span id="cb421-22"><a href="eodce.html#cb421-22" tabindex="-1"></a></span>
+<span id="cb421-23"><a href="eodce.html#cb421-23" tabindex="-1"></a><span class="co"># compute robust estimate of beta_1 variance</span></span>
+<span id="cb421-24"><a href="eodce.html#cb421-24" tabindex="-1"></a>var_beta_hat <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>N <span class="sc">*</span> (<span class="dv">1</span><span class="sc">/</span>(N<span class="dv">-2</span>) <span class="sc">*</span> <span class="fu">sum</span>((X <span class="sc">-</span> <span class="fu">mean</span>(X))<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> res<span class="sc">^</span><span class="dv">2</span>) ) <span class="sc">/</span> </span>
+<span id="cb421-25"><a href="eodce.html#cb421-25" tabindex="-1"></a>                        (<span class="dv">1</span><span class="sc">/</span>N <span class="sc">*</span> <span class="fu">sum</span>((X <span class="sc">-</span> <span class="fu">mean</span>(X))<span class="sc">^</span><span class="dv">2</span>))<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb421-26"><a href="eodce.html#cb421-26" tabindex="-1"></a></span>
+<span id="cb421-27"><a href="eodce.html#cb421-27" tabindex="-1"></a><span class="co"># rule of thumb truncation parameter</span></span>
+<span id="cb421-28"><a href="eodce.html#cb421-28" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fl">0.75</span> <span class="sc">*</span> N<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>))</span>
+<span id="cb421-29"><a href="eodce.html#cb421-29" tabindex="-1"></a></span>
+<span id="cb421-30"><a href="eodce.html#cb421-30" tabindex="-1"></a><span class="co"># compute correction factor</span></span>
+<span id="cb421-31"><a href="eodce.html#cb421-31" tabindex="-1"></a>f_hat_T <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">sum</span>(</span>
+<span id="cb421-32"><a href="eodce.html#cb421-32" tabindex="-1"></a>  (m <span class="sc">-</span> <span class="dv">1</span><span class="sc">:</span>(m<span class="dv">-1</span>))<span class="sc">/</span>m <span class="sc">*</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>(m <span class="sc">-</span> <span class="dv">1</span>), <span class="cf">function</span>(i) <span class="fu">acf_c</span>(<span class="at">x =</span> v, <span class="at">j =</span> i))</span>
+<span id="cb421-33"><a href="eodce.html#cb421-33" tabindex="-1"></a>  ) </span>
+<span id="cb421-34"><a href="eodce.html#cb421-34" tabindex="-1"></a></span>
+<span id="cb421-35"><a href="eodce.html#cb421-35" tabindex="-1"></a><span class="co"># compute Newey-West HAC estimate of the standard error </span></span>
+<span id="cb421-36"><a href="eodce.html#cb421-36" tabindex="-1"></a><span class="fu">sqrt</span>(var_beta_hat <span class="sc">*</span> f_hat_T)</span>
+<span id="cb421-37"><a href="eodce.html#cb421-37" tabindex="-1"></a><span class="co">#&gt; [1] 0.04036208</span></span></code></pre></div>
+<p>For the code to be reusable in other applications, we use <tt>sapply()</tt> to estimate the <span class="math inline">\(m-1\)</span> autocorrelations <span class="math inline">\(\overset{\sim}{\rho}_j\)</span>.</p>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="eodce.html#cb422-1" tabindex="-1"></a><span class="co"># Using NeweyWest():</span></span>
+<span id="cb422-2"><a href="eodce.html#cb422-2" tabindex="-1"></a>NW_VCOV <span class="ot">&lt;-</span> <span class="fu">NeweyWest</span>(<span class="fu">lm</span>(Y <span class="sc">~</span> X), </span>
+<span id="cb422-3"><a href="eodce.html#cb422-3" tabindex="-1"></a>              <span class="at">lag =</span> m <span class="sc">-</span> <span class="dv">1</span>, <span class="at">prewhite =</span> F, </span>
+<span id="cb422-4"><a href="eodce.html#cb422-4" tabindex="-1"></a>              <span class="at">adjust =</span> T)</span>
+<span id="cb422-5"><a href="eodce.html#cb422-5" tabindex="-1"></a></span>
+<span id="cb422-6"><a href="eodce.html#cb422-6" tabindex="-1"></a><span class="co"># compute standard error</span></span>
+<span id="cb422-7"><a href="eodce.html#cb422-7" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">diag</span>(NW_VCOV))[<span class="dv">2</span>]</span>
+<span id="cb422-8"><a href="eodce.html#cb422-8" tabindex="-1"></a><span class="co">#&gt;          X </span></span>
+<span id="cb422-9"><a href="eodce.html#cb422-9" tabindex="-1"></a><span class="co">#&gt; 0.04036208</span></span></code></pre></div>
+<p>By choosing <tt>lag = m-1</tt> we ensure that the maximum order of autocorrelations used is <span class="math inline">\(m-1\)</span> — just as in equation <a href="eodce.html#eq:nwhacf">(15.5)</a>. Notice that we set the arguments <tt>prewhite = F</tt> and <tt>adjust = T</tt> to ensure that the formula <a href="eodce.html#eq:nwhac">(15.4)</a> is used and finite sample adjustments are made.</p>
+<p>We find that the computed standard errors coincide. Of course, a variance-covariance matrix estimate as computed by <tt>NeweyWest()</tt> can be supplied as the argument <tt>vcov</tt> in <tt>coeftest()</tt> such that HAC <span class="math inline">\(t\)</span>-statistics and <span class="math inline">\(p\)</span>-values are provided by the latter.</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="eodce.html#cb423-1" tabindex="-1"></a>example_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X)</span>
+<span id="cb423-2"><a href="eodce.html#cb423-2" tabindex="-1"></a><span class="fu">coeftest</span>(example_mod, <span class="at">vcov =</span> NW_VCOV)</span>
+<span id="cb423-3"><a href="eodce.html#cb423-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb423-4"><a href="eodce.html#cb423-4" tabindex="-1"></a><span class="co">#&gt; t test of coefficients:</span></span>
+<span id="cb423-5"><a href="eodce.html#cb423-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb423-6"><a href="eodce.html#cb423-6" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb423-7"><a href="eodce.html#cb423-7" tabindex="-1"></a><span class="co">#&gt; (Intercept) 0.542310   0.235423  2.3036  0.02336 *  </span></span>
+<span id="cb423-8"><a href="eodce.html#cb423-8" tabindex="-1"></a><span class="co">#&gt; X           0.423305   0.040362 10.4877  &lt; 2e-16 ***</span></span>
+<span id="cb423-9"><a href="eodce.html#cb423-9" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb423-10"><a href="eodce.html#cb423-10" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+</div>
+<div id="estimation-of-dynamic-causal-effects-with-strictly-exogeneous-regressors" class="section level2 hasAnchor" number="15.5">
+<h2><span class="header-section-number">15.5</span> Estimation of Dynamic Causal Effects with Strictly Exogeneous Regressors<a href="eodce.html#estimation-of-dynamic-causal-effects-with-strictly-exogeneous-regressors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In general, the errors in a distributed lag model are correlated which necessitates usage of HAC standard errors for valid inference. If, however, the assumption of exogeneity (the first assumption stated in Key Concept 15.1) is replaced by strict exogeneity, that is, <span class="math display">\[E(u_t\vert \dots, X_{t+1}, X_{t}, X_{t-1}, \dots) = 0,\]</span> more efficient approaches than OLS estimation of the coefficients become available. For a general distributed lag model with <span class="math inline">\(r\)</span> lags and AR(<span class="math inline">\(p\)</span>) errors, these approaches are summarized in Key Concept 15.4.</p>
+<div id="KC15.4" class="keyconcept">
+<h3 class="right">
+Key Concept 15.4
+</h3>
+<h3 class="left">
+Estimation of Dynamic Multipliers Under Strict Exogeneity
+</h3>
+<p>
+<p>Consider the general distributed lag model with <span class="math inline">\(r\)</span> lags and errors following an AR(<span class="math inline">\(p\)</span>) process,
+<span class="math display" id="eq:dlmarerrors" id="eq:dlmar">\[\begin{align}
+  Y_t =&amp; \, \beta_0 + \beta_1 X_t + \beta_2 X_{t-1} + \dots + \beta_{r+1} X_{t-r} + u_t \tag{15.7} \\
+  u_t =&amp; \, \phi_1 u_{t-1} + \phi u_{t-2} + \dots + \phi_p u_{t-p} + \overset{\sim}{u}_t. \tag{15.8}
+\end{align}\]</span>
+Under strict exogeneity of <span class="math inline">\(X_t\)</span>, one may rewrite the above model in the ADL specification
+<span class="math display">\[\begin{align*}
+  Y_t =&amp; \, \alpha_0 + \phi_1 Y_{t-1} + \phi_2 Y_{t-2} + \dots + \phi_p Y_{t-p} \\
+      &amp;+ \, \delta_0 X_t + \delta_1 X_{t-1} + \dots + \delta_q X_{t-q} + \overset{\sim}{u}_t
+\end{align*}\]</span>
+where <span class="math inline">\(q=r+p\)</span> and compute estimates of the dynamic multipliers <span class="math inline">\(\beta_1, \beta_2, \dots, \beta_{r+1}\)</span> using OLS estimates of <span class="math inline">\(\phi_1, \phi_2, \dots, \phi_p, \delta_0, \delta_1, \dots, \delta_q\)</span>.</p>
+<p>An alternative is to estimate the dynamic multipliers using feasible GLS, that is to apply the OLS estimator to a quasi-difference specification of <a href="eodce.html#eq:dlmar">(15.7)</a>. Under strict exogeneity, the feasible GLS approach is the BLUE estimator for the dynamic multipliers in large samples.</p>
+On the one hand, as demonstrated in Chapter 15.5 of the book, OLS estimation of the ADL representation can be beneficial for estimation of the dynamic multipliers in large distributed lag models because it allows for a more parsimonious model that may be a good approximation to the large model. On the other hand, the GLS approach is more efficient than the ADL estimator if the sample size is large.
+</p>
+</div>
+<p>We shortly review how the different representations of a small distributed lag model can be obtained and show how this specification can be estimated by OLS and GLS using <tt>R</tt>.</p>
+<p>The model is
+<span class="math display" id="eq:dldynamic">\[\begin{align}
+  Y_t = \beta_0 + \beta_1 X_t + \beta_2 X_{t-1} + u_t, \tag{15.9}
+\end{align}\]</span>
+so a change in <span class="math inline">\(X\)</span> is modeled to effect <span class="math inline">\(Y\)</span> contemporaneously (<span class="math inline">\(\beta_1\)</span>) and in the next period (<span class="math inline">\(\beta_2\)</span>). The error term <span class="math inline">\(u_t\)</span> is assumed to follow an AR(<span class="math inline">\(1\)</span>) process,<span class="math display">\[u_t = \phi_1 u_{t-1} + \overset{\sim}{u_t},\]</span> where <span class="math inline">\(\overset{\sim}{u_t}\)</span> is serially uncorrelated.</p>
+<p>One can show that the ADL representation of this model is
+<span class="math display" id="eq:adl21dynamic">\[\begin{align}
+  Y_t = \alpha_0 + \phi_1 Y_{t-1} + \delta_0 X_t + \delta_1 X_{t-1} + \delta_2 X_{t-2} + \overset{\sim}{u}_t, \tag{15.10}
+\end{align}\]</span>
+with the restrictions
+<span class="math display">\[\begin{align*}
+  \beta_1 =&amp; \, \delta_0, \\
+  \beta_2 =&amp; \, \delta_1 + \phi_1 \delta_0,
+\end{align*}\]</span>
+see p. 657 of the book.</p>
+<div id="quasi-differences" class="section level4 unnumbered hasAnchor">
+<h4>Quasi-Differences<a href="eodce.html#quasi-differences" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Another way of writing the ADL(<span class="math inline">\(1\)</span>,<span class="math inline">\(2\)</span>) representation <a href="eodce.html#eq:adl21dynamic">(15.10)</a> is the <em>quasi-difference model</em>
+<span class="math display" id="eq:qdm">\[\begin{align}
+  \overset{\sim}{Y}_t = \alpha_0 + \beta_1 \overset{\sim}{X}_t + \beta_2   \overset{\sim}{X}_{t-1} + \overset{\sim}{u}_t, \tag{15.11}
+\end{align}\]</span>
+where <span class="math inline">\(\overset{\sim}{Y}_t = Y_t - \phi_1 Y_{t-1}\)</span> and <span class="math inline">\(\overset{\sim}{X}_t = X_t - \phi_1 X_{t-1}\)</span>. Notice that the error term <span class="math inline">\(\overset{\sim}{u}_t\)</span> is uncorrelated in both models and, as shown in Chapter 15.5 of the book, <span class="math display">\[E(u_t\vert X_{t+1}, X_t, X_{t-1}, \dots) = 0,\]</span> which is implied by the assumption of strict exogeneity.</p>
+<p>We continue by simulating a time series of <span class="math inline">\(500\)</span> observations using the model <a href="eodce.html#eq:dldynamic">(15.9)</a> with <span class="math inline">\(\beta_1 = 0.1\)</span>, <span class="math inline">\(\beta_2 = 0.25\)</span>, <span class="math inline">\(\phi = 0.5\)</span> and <span class="math inline">\(\overset{\sim}{u}_t \sim \mathcal{N}(0,1)\)</span> and estimate the different representations, starting with the distributed lag model <a href="eodce.html#eq:dldynamic">(15.9)</a>.</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="eodce.html#cb424-1" tabindex="-1"></a><span class="co"># set seed for reproducibility</span></span>
+<span id="cb424-2"><a href="eodce.html#cb424-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb424-3"><a href="eodce.html#cb424-3" tabindex="-1"></a></span>
+<span id="cb424-4"><a href="eodce.html#cb424-4" tabindex="-1"></a><span class="co"># simulate a time series with serially correlated errors</span></span>
+<span id="cb424-5"><a href="eodce.html#cb424-5" tabindex="-1"></a>obs <span class="ot">&lt;-</span> <span class="dv">501</span></span>
+<span id="cb424-6"><a href="eodce.html#cb424-6" tabindex="-1"></a>eps <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> obs<span class="dv">-1</span> , <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.5</span>))</span>
+<span id="cb424-7"><a href="eodce.html#cb424-7" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">n =</span> obs, <span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fl">0.25</span>))</span>
+<span id="cb424-8"><a href="eodce.html#cb424-8" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fl">0.1</span> <span class="sc">*</span> X[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">+</span> <span class="fl">0.25</span> <span class="sc">*</span> X[<span class="sc">-</span>obs] <span class="sc">+</span> eps</span>
+<span id="cb424-9"><a href="eodce.html#cb424-9" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">ts</span>(X[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb424-10"><a href="eodce.html#cb424-10" tabindex="-1"></a></span>
+<span id="cb424-11"><a href="eodce.html#cb424-11" tabindex="-1"></a><span class="co"># estimate the distributed lag model</span></span>
+<span id="cb424-12"><a href="eodce.html#cb424-12" tabindex="-1"></a>dlm <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(Y <span class="sc">~</span> X <span class="sc">+</span> <span class="fu">L</span>(X))</span></code></pre></div>
+<p>Let us check that the residuals of this model exhibit autocorrelation using <tt>acf()</tt>.</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="eodce.html#cb425-1" tabindex="-1"></a><span class="co"># check that the residuals are serially correlated</span></span>
+<span id="cb425-2"><a href="eodce.html#cb425-2" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(dlm))</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-689-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>In particular, the pattern reveals that the residuals follow an autoregressive process, as the sample autocorrelation function decays quickly for the first few lags and is probably zero for higher lag orders. In any case, HAC standard errors should be used.</p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="eodce.html#cb426-1" tabindex="-1"></a><span class="co"># coefficient summary using the Newey-West SE estimates</span></span>
+<span id="cb426-2"><a href="eodce.html#cb426-2" tabindex="-1"></a><span class="fu">coeftest</span>(dlm, <span class="at">vcov =</span> NeweyWest, <span class="at">prewhite =</span> F, <span class="at">adjust =</span> T)</span>
+<span id="cb426-3"><a href="eodce.html#cb426-3" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb426-4"><a href="eodce.html#cb426-4" tabindex="-1"></a><span class="co">#&gt; t test of coefficients:</span></span>
+<span id="cb426-5"><a href="eodce.html#cb426-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb426-6"><a href="eodce.html#cb426-6" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
+<span id="cb426-7"><a href="eodce.html#cb426-7" tabindex="-1"></a><span class="co">#&gt; (Intercept) 0.038340   0.073411  0.5223  0.601717    </span></span>
+<span id="cb426-8"><a href="eodce.html#cb426-8" tabindex="-1"></a><span class="co">#&gt; X           0.123661   0.046710  2.6474  0.008368 ** </span></span>
+<span id="cb426-9"><a href="eodce.html#cb426-9" tabindex="-1"></a><span class="co">#&gt; L(X)        0.247406   0.046377  5.3347 1.458e-07 ***</span></span>
+<span id="cb426-10"><a href="eodce.html#cb426-10" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb426-11"><a href="eodce.html#cb426-11" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+</div>
+<div id="ols-estimation-of-the-adl-model" class="section level4 unnumbered hasAnchor">
+<h4>OLS Estimation of the ADL Model<a href="eodce.html#ols-estimation-of-the-adl-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Next, we estimate the ADL(<span class="math inline">\(1\)</span>,<span class="math inline">\(2\)</span>) model <a href="eodce.html#eq:adl21dynamic">(15.10)</a> using OLS. The errors are uncorrelated in this representation of the model. This statement is supported by a plot of the sample autocorrelation function of the residual series.</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="eodce.html#cb427-1" tabindex="-1"></a><span class="co"># estimate the ADL(2,1) representation of the distributed lag model</span></span>
+<span id="cb427-2"><a href="eodce.html#cb427-2" tabindex="-1"></a>adl21_dynamic <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(Y <span class="sc">~</span> <span class="fu">L</span>(Y) <span class="sc">+</span> X <span class="sc">+</span> <span class="fu">L</span>(X, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<span id="cb427-3"><a href="eodce.html#cb427-3" tabindex="-1"></a></span>
+<span id="cb427-4"><a href="eodce.html#cb427-4" tabindex="-1"></a><span class="co"># plot the sample autocorrelaltions of residuals</span></span>
+<span id="cb427-5"><a href="eodce.html#cb427-5" tabindex="-1"></a><span class="fu">acf</span>(adl21_dynamic<span class="sc">$</span>residuals)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-691-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>The estimated coefficients of <code>adl21_dynamic$coefficients</code> are <em>not</em> the dynamic multipliers we are interested in, but instead can be computed according to the restrictions in <a href="eodce.html#eq:adl21dynamic">(15.10)</a>, where the true coefficients are replaced by the OLS estimates.</p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="eodce.html#cb428-1" tabindex="-1"></a><span class="co"># compute estimated dynamic effects using coefficient restrictions</span></span>
+<span id="cb428-2"><a href="eodce.html#cb428-2" tabindex="-1"></a><span class="co"># in the ADL(2,1) representation</span></span>
+<span id="cb428-3"><a href="eodce.html#cb428-3" tabindex="-1"></a>t <span class="ot">&lt;-</span> adl21_dynamic<span class="sc">$</span>coefficients</span>
+<span id="cb428-4"><a href="eodce.html#cb428-4" tabindex="-1"></a></span>
+<span id="cb428-5"><a href="eodce.html#cb428-5" tabindex="-1"></a><span class="fu">c</span>(<span class="st">&quot;hat_beta_1&quot;</span> <span class="ot">=</span> t[<span class="dv">3</span>],</span>
+<span id="cb428-6"><a href="eodce.html#cb428-6" tabindex="-1"></a>  <span class="st">&quot;hat_beta_2&quot;</span> <span class="ot">=</span> t[<span class="dv">4</span>] <span class="sc">+</span> t[<span class="dv">3</span>] <span class="sc">*</span> t[<span class="dv">2</span>])</span>
+<span id="cb428-7"><a href="eodce.html#cb428-7" tabindex="-1"></a><span class="co">#&gt;          hat_beta_1.X hat_beta_2.L(X, 1:2)1 </span></span>
+<span id="cb428-8"><a href="eodce.html#cb428-8" tabindex="-1"></a><span class="co">#&gt;             0.1176425             0.2478484</span></span></code></pre></div>
+</div>
+<div id="gls-estimation" class="section level4 unnumbered hasAnchor">
+<h4>GLS Estimation<a href="eodce.html#gls-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Strict exogeneity allows for OLS estimation of the quasi-difference model <a href="eodce.html#eq:qdm">(15.11)</a>. The idea of applying the OLS estimator to a model where the variables are linearly transformed, such that the model errors are uncorrelated and homoskedastic, is called <em>generalized least squares</em> (GLS).</p>
+<p>The OLS estimator in <a href="eodce.html#eq:qdm">(15.11)</a> is called the <em>infeasible GLS</em> estimator because <span class="math inline">\(\overset{\sim}{Y}\)</span> and <span class="math inline">\(\overset{\sim}{X}\)</span> cannot be computed without knowing <span class="math inline">\(\phi_1\)</span>, the autoregressive coefficient in the error AR(<span class="math inline">\(1\)</span>) model, which is generally unknown in practice.</p>
+<p>Assume we knew that <span class="math inline">\(\phi = 0.5\)</span>. We then may obtain the infeasible GLS estimates of the dynamic multipliers in <a href="eodce.html#eq:dldynamic">(15.9)</a> by applying OLS to the transformed data.</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="eodce.html#cb429-1" tabindex="-1"></a><span class="co"># GLS: estimate quasi-differenced specification by OLS</span></span>
+<span id="cb429-2"><a href="eodce.html#cb429-2" tabindex="-1"></a>iGLS_dynamic <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(<span class="fu">I</span>(Y<span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">L</span>(Y)) <span class="sc">~</span> <span class="fu">I</span>(X <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">L</span>(X)) <span class="sc">+</span> <span class="fu">I</span>(<span class="fu">L</span>(X) <span class="sc">-</span> <span class="fl">0.5</span> <span class="sc">*</span> <span class="fu">L</span>(X, <span class="dv">2</span>)))</span>
+<span id="cb429-3"><a href="eodce.html#cb429-3" tabindex="-1"></a></span>
+<span id="cb429-4"><a href="eodce.html#cb429-4" tabindex="-1"></a><span class="fu">summary</span>(iGLS_dynamic)</span>
+<span id="cb429-5"><a href="eodce.html#cb429-5" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb429-6"><a href="eodce.html#cb429-6" tabindex="-1"></a><span class="co">#&gt; Time series regression with &quot;ts&quot; data:</span></span>
+<span id="cb429-7"><a href="eodce.html#cb429-7" tabindex="-1"></a><span class="co">#&gt; Start = 3, End = 500</span></span>
+<span id="cb429-8"><a href="eodce.html#cb429-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb429-9"><a href="eodce.html#cb429-9" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb429-10"><a href="eodce.html#cb429-10" tabindex="-1"></a><span class="co">#&gt; dynlm(formula = I(Y - 0.5 * L(Y)) ~ I(X - 0.5 * L(X)) + I(L(X) - </span></span>
+<span id="cb429-11"><a href="eodce.html#cb429-11" tabindex="-1"></a><span class="co">#&gt;     0.5 * L(X, 2)))</span></span>
+<span id="cb429-12"><a href="eodce.html#cb429-12" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb429-13"><a href="eodce.html#cb429-13" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb429-14"><a href="eodce.html#cb429-14" tabindex="-1"></a><span class="co">#&gt;     Min      1Q  Median      3Q     Max </span></span>
+<span id="cb429-15"><a href="eodce.html#cb429-15" tabindex="-1"></a><span class="co">#&gt; -3.0325 -0.6375 -0.0499  0.6658  3.7724 </span></span>
+<span id="cb429-16"><a href="eodce.html#cb429-16" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb429-17"><a href="eodce.html#cb429-17" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb429-18"><a href="eodce.html#cb429-18" tabindex="-1"></a><span class="co">#&gt;                         Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb429-19"><a href="eodce.html#cb429-19" tabindex="-1"></a><span class="co">#&gt; (Intercept)              0.01620    0.04564   0.355  0.72273    </span></span>
+<span id="cb429-20"><a href="eodce.html#cb429-20" tabindex="-1"></a><span class="co">#&gt; I(X - 0.5 * L(X))        0.12000    0.04237   2.832  0.00481 ** </span></span>
+<span id="cb429-21"><a href="eodce.html#cb429-21" tabindex="-1"></a><span class="co">#&gt; I(L(X) - 0.5 * L(X, 2))  0.25266    0.04237   5.963 4.72e-09 ***</span></span>
+<span id="cb429-22"><a href="eodce.html#cb429-22" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb429-23"><a href="eodce.html#cb429-23" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb429-24"><a href="eodce.html#cb429-24" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb429-25"><a href="eodce.html#cb429-25" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.017 on 495 degrees of freedom</span></span>
+<span id="cb429-26"><a href="eodce.html#cb429-26" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.07035,    Adjusted R-squared:  0.0666 </span></span>
+<span id="cb429-27"><a href="eodce.html#cb429-27" tabindex="-1"></a><span class="co">#&gt; F-statistic: 18.73 on 2 and 495 DF,  p-value: 1.442e-08</span></span></code></pre></div>
+<p>The <em>feasible GLS</em> estimator uses preliminary estimation of the coefficients in the presumed error term model, computes the quasi-differenced data and then estimates the model using OLS. This idea was introduced by <span class="citation">Cochrane and Orcutt (<a href="#ref-cochrane1949">1949</a>)</span> and can be extended by continuing this process iteratively. Such a procedure is implemented in the function r ttcode(“cochrane.orcutt()”) from the package r ttcode(“orcutt”).</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="eodce.html#cb430-1" tabindex="-1"></a>X_t <span class="ot">&lt;-</span> <span class="fu">c</span>(X[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb430-2"><a href="eodce.html#cb430-2" tabindex="-1"></a><span class="co"># create first lag</span></span>
+<span id="cb430-3"><a href="eodce.html#cb430-3" tabindex="-1"></a>X_l1 <span class="ot">&lt;-</span> <span class="fu">c</span>(X[<span class="sc">-</span><span class="dv">500</span>])</span>
+<span id="cb430-4"><a href="eodce.html#cb430-4" tabindex="-1"></a>Y_t <span class="ot">&lt;-</span> <span class="fu">c</span>(Y[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb430-5"><a href="eodce.html#cb430-5" tabindex="-1"></a></span>
+<span id="cb430-6"><a href="eodce.html#cb430-6" tabindex="-1"></a><span class="co"># iterated cochrane-orcutt procedure</span></span>
+<span id="cb430-7"><a href="eodce.html#cb430-7" tabindex="-1"></a><span class="co"># summary(cochrane.orcutt(lm(Y_t ~ X_t + X_l1)))</span></span></code></pre></div>
+<p>Some more sophisticated methods for GLS estimation are provided with the package <tt>nlme</tt>. The function <tt>gls()</tt> can be used to fit linear models by maximum likelihood estimation algorithms and allows to specify a correlation structure for the error term.</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="eodce.html#cb431-1" tabindex="-1"></a><span class="co"># feasible GLS maximum likelihood estimation procedure</span></span>
+<span id="cb431-2"><a href="eodce.html#cb431-2" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">gls</span>(Y_t <span class="sc">~</span> X_t <span class="sc">+</span> X_l1, <span class="at">correlation =</span> <span class="fu">corAR1</span>()))</span>
+<span id="cb431-3"><a href="eodce.html#cb431-3" tabindex="-1"></a><span class="co">#&gt; Generalized least squares fit by REML</span></span>
+<span id="cb431-4"><a href="eodce.html#cb431-4" tabindex="-1"></a><span class="co">#&gt;   Model: Y_t ~ X_t + X_l1 </span></span>
+<span id="cb431-5"><a href="eodce.html#cb431-5" tabindex="-1"></a><span class="co">#&gt;   Data: NULL </span></span>
+<span id="cb431-6"><a href="eodce.html#cb431-6" tabindex="-1"></a><span class="co">#&gt;        AIC     BIC    logLik</span></span>
+<span id="cb431-7"><a href="eodce.html#cb431-7" tabindex="-1"></a><span class="co">#&gt;   1451.847 1472.88 -720.9235</span></span>
+<span id="cb431-8"><a href="eodce.html#cb431-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb431-9"><a href="eodce.html#cb431-9" tabindex="-1"></a><span class="co">#&gt; Correlation Structure: AR(1)</span></span>
+<span id="cb431-10"><a href="eodce.html#cb431-10" tabindex="-1"></a><span class="co">#&gt;  Formula: ~1 </span></span>
+<span id="cb431-11"><a href="eodce.html#cb431-11" tabindex="-1"></a><span class="co">#&gt;  Parameter estimate(s):</span></span>
+<span id="cb431-12"><a href="eodce.html#cb431-12" tabindex="-1"></a><span class="co">#&gt;       Phi </span></span>
+<span id="cb431-13"><a href="eodce.html#cb431-13" tabindex="-1"></a><span class="co">#&gt; 0.4668343 </span></span>
+<span id="cb431-14"><a href="eodce.html#cb431-14" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb431-15"><a href="eodce.html#cb431-15" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb431-16"><a href="eodce.html#cb431-16" tabindex="-1"></a><span class="co">#&gt;                  Value  Std.Error  t-value p-value</span></span>
+<span id="cb431-17"><a href="eodce.html#cb431-17" tabindex="-1"></a><span class="co">#&gt; (Intercept) 0.03929124 0.08530544 0.460595  0.6453</span></span>
+<span id="cb431-18"><a href="eodce.html#cb431-18" tabindex="-1"></a><span class="co">#&gt; X_t         0.11986994 0.04252270 2.818963  0.0050</span></span>
+<span id="cb431-19"><a href="eodce.html#cb431-19" tabindex="-1"></a><span class="co">#&gt; X_l1        0.25287471 0.04252497 5.946500  0.0000</span></span>
+<span id="cb431-20"><a href="eodce.html#cb431-20" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb431-21"><a href="eodce.html#cb431-21" tabindex="-1"></a><span class="co">#&gt;  Correlation: </span></span>
+<span id="cb431-22"><a href="eodce.html#cb431-22" tabindex="-1"></a><span class="co">#&gt;      (Intr) X_t  </span></span>
+<span id="cb431-23"><a href="eodce.html#cb431-23" tabindex="-1"></a><span class="co">#&gt; X_t  0.039       </span></span>
+<span id="cb431-24"><a href="eodce.html#cb431-24" tabindex="-1"></a><span class="co">#&gt; X_l1 0.037  0.230</span></span>
+<span id="cb431-25"><a href="eodce.html#cb431-25" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb431-26"><a href="eodce.html#cb431-26" tabindex="-1"></a><span class="co">#&gt; Standardized residuals:</span></span>
+<span id="cb431-27"><a href="eodce.html#cb431-27" tabindex="-1"></a><span class="co">#&gt;         Min          Q1         Med          Q3         Max </span></span>
+<span id="cb431-28"><a href="eodce.html#cb431-28" tabindex="-1"></a><span class="co">#&gt; -3.00075518 -0.64255522 -0.05400347  0.69101814  3.28555793 </span></span>
+<span id="cb431-29"><a href="eodce.html#cb431-29" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb431-30"><a href="eodce.html#cb431-30" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 1.14952 </span></span>
+<span id="cb431-31"><a href="eodce.html#cb431-31" tabindex="-1"></a><span class="co">#&gt; Degrees of freedom: 499 total; 496 residual</span></span></code></pre></div>
+<p>Notice that in this example, the coefficient estimates produced by GLS are somewhat closer to their true values and that the standard errors are the smallest for the GLS estimator.</p>
+</div>
+</div>
+<div id="orange-juice-prices-and-cold-weather" class="section level2 hasAnchor" number="15.6">
+<h2><span class="header-section-number">15.6</span> Orange Juice Prices and Cold Weather<a href="eodce.html#orange-juice-prices-and-cold-weather" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section investigates the following two questions using the time series regression methods discussed here:</p>
+<ul>
+<li><p>How persistent is the effect of a single freeze on orange juice concentrate prices?</p></li>
+<li><p>Has the effect been stable over the whole time span?</p></li>
+</ul>
+<p>We start by estimating dynamic causal effects with a distributed lag model where <span class="math inline">\(\%ChgOJC_t\)</span> is regressed on <span class="math inline">\(FDD_t\)</span> and 18 lags. A second model specification considers a transformation of the the distributed lag model which allows to estimate the 19 cumulative dynamic multipliers using OLS. The third model, adds 11 binary variables (one for each of the months from February to December) to adjust for a possible omitted variable bias arising from correlation of <span class="math inline">\(FDD_t\)</span> and seasons by adding <tt>season(FDD)</tt> to the right hand side of the formula of the second model.</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="eodce.html#cb432-1" tabindex="-1"></a><span class="co"># estimate distributed lag models of frozen orange juice price changes</span></span>
+<span id="cb432-2"><a href="eodce.html#cb432-2" tabindex="-1"></a>FOJC_mod_DM <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">L</span>(FDD, <span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span>
+<span id="cb432-3"><a href="eodce.html#cb432-3" tabindex="-1"></a>FOJC_mod_CM1 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(FDD), <span class="dv">0</span><span class="sc">:</span><span class="dv">17</span>) <span class="sc">+</span> <span class="fu">L</span>(FDD, <span class="dv">18</span>))</span>
+<span id="cb432-4"><a href="eodce.html#cb432-4" tabindex="-1"></a>FOJC_mod_CM2 <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(FDD), <span class="dv">0</span><span class="sc">:</span><span class="dv">17</span>) <span class="sc">+</span> <span class="fu">L</span>(FDD, <span class="dv">18</span>) <span class="sc">+</span> <span class="fu">season</span>(FDD))</span></code></pre></div>
+<p>The above models include a large number of lags with default labels that correspond to the degree of differencing and the lag orders which makes it somewhat cumbersome to read the output. The regressor labels of a model object may be altered by overriding the attribute <tt>names</tt> of the coefficient section using the function <tt>attr()</tt>. Thus, for better readability we use the lag orders as regressor labels.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="eodce.html#cb433-1" tabindex="-1"></a><span class="co"># set lag orders as regressor labels </span></span>
+<span id="cb433-2"><a href="eodce.html#cb433-2" tabindex="-1"></a><span class="fu">attr</span>(FOJC_mod_DM<span class="sc">$</span>coefficients, <span class="st">&quot;names&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span>
+<span id="cb433-3"><a href="eodce.html#cb433-3" tabindex="-1"></a><span class="fu">attr</span>(FOJC_mod_CM1<span class="sc">$</span>coefficients, <span class="st">&quot;names&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span>
+<span id="cb433-4"><a href="eodce.html#cb433-4" tabindex="-1"></a><span class="fu">attr</span>(FOJC_mod_CM2<span class="sc">$</span>coefficients, <span class="st">&quot;names&quot;</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;(Intercept)&quot;</span>, <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span></code></pre></div>
+<p>Next, we compute HAC standard errors for each model using <tt>NeweyWest()</tt> and gather the results in a list which is then supplied as the argument <tt>se</tt> to the function <tt>stargazer()</tt>, see below. The sample consists of 612 observations:</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="eodce.html#cb434-1" tabindex="-1"></a><span class="fu">length</span>(FDD)</span>
+<span id="cb434-2"><a href="eodce.html#cb434-2" tabindex="-1"></a><span class="co">#&gt; [1] 612</span></span></code></pre></div>
+<p>According to <a href="eodce.html#eq:hactruncrot">(15.6)</a>, the rule of thumb for choosing the HAC standard error truncation parameter <span class="math inline">\(m\)</span>, we choose
+<span class="math display">\[m = \left\lceil0.75 \cdot 612^{1/3} \right\rceil = \lceil6.37\rceil = 7.\]</span>
+To check for sensitivity of the standard errors to different choices of the truncation parameter in the model that is used to estimate the cumulative multipliers, we also compute the Newey-West estimator for <span class="math inline">\(m=14\)</span>.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="eodce.html#cb435-1" tabindex="-1"></a><span class="co"># gather HAC standard error errors in a list</span></span>
+<span id="cb435-2"><a href="eodce.html#cb435-2" tabindex="-1"></a>SEs <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">NeweyWest</span>(FOJC_mod_DM, <span class="at">lag =</span> <span class="dv">7</span>, <span class="at">prewhite =</span> F))), </span>
+<span id="cb435-3"><a href="eodce.html#cb435-3" tabindex="-1"></a>            <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">NeweyWest</span>(FOJC_mod_CM1, <span class="at">lag =</span> <span class="dv">7</span>, <span class="at">prewhite =</span> F))), </span>
+<span id="cb435-4"><a href="eodce.html#cb435-4" tabindex="-1"></a>            <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">NeweyWest</span>(FOJC_mod_CM1, <span class="at">lag =</span> <span class="dv">14</span>, <span class="at">prewhite =</span> F))),</span>
+<span id="cb435-5"><a href="eodce.html#cb435-5" tabindex="-1"></a>            <span class="fu">sqrt</span>(<span class="fu">diag</span>(<span class="fu">NeweyWest</span>(FOJC_mod_CM2, <span class="at">lag =</span> <span class="dv">7</span>, <span class="at">prewhite =</span> F))))</span></code></pre></div>
+<p>The results are then used to reproduce the outcomes presented in Table 15.1 of the book.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="eodce.html#cb436-1" tabindex="-1"></a><span class="fu">stargazer</span>(FOJC_mod_DM , FOJC_mod_CM1, FOJC_mod_CM1, FOJC_mod_CM2,</span>
+<span id="cb436-2"><a href="eodce.html#cb436-2" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Dynamic Effects of a Freezing Degree Day on the Price of Orange Juice&quot;</span>,</span>
+<span id="cb436-3"><a href="eodce.html#cb436-3" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb436-4"><a href="eodce.html#cb436-4" tabindex="-1"></a>  <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb436-5"><a href="eodce.html#cb436-5" tabindex="-1"></a>  <span class="at">column.labels =</span> <span class="fu">c</span>(<span class="st">&quot;Dynamic Multipliers&quot;</span>, <span class="fu">rep</span>(<span class="st">&quot;Dynamic Cumulative Multipliers&quot;</span>, <span class="dv">3</span>)),</span>
+<span id="cb436-6"><a href="eodce.html#cb436-6" tabindex="-1"></a>  <span class="at">dep.var.caption  =</span> <span class="st">&quot;Dependent Variable: Monthly Percentage Change in Orange Juice Price&quot;</span>,</span>
+<span id="cb436-7"><a href="eodce.html#cb436-7" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb436-8"><a href="eodce.html#cb436-8" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">as.character</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>),</span>
+<span id="cb436-9"><a href="eodce.html#cb436-9" tabindex="-1"></a>  <span class="at">omit =</span> <span class="st">&quot;season&quot;</span>,</span>
+<span id="cb436-10"><a href="eodce.html#cb436-10" tabindex="-1"></a>  <span class="at">se =</span> SEs,</span>
+<span id="cb436-11"><a href="eodce.html#cb436-11" tabindex="-1"></a>  <span class="at">no.space =</span> T,</span>
+<span id="cb436-12"><a href="eodce.html#cb436-12" tabindex="-1"></a>  <span class="at">add.lines =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;Monthly indicators?&quot;</span>,<span class="st">&quot;no&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;no&quot;</span>, <span class="st">&quot;yes&quot;</span>),</span>
+<span id="cb436-13"><a href="eodce.html#cb436-13" tabindex="-1"></a>                   <span class="fu">c</span>(<span class="st">&quot;HAC truncation&quot;</span>,<span class="st">&quot;7&quot;</span>, <span class="st">&quot;7&quot;</span>, <span class="st">&quot;14&quot;</span>, <span class="st">&quot;7&quot;</span>)),</span>
+<span id="cb436-14"><a href="eodce.html#cb436-14" tabindex="-1"></a>  <span class="at">omit.stat =</span> <span class="fu">c</span>(<span class="st">&quot;rsq&quot;</span>, <span class="st">&quot;f&quot;</span>,<span class="st">&quot;ser&quot;</span>)) </span></code></pre></div>
+
+
+
+<table style="text-align:center"><tr><td colspan="5" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="4">Dependent Variable: Monthly Percentage Change in Orange Juice Price</td></tr>
+<tr><td></td><td colspan="4" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td>Dynamic Multipliers</td><td>Dynamic Cumulative Multipliers</td><td>Dynamic Cumulative Multipliers</td><td>Dynamic Cumulative Multipliers</td></tr>
+<tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td><td>(3)</td><td>(4)</td></tr>
+<tr><td colspan="5" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">0</td><td>0.508<sup>***</sup></td><td>0.508<sup>***</sup></td><td>0.508<sup>***</sup></td><td>0.524<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.137)</td><td>(0.137)</td><td>(0.139)</td><td>(0.142)</td></tr>
+<tr><td style="text-align:left">1</td><td>0.172<sup>**</sup></td><td>0.680<sup>***</sup></td><td>0.680<sup>***</sup></td><td>0.720<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.088)</td><td>(0.134)</td><td>(0.130)</td><td>(0.142)</td></tr>
+<tr><td style="text-align:left">2</td><td>0.068</td><td>0.748<sup>***</sup></td><td>0.748<sup>***</sup></td><td>0.781<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.060)</td><td>(0.165)</td><td>(0.162)</td><td>(0.173)</td></tr>
+<tr><td style="text-align:left">3</td><td>0.070</td><td>0.819<sup>***</sup></td><td>0.819<sup>***</sup></td><td>0.861<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.044)</td><td>(0.181)</td><td>(0.181)</td><td>(0.190)</td></tr>
+<tr><td style="text-align:left">4</td><td>0.022</td><td>0.841<sup>***</sup></td><td>0.841<sup>***</sup></td><td>0.892<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.031)</td><td>(0.183)</td><td>(0.184)</td><td>(0.194)</td></tr>
+<tr><td style="text-align:left">5</td><td>0.027</td><td>0.868<sup>***</sup></td><td>0.868<sup>***</sup></td><td>0.904<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.030)</td><td>(0.189)</td><td>(0.189)</td><td>(0.199)</td></tr>
+<tr><td style="text-align:left">6</td><td>0.031</td><td>0.900<sup>***</sup></td><td>0.900<sup>***</sup></td><td>0.922<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.047)</td><td>(0.202)</td><td>(0.208)</td><td>(0.210)</td></tr>
+<tr><td style="text-align:left">7</td><td>0.015</td><td>0.915<sup>***</sup></td><td>0.915<sup>***</sup></td><td>0.939<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.015)</td><td>(0.205)</td><td>(0.210)</td><td>(0.212)</td></tr>
+<tr><td style="text-align:left">8</td><td>-0.042</td><td>0.873<sup>***</sup></td><td>0.873<sup>***</sup></td><td>0.904<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.034)</td><td>(0.214)</td><td>(0.218)</td><td>(0.219)</td></tr>
+<tr><td style="text-align:left">9</td><td>-0.010</td><td>0.862<sup>***</sup></td><td>0.862<sup>***</sup></td><td>0.884<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.051)</td><td>(0.236)</td><td>(0.245)</td><td>(0.239)</td></tr>
+<tr><td style="text-align:left">10</td><td>-0.116<sup>*</sup></td><td>0.746<sup>***</sup></td><td>0.746<sup>***</sup></td><td>0.752<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.069)</td><td>(0.257)</td><td>(0.262)</td><td>(0.259)</td></tr>
+<tr><td style="text-align:left">11</td><td>-0.067</td><td>0.680<sup>**</sup></td><td>0.680<sup>**</sup></td><td>0.677<sup>**</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.052)</td><td>(0.266)</td><td>(0.272)</td><td>(0.267)</td></tr>
+<tr><td style="text-align:left">12</td><td>-0.143<sup>*</sup></td><td>0.537<sup>**</sup></td><td>0.537<sup>**</sup></td><td>0.551<sup>**</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.076)</td><td>(0.268)</td><td>(0.271)</td><td>(0.272)</td></tr>
+<tr><td style="text-align:left">13</td><td>-0.083<sup>*</sup></td><td>0.454<sup>*</sup></td><td>0.454<sup>*</sup></td><td>0.491<sup>*</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.043)</td><td>(0.267)</td><td>(0.273)</td><td>(0.275)</td></tr>
+<tr><td style="text-align:left">14</td><td>-0.057</td><td>0.397</td><td>0.397</td><td>0.427</td></tr>
+<tr><td style="text-align:left"></td><td>(0.035)</td><td>(0.273)</td><td>(0.284)</td><td>(0.278)</td></tr>
+<tr><td style="text-align:left">15</td><td>-0.032</td><td>0.366</td><td>0.366</td><td>0.406</td></tr>
+<tr><td style="text-align:left"></td><td>(0.028)</td><td>(0.276)</td><td>(0.287)</td><td>(0.280)</td></tr>
+<tr><td style="text-align:left">16</td><td>-0.005</td><td>0.360</td><td>0.360</td><td>0.408</td></tr>
+<tr><td style="text-align:left"></td><td>(0.055)</td><td>(0.283)</td><td>(0.293)</td><td>(0.286)</td></tr>
+<tr><td style="text-align:left">17</td><td>0.003</td><td>0.363</td><td>0.363</td><td>0.395</td></tr>
+<tr><td style="text-align:left"></td><td>(0.018)</td><td>(0.287)</td><td>(0.294)</td><td>(0.290)</td></tr>
+<tr><td style="text-align:left">18</td><td>0.003</td><td>0.366</td><td>0.366</td><td>0.386</td></tr>
+<tr><td style="text-align:left"></td><td>(0.017)</td><td>(0.293)</td><td>(0.301)</td><td>(0.295)</td></tr>
+<tr><td style="text-align:left">Constant</td><td>-0.343</td><td>-0.343</td><td>-0.343</td><td>-0.241</td></tr>
+<tr><td style="text-align:left"></td><td>(0.269)</td><td>(0.269)</td><td>(0.256)</td><td>(0.934)</td></tr>
+<tr><td colspan="5" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Monthly indicators?</td><td>no</td><td>no</td><td>no</td><td>yes</td></tr>
+<tr><td style="text-align:left">HAC truncation</td><td>7</td><td>7</td><td>14</td><td>7</td></tr>
+<tr><td style="text-align:left">Observations</td><td>594</td><td>594</td><td>594</td><td>594</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.109</td><td>0.109</td><td>0.109</td><td>0.101</td></tr>
+<tr><td colspan="5" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="4" style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+</table>
+<caption><p style='text-align:center'><span id="tab:deoafddotpooj">Table 15.1: </span> Dynamic Effects of a Freezing Degree Day on the Price of Orange Juice</p></caption>
+
+
+<p>According to column (1) of Table <a href="eodce.html#tab:deoafddotpooj">15.1</a>, the contemporaneous effect of a freezing degree day is an increase of <span class="math inline">\(0.5\%\)</span> in orange juice prices. The estimated effect is only <span class="math inline">\(0.17\%\)</span> for the next month and close to zero for subsequent months. In fact, for all lags larger than 1, we cannot reject the null hypotheses that the respective coefficients are zero using individual <span class="math inline">\(t\)</span>-tests. The model <tt>FOJC_mod_DM</tt> only explains little of the variation in the dependent variable (<span class="math inline">\(\bar{R}^2 = 0.11\)</span>).</p>
+<p>Columns (2) and (3) present estimates of the dynamic cumulative multipliers of model <tt>FOJC_mod_CM1</tt>. Apparently, it does not matter whether we choose <span class="math inline">\(m=7\)</span> or <span class="math inline">\(m=14\)</span> when computing HAC standard errors so we stick with <span class="math inline">\(m=7\)</span> and the standard errors reported in column (2).</p>
+<p>If the demand for orange juice is higher in winter, <span class="math inline">\(FDD_t\)</span> would be correlated with the error term since freezing occur rather in winter so we would face omitted variable bias. The fourth model estimate, <tt>FOJC_mod_CM2</tt>, accounts for this possible issue by using an additional set of 11 monthly dummies. For brevity, estimates of the dummy coefficients are excluded from the output produced by stargazer (this is achieved by setting <tt>omit = ‘season’</tt>). We may check that the dummy for January was omitted to prevent perfect multicollinearity.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="eodce.html#cb437-1" tabindex="-1"></a><span class="co"># estimates on mothly dummies</span></span>
+<span id="cb437-2"><a href="eodce.html#cb437-2" tabindex="-1"></a>FOJC_mod_CM2<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)]</span>
+<span id="cb437-3"><a href="eodce.html#cb437-3" tabindex="-1"></a><span class="co">#&gt; season(FDD)Feb season(FDD)Mar season(FDD)Apr season(FDD)May season(FDD)Jun </span></span>
+<span id="cb437-4"><a href="eodce.html#cb437-4" tabindex="-1"></a><span class="co">#&gt;     -0.9565759     -0.6358007      0.5006770     -1.0801764      0.3195624 </span></span>
+<span id="cb437-5"><a href="eodce.html#cb437-5" tabindex="-1"></a><span class="co">#&gt; season(FDD)Jul season(FDD)Aug season(FDD)Sep season(FDD)Oct season(FDD)Nov </span></span>
+<span id="cb437-6"><a href="eodce.html#cb437-6" tabindex="-1"></a><span class="co">#&gt;      0.1951113      0.3644312     -0.4130969     -0.1566622      0.3116534 </span></span>
+<span id="cb437-7"><a href="eodce.html#cb437-7" tabindex="-1"></a><span class="co">#&gt; season(FDD)Dec </span></span>
+<span id="cb437-8"><a href="eodce.html#cb437-8" tabindex="-1"></a><span class="co">#&gt;      0.1481589</span></span></code></pre></div>
+<p>A comparison of the estimates presented in columns (2) and (4) indicates that adding monthly dummies has a negligible effect. Further evidence for this comes from a joint test of the hypothesis that the 11 dummy coefficients are zero. Instead of using <tt>linearHypothesis()</tt>, we use the function <tt>waldtest()</tt> and supply two model objects instead: <tt>unres_model</tt>, the unrestricted model object which is the same as <tt>FOJC_mod_CM2</tt> (except for the coefficient names since we have modified them above) and <tt>res_model</tt>, the model where the restriction that all dummy coefficients are zero is imposed. <tt>res_model</tt> is conveniently obtained using the function <tt>update()</tt>. It extracts the argument <tt>formula</tt> of a model object, updates it as specified and then re-fits the model. By setting <tt>formula = . ~ . - season(FDD)</tt> we impose that the monthly dummies do not enter the model.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="eodce.html#cb438-1" tabindex="-1"></a><span class="co"># test if coefficients on monthly dummies are zero</span></span>
+<span id="cb438-2"><a href="eodce.html#cb438-2" tabindex="-1"></a>unres_model <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">L</span>(<span class="fu">d</span>(FDD), <span class="dv">0</span><span class="sc">:</span><span class="dv">17</span>) <span class="sc">+</span> <span class="fu">L</span>(FDD, <span class="dv">18</span>) <span class="sc">+</span> <span class="fu">season</span>(FDD))</span>
+<span id="cb438-3"><a href="eodce.html#cb438-3" tabindex="-1"></a></span>
+<span id="cb438-4"><a href="eodce.html#cb438-4" tabindex="-1"></a>res_model <span class="ot">&lt;-</span> <span class="fu">update</span>(unres_model, <span class="at">formula =</span> . <span class="sc">~</span> . <span class="sc">-</span> <span class="fu">season</span>(FDD))</span>
+<span id="cb438-5"><a href="eodce.html#cb438-5" tabindex="-1"></a></span>
+<span id="cb438-6"><a href="eodce.html#cb438-6" tabindex="-1"></a><span class="fu">waldtest</span>(unres_model, </span>
+<span id="cb438-7"><a href="eodce.html#cb438-7" tabindex="-1"></a>         res_model, </span>
+<span id="cb438-8"><a href="eodce.html#cb438-8" tabindex="-1"></a>         <span class="at">vcov =</span> <span class="fu">NeweyWest</span>(unres_model, <span class="at">lag =</span> <span class="dv">7</span>, <span class="at">prewhite =</span> F))</span>
+<span id="cb438-9"><a href="eodce.html#cb438-9" tabindex="-1"></a><span class="co">#&gt; Wald test</span></span>
+<span id="cb438-10"><a href="eodce.html#cb438-10" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb438-11"><a href="eodce.html#cb438-11" tabindex="-1"></a><span class="co">#&gt; Model 1: FOJC_pctc ~ L(d(FDD), 0:17) + L(FDD, 18) + season(FDD)</span></span>
+<span id="cb438-12"><a href="eodce.html#cb438-12" tabindex="-1"></a><span class="co">#&gt; Model 2: FOJC_pctc ~ L(d(FDD), 0:17) + L(FDD, 18)</span></span>
+<span id="cb438-13"><a href="eodce.html#cb438-13" tabindex="-1"></a><span class="co">#&gt;   Res.Df  Df      F Pr(&gt;F)</span></span>
+<span id="cb438-14"><a href="eodce.html#cb438-14" tabindex="-1"></a><span class="co">#&gt; 1    563                  </span></span>
+<span id="cb438-15"><a href="eodce.html#cb438-15" tabindex="-1"></a><span class="co">#&gt; 2    574 -11 0.9683 0.4743</span></span></code></pre></div>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(0.47\)</span> so we cannot reject the hypothesis that the coefficients on the monthly dummies are zero, even at the <span class="math inline">\(10\%\)</span> level. We conclude that the seasonal fluctuations in demand for orange juice do not pose a serious threat to internal validity of the model.</p>
+<p>It is convenient to use plots of dynamic multipliers and cumulative dynamic multipliers. The following two code chunks reproduce Figures 15.2 (a) and 15.2 (b) of the book which display point estimates of dynamic and cumulative multipliers along with upper and lower bounds of their <span class="math inline">\(95\%\)</span> confidence intervals computed using the above HAC standard errors.</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="eodce.html#cb439-1" tabindex="-1"></a><span class="co"># 95% CI bounds</span></span>
+<span id="cb439-2"><a href="eodce.html#cb439-2" tabindex="-1"></a>point_estimates <span class="ot">&lt;-</span> FOJC_mod_DM<span class="sc">$</span>coefficients</span>
+<span id="cb439-3"><a href="eodce.html#cb439-3" tabindex="-1"></a></span>
+<span id="cb439-4"><a href="eodce.html#cb439-4" tabindex="-1"></a>CI_bounds <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">&quot;lower&quot;</span> <span class="ot">=</span> point_estimates <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> SEs[[<span class="dv">1</span>]],</span>
+<span id="cb439-5"><a href="eodce.html#cb439-5" tabindex="-1"></a>                   <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> point_estimates <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> SEs[[<span class="dv">1</span>]])[<span class="sc">-</span><span class="dv">1</span>, ]</span>
+<span id="cb439-6"><a href="eodce.html#cb439-6" tabindex="-1"></a></span>
+<span id="cb439-7"><a href="eodce.html#cb439-7" tabindex="-1"></a><span class="co"># plot the estimated dynamic multipliers</span></span>
+<span id="cb439-8"><a href="eodce.html#cb439-8" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, point_estimates[<span class="sc">-</span><span class="dv">1</span>], </span>
+<span id="cb439-9"><a href="eodce.html#cb439-9" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb439-10"><a href="eodce.html#cb439-10" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb439-11"><a href="eodce.html#cb439-11" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb439-12"><a href="eodce.html#cb439-12" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>, <span class="dv">1</span>),</span>
+<span id="cb439-13"><a href="eodce.html#cb439-13" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Lag&quot;</span>,</span>
+<span id="cb439-14"><a href="eodce.html#cb439-14" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Dynamic multiplier&quot;</span>,</span>
+<span id="cb439-15"><a href="eodce.html#cb439-15" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Dynamic Effect of FDD on Orange Juice Price&quot;</span>)</span>
+<span id="cb439-16"><a href="eodce.html#cb439-16" tabindex="-1"></a></span>
+<span id="cb439-17"><a href="eodce.html#cb439-17" tabindex="-1"></a><span class="co"># add a dashed line at 0</span></span>
+<span id="cb439-18"><a href="eodce.html#cb439-18" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb439-19"><a href="eodce.html#cb439-19" tabindex="-1"></a></span>
+<span id="cb439-20"><a href="eodce.html#cb439-20" tabindex="-1"></a><span class="co"># add CI bounds</span></span>
+<span id="cb439-21"><a href="eodce.html#cb439-21" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, CI_bounds[,<span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span>
+<span id="cb439-22"><a href="eodce.html#cb439-22" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, CI_bounds[,<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DM"></span>
+<img src="ITER_files/figure-html/DM-1.png" alt="Dynamic Multipliers" width="80%" />
+<p class="caption">
+Figure 15.1: Dynamic Multipliers
+</p>
+</div>
+<p>The <span class="math inline">\(95\%\)</span> confidence intervals plotted in Figure <a href="eodce.html#fig:DM">15.1</a> indeed include zero for lags larger than 1 such that the null of a zero multiplier cannot be rejected for these lags.</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="eodce.html#cb440-1" tabindex="-1"></a><span class="co"># 95% CI bounds</span></span>
+<span id="cb440-2"><a href="eodce.html#cb440-2" tabindex="-1"></a>point_estimates <span class="ot">&lt;-</span> FOJC_mod_CM1<span class="sc">$</span>coefficients</span>
+<span id="cb440-3"><a href="eodce.html#cb440-3" tabindex="-1"></a></span>
+<span id="cb440-4"><a href="eodce.html#cb440-4" tabindex="-1"></a>CI_bounds <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="st">&quot;lower&quot;</span> <span class="ot">=</span> point_estimates <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> SEs[[<span class="dv">2</span>]],</span>
+<span id="cb440-5"><a href="eodce.html#cb440-5" tabindex="-1"></a>                   <span class="st">&quot;upper&quot;</span> <span class="ot">=</span> point_estimates <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> SEs[[<span class="dv">2</span>]])[<span class="sc">-</span><span class="dv">1</span>,]</span>
+<span id="cb440-6"><a href="eodce.html#cb440-6" tabindex="-1"></a></span>
+<span id="cb440-7"><a href="eodce.html#cb440-7" tabindex="-1"></a></span>
+<span id="cb440-8"><a href="eodce.html#cb440-8" tabindex="-1"></a><span class="co"># plot estimated dynamic multipliers</span></span>
+<span id="cb440-9"><a href="eodce.html#cb440-9" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, point_estimates[<span class="sc">-</span><span class="dv">1</span>], </span>
+<span id="cb440-10"><a href="eodce.html#cb440-10" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb440-11"><a href="eodce.html#cb440-11" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb440-12"><a href="eodce.html#cb440-12" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>, </span>
+<span id="cb440-13"><a href="eodce.html#cb440-13" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>, <span class="fl">1.6</span>),</span>
+<span id="cb440-14"><a href="eodce.html#cb440-14" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Lag&quot;</span>,</span>
+<span id="cb440-15"><a href="eodce.html#cb440-15" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative dynamic multiplier&quot;</span>,</span>
+<span id="cb440-16"><a href="eodce.html#cb440-16" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Cumulative Dynamic Effect of FDD on Orange Juice Price&quot;</span>,</span>
+<span id="cb440-17"><a href="eodce.html#cb440-17" tabindex="-1"></a>     <span class="at">cex.main=</span><span class="fl">0.8</span>)</span>
+<span id="cb440-18"><a href="eodce.html#cb440-18" tabindex="-1"></a></span>
+<span id="cb440-19"><a href="eodce.html#cb440-19" tabindex="-1"></a><span class="co"># add dashed line at 0</span></span>
+<span id="cb440-20"><a href="eodce.html#cb440-20" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb440-21"><a href="eodce.html#cb440-21" tabindex="-1"></a></span>
+<span id="cb440-22"><a href="eodce.html#cb440-22" tabindex="-1"></a><span class="co"># add CI bounds</span></span>
+<span id="cb440-23"><a href="eodce.html#cb440-23" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, CI_bounds[, <span class="dv">1</span>], <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span>
+<span id="cb440-24"><a href="eodce.html#cb440-24" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, CI_bounds[, <span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;darkred&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DCM"></span>
+<img src="ITER_files/figure-html/DCM-1.png" alt="Dynamic Cumulative Multipliers" width="80%" />
+<p class="caption">
+Figure 15.2: Dynamic Cumulative Multipliers
+</p>
+</div>
+<p>As can be seen from Figure <a href="eodce.html#fig:DCM">15.2</a>, the estimated dynamic cumulative multipliers grow until the seventh month up to a price increase of about <span class="math inline">\(0.91\%\)</span> and then decrease slightly to the estimated long-run cumulative multiplier of <span class="math inline">\(0.37\%\)</span> which, however, is not significantly different from zero at the <span class="math inline">\(5\%\)</span> level.</p>
+<p>Have the dynamic multipliers been stable over time? One way to see this is to estimate these multipliers for different subperiods of the sample span. For example, consider periods 1950 - 1966, 1967 - 1983 and 1984 - 2000. If the multipliers are the same for all three periods the estimates should be close and thus the estimated cumulative multipliers should be similar, too. We investigate this by re-estimating <tt>FOJC_mod_CM1</tt> for the three different time spans and then plot the estimated cumulative dynamic multipliers for the comparison.</p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="eodce.html#cb441-1" tabindex="-1"></a><span class="co"># estimate cumulative multiplieres using different sample periods</span></span>
+<span id="cb441-2"><a href="eodce.html#cb441-2" tabindex="-1"></a>FOJC_mod_CM1950 <span class="ot">&lt;-</span> <span class="fu">update</span>(FOJC_mod_CM1, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1950</span>, <span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1966</span>, <span class="dv">12</span>))</span>
+<span id="cb441-3"><a href="eodce.html#cb441-3" tabindex="-1"></a></span>
+<span id="cb441-4"><a href="eodce.html#cb441-4" tabindex="-1"></a>FOJC_mod_CM1967 <span class="ot">&lt;-</span> <span class="fu">update</span>(FOJC_mod_CM1, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1967</span>, <span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">1983</span>, <span class="dv">12</span>))</span>
+<span id="cb441-5"><a href="eodce.html#cb441-5" tabindex="-1"></a></span>
+<span id="cb441-6"><a href="eodce.html#cb441-6" tabindex="-1"></a>FOJC_mod_CM1984 <span class="ot">&lt;-</span> <span class="fu">update</span>(FOJC_mod_CM1, <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">1984</span>, <span class="dv">1</span>), <span class="at">end =</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">12</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="eodce.html#cb442-1" tabindex="-1"></a><span class="co"># plot estimated dynamic cumulative multipliers (1950-1966)</span></span>
+<span id="cb442-2"><a href="eodce.html#cb442-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, FOJC_mod_CM1950<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>], </span>
+<span id="cb442-3"><a href="eodce.html#cb442-3" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, </span>
+<span id="cb442-4"><a href="eodce.html#cb442-4" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="dv">2</span>, </span>
+<span id="cb442-5"><a href="eodce.html#cb442-5" tabindex="-1"></a>     <span class="at">col =</span> <span class="st">&quot;steelblue&quot;</span>,</span>
+<span id="cb442-6"><a href="eodce.html#cb442-6" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>),</span>
+<span id="cb442-7"><a href="eodce.html#cb442-7" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="dv">2</span>),</span>
+<span id="cb442-8"><a href="eodce.html#cb442-8" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Lag&quot;</span>,</span>
+<span id="cb442-9"><a href="eodce.html#cb442-9" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Cumulative dynamic multiplier&quot;</span>,</span>
+<span id="cb442-10"><a href="eodce.html#cb442-10" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Cumulative Dynamic Effect for Different Sample Periods&quot;</span>)</span>
+<span id="cb442-11"><a href="eodce.html#cb442-11" tabindex="-1"></a></span>
+<span id="cb442-12"><a href="eodce.html#cb442-12" tabindex="-1"></a><span class="co"># plot estimated dynamic multipliers (1967-1983)</span></span>
+<span id="cb442-13"><a href="eodce.html#cb442-13" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, FOJC_mod_CM1967<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb442-14"><a href="eodce.html#cb442-14" tabindex="-1"></a></span>
+<span id="cb442-15"><a href="eodce.html#cb442-15" tabindex="-1"></a><span class="co"># plot estimated dynamic multipliers (1984-2000)</span></span>
+<span id="cb442-16"><a href="eodce.html#cb442-16" tabindex="-1"></a><span class="fu">lines</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>, FOJC_mod_CM1984<span class="sc">$</span>coefficients[<span class="sc">-</span><span class="dv">1</span>], <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb442-17"><a href="eodce.html#cb442-17" tabindex="-1"></a></span>
+<span id="cb442-18"><a href="eodce.html#cb442-18" tabindex="-1"></a><span class="co"># add dashed line at 0</span></span>
+<span id="cb442-19"><a href="eodce.html#cb442-19" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb442-20"><a href="eodce.html#cb442-20" tabindex="-1"></a></span>
+<span id="cb442-21"><a href="eodce.html#cb442-21" tabindex="-1"></a><span class="co"># add annotations</span></span>
+<span id="cb442-22"><a href="eodce.html#cb442-22" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">18</span>, <span class="sc">-</span><span class="fl">0.24</span>, <span class="st">&quot;1984 - 2000&quot;</span>)</span>
+<span id="cb442-23"><a href="eodce.html#cb442-23" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">18</span>, <span class="fl">0.6</span>, <span class="st">&quot;1967 - 1983&quot;</span>)</span>
+<span id="cb442-24"><a href="eodce.html#cb442-24" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">18</span>, <span class="fl">1.2</span>, <span class="st">&quot;1950 - 1966&quot;</span>)</span></code></pre></div>
+<p><img src="ITER_files/figure-html/unnamed-chunk-706-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>Clearly, the cumulative dynamic multipliers have changed considerably over time. The effect of a freeze was stronger and more persistent in the 1950s and 1960s. For the 1970s the magnitude of the effect was lower but still highly persistent. We observe an even lower magnitude for the final third of the sample span (1984 - 2000) where the long-run effect is much less persistent and essentially zero after a year.</p>
+<p>A QLR test for a break in the distributed lag regression of column (1) in Table <a href="eodce.html#tab:deoafddotpooj">15.1</a> with <span class="math inline">\(15\%\)</span> trimming using a HAC variance-covariance matrix estimate supports the conjecture that the population regression coefficients have changed over time.</p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="eodce.html#cb443-1" tabindex="-1"></a><span class="co"># set up a range of possible break dates</span></span>
+<span id="cb443-2"><a href="eodce.html#cb443-2" tabindex="-1"></a>tau <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">window</span>(<span class="fu">time</span>(FDD), </span>
+<span id="cb443-3"><a href="eodce.html#cb443-3" tabindex="-1"></a>                <span class="fu">time</span>(FDD)[<span class="fu">round</span>(<span class="dv">612</span><span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">15</span>)], </span>
+<span id="cb443-4"><a href="eodce.html#cb443-4" tabindex="-1"></a>                <span class="fu">time</span>(FDD)[<span class="fu">round</span>(<span class="dv">612</span><span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">85</span>)]))</span>
+<span id="cb443-5"><a href="eodce.html#cb443-5" tabindex="-1"></a></span>
+<span id="cb443-6"><a href="eodce.html#cb443-6" tabindex="-1"></a><span class="co"># initialize the vector of F-statistics</span></span>
+<span id="cb443-7"><a href="eodce.html#cb443-7" tabindex="-1"></a>Fstats <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(tau))</span>
+<span id="cb443-8"><a href="eodce.html#cb443-8" tabindex="-1"></a></span>
+<span id="cb443-9"><a href="eodce.html#cb443-9" tabindex="-1"></a><span class="co"># the restricted model</span></span>
+<span id="cb443-10"><a href="eodce.html#cb443-10" tabindex="-1"></a>res_model <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> <span class="fu">L</span>(FDD, <span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span>
+<span id="cb443-11"><a href="eodce.html#cb443-11" tabindex="-1"></a></span>
+<span id="cb443-12"><a href="eodce.html#cb443-12" tabindex="-1"></a><span class="co"># estimation, loop over break dates</span></span>
+<span id="cb443-13"><a href="eodce.html#cb443-13" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tau)) {</span>
+<span id="cb443-14"><a href="eodce.html#cb443-14" tabindex="-1"></a>  </span>
+<span id="cb443-15"><a href="eodce.html#cb443-15" tabindex="-1"></a>  <span class="co"># set up dummy variable</span></span>
+<span id="cb443-16"><a href="eodce.html#cb443-16" tabindex="-1"></a>  D <span class="ot">&lt;-</span> <span class="fu">time</span>(FOJC_pctc) <span class="sc">&gt;</span> tau[i]</span>
+<span id="cb443-17"><a href="eodce.html#cb443-17" tabindex="-1"></a>  </span>
+<span id="cb443-18"><a href="eodce.html#cb443-18" tabindex="-1"></a>  <span class="co"># estimate DL model with intercations</span></span>
+<span id="cb443-19"><a href="eodce.html#cb443-19" tabindex="-1"></a>  unres_model <span class="ot">&lt;-</span> <span class="fu">dynlm</span>(FOJC_pctc <span class="sc">~</span> D <span class="sc">*</span> <span class="fu">L</span>(FDD, <span class="dv">0</span><span class="sc">:</span><span class="dv">18</span>))</span>
+<span id="cb443-20"><a href="eodce.html#cb443-20" tabindex="-1"></a>                 </span>
+<span id="cb443-21"><a href="eodce.html#cb443-21" tabindex="-1"></a>  <span class="co"># compute and save F-statistic</span></span>
+<span id="cb443-22"><a href="eodce.html#cb443-22" tabindex="-1"></a>  Fstats[i] <span class="ot">&lt;-</span> <span class="fu">waldtest</span>(res_model, </span>
+<span id="cb443-23"><a href="eodce.html#cb443-23" tabindex="-1"></a>                        unres_model, </span>
+<span id="cb443-24"><a href="eodce.html#cb443-24" tabindex="-1"></a>                        <span class="at">vcov =</span> <span class="fu">NeweyWest</span>(unres_model, <span class="at">lag =</span> <span class="dv">7</span>, <span class="at">prewhite =</span> F))<span class="sc">$</span>F[<span class="dv">2</span>]</span>
+<span id="cb443-25"><a href="eodce.html#cb443-25" tabindex="-1"></a>    </span>
+<span id="cb443-26"><a href="eodce.html#cb443-26" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note that this code takes a couple of seconds to run since a total of <tt>length(tau)</tt> regressions with <span class="math inline">\(40\)</span> model coefficients each are estimated.</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="eodce.html#cb444-1" tabindex="-1"></a><span class="co"># QLR test statistic</span></span>
+<span id="cb444-2"><a href="eodce.html#cb444-2" tabindex="-1"></a><span class="fu">max</span>(Fstats)</span>
+<span id="cb444-3"><a href="eodce.html#cb444-3" tabindex="-1"></a><span class="co">#&gt; [1] 36.76819</span></span></code></pre></div>
+<p>The QLR statistic is <span class="math inline">\(36.77\)</span>. From Table 14.5 of the book we see that the <span class="math inline">\(1\%\)</span> critical value for the QLR test with <span class="math inline">\(15\%\)</span> trimming and <span class="math inline">\(q=20\)</span> restrictions is <span class="math inline">\(2.43\)</span>. Since this is a right-sided test, the QLR statistic clearly lies in the region of rejection so we can discard the null hypothesis of no break in the population regression function.</p>
+<p>See Chapter 15.7 of the book for a discussion of empirical examples where it is questionable whether the assumption of (past and present) exogeneity of the regressors is plausible.</p>
+<div id="summary-7" class="section level4 unnumbered hasAnchor">
+<h4>Summary<a href="eodce.html#summary-7" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>We have seen how <tt>R</tt> can be used to estimate the time path of the effect on <span class="math inline">\(Y\)</span> of a change in <span class="math inline">\(X\)</span> (the dynamic causal effect on <span class="math inline">\(Y\)</span> of a change in <span class="math inline">\(X\)</span>) using time series data on both. The corresponding model is called the distributed lag model. Distributed lag models are conveniently estimated using the function <tt>dynlm()</tt> from the package <tt>dynlm</tt>.</p></li>
+<li><p>The regression error in distributed lag models is often serially correlated such that standard errors which are robust to heteroskedasticity <em>and</em> autocorrelation should be used to obtain valid inference. The package <tt>sandwich</tt> provides functions for computation of so-called HAC covariance matrix estimators, for example <tt>vcovHAC()</tt> and <tt>NeweyWest()</tt>.</p></li>
+<li><p>When <span class="math inline">\(X\)</span> is <em>strictly exogeneous</em>, more efficient estimates can be obtained using an ADL model or by GLS estimation. Feasible GLS algorithms can be found in the <tt>R</tt> packages r ttcode(“orcutt”) and <tt>nlme</tt>. Chapter 15.7 of the book emphasizes that the assumption of strict exogeneity is often implausible in empirical applications.</p></li>
+</ul>
+
+</div>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-cochrane1949" class="csl-entry">
+Cochrane, D., and G. H Orcutt. 1949. <span>“<span>A</span>pplication of <span>L</span>east <span>S</span>quares <span>R</span>egression to <span>R</span>elationships <span>C</span>ontaining <span>A</span>uto-<span>C</span>orrelated <span>E</span>rror <span>T</span>erms.”</span> <em><span>J</span>ournal of the <span>A</span>merican <span>S</span>tatistical <span>A</span>ssociation</em> 44 (245): 32–61. <a href="https://doi.org/10.1080/01621459.1949.10483290">https://doi.org/10.1080/01621459.1949.10483290</a>.
+</div>
+<div id="ref-R-stargazer" class="csl-entry">
+Hlavac, Marek. 2022. <em>Stargazer: Well-Formatted Regression and Summary Statistics Tables</em>. Bratislava, Slovakia: Social Policy Institute. <a href="https://CRAN.R-project.org/package=stargazer">https://CRAN.R-project.org/package=stargazer</a>.
+</div>
+<div id="ref-R-AER" class="csl-entry">
+Kleiber, Christian, and Achim Zeileis. 2008. <em>Applied Econometrics with <span>R</span></em>. New York: Springer-Verlag. <a href="https://CRAN.R-project.org/package=AER">https://CRAN.R-project.org/package=AER</a>.
+</div>
+<div id="ref-newey1987" class="csl-entry">
+Newey, Whitney K., and Kenneth D. West. 1987. <span>“<span>A</span> <span>S</span>imple, <span>P</span>ositive <span>S</span>emi-Definite, <span>H</span>eteroskedasticity and <span>A</span>utocorrelation <span>C</span>onsistent <span>C</span>ovariance <span>M</span>atrix.”</span> <em><span>E</span>conometrica</em> 55: 703–8.
+</div>
+<div id="ref-R-nlme" class="csl-entry">
+Pinheiro, José, Douglas Bates, and R Core Team. 2023. <em><span class="nocase">nlme: Linear and Nonlinear Mixed Effects Models</span></em> (version 3.1-163). <a href="https://svn.r-project.org/R-packages/trunk/nlme/">https://svn.r-project.org/R-packages/trunk/nlme/</a>.
+</div>
+<div id="ref-R-quantmod" class="csl-entry">
+Ryan, Jeffrey A., and Joshua M. Ulrich. 2023. <em><span class="nocase">quantmod: Quantitative Financial Modelling Framework</span></em> (version 0.4.25). <a href="http://www.quantmod.com">http://www.quantmod.com</a>.
+</div>
+<div id="ref-R-dynlm" class="csl-entry">
+Zeileis, Achim. 2019. <em><span class="nocase">dynlm</span>: Dynamic Linear Regression</em>. <a href="https://CRAN.R-project.org/package=dynlm">https://CRAN.R-project.org/package=dynlm</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ittsraf.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="atitsr.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": true,
+"twitter": true,
+"linkedin": true,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mca91/EconometricsWithR/edit/master/15-ch15.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

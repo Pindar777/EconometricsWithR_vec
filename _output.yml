@@ -1,5 +1,6 @@
 bookdown::gitbook:
   toc_depth: 3
+  split_by: section
   css: [style.css, toc.css]
   config:
     toc:

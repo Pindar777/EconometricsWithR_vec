@@ -34,7 +34,6 @@ eq:edols
 eq:fatsemod
 eq:efemod
 eq:cbnfemod
-tab:lprmotfdtdd
 eq:denymod1
 eq:lpm
 eq:denymod2
@@ -43,7 +42,6 @@ eq:denyprobit
 eq:denyprobit2
 eq:denylogit2
 eq:multprobit
-tab:hmdad
 eq:srm12
 eq:simpletsls
 eq:cigstsls

@@ -3,28 +3,7 @@ title: "Introduction to Econometrics with R"
 cover-image: "images/cover.png"
 author: "Christoph Hanck, Martin Arnold, Alexander Gerber, and Martin Schmelzer"
 date: "`r Sys.Date()`"
-site: bookdown::bookdown_site
-output: 
-  bookdown::gitbook:
-    config:
-      toc:
-        collapse: subsection
-        scroll_highlight: yes
-      fontsettings:
-        theme: white
-        family: serif
-        size: 2
-    split_by: section+number
-    highlight: tango
-    includes:
-      in_header: [header_include.html]
-      before_body: open_review_block.html
-  bookdown::pdf_book:
-    pandoc_args: [ "--csl", "apa-old-doi-prefix.csl"]
-    includes:
-      in_header: preamble.tex
-    citation_package: natbib
-    keep_tex: yes
+lang: en-US
 always_allow_html: yes
 documentclass: book
 classoption: oneside
